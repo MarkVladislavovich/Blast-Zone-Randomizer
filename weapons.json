@@ -1,0 +1,339 @@
+[
+    {
+        "name": "Bomb",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Bomb Roller",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Bowling Ball",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Crate",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Gloves",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Hammer",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Impact Bomb",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Metal Bat",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Trowel",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Wooden Bat",
+        "rarity": "Common",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Anvil",
+        "rarity": "Uncommon",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Ice Cube",
+        "rarity": "Uncommon",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Impulse Bomb",
+        "rarity": "Uncommon",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Impulse Jumper",
+        "rarity": "Uncommon",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Impulse Nuke",
+        "rarity": "Uncommon",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Impulse Remote Explosive",
+        "rarity": "Uncommon",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Bone Bomb",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Bouncy Bomb",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Bouncy Impact Bomb",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Remote Explosive",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Rocket Launcher",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Small Bomb",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Small Bomb Roller",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Small Impact Bomb",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Fusion Cannon",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Hand Cannon",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Nuke",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false,
+        "blacklist": true
+    },
+    {
+        "name": "Plasma Balls",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Portal Gun",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Rocket Hammer",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Spikey Bomb",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Anvil",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Bat",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Bomb",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Bomb Roller",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Fusion Cannon",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Gloves",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Hammer",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Golden Rocket Hammer",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Anvil",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Bat",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Bomb",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Bomb Roller",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Fusion Cannon",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Gloves",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Hammer",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Platinum Rocket Hammer",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Anvil",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Bat",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Bomb",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Bomb Roller",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Fusion Cannon",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Gloves",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Hammer",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Rocket Hammer",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Empty :c",
+        "rarity": "Haha L bozo",
+        "reskin": false,
+        "blacklisted": false
+    }
+]
