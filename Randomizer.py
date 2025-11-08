@@ -25,6 +25,9 @@ def generate_loadout(all_weapons, slot_count, allow_reskins, allow_empty, multi_
     loadout = []
 
     for _ in range(slot_count):
+        print(f"Empty weapons found: {len(empty_weapon)}")
+        print(f"Multi-empty: {multi_empty}, Chance: {multi_chance}")
+
         # Multi-empty logic having a 50% chance to insert an empty weapon if 'multi_empty' is true.
         if multi_empty and empty_weapon and random.random() < multi_chance:
             loadout.append(random.choice(empty_weapon))

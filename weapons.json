@@ -332,7 +332,8 @@
     },
     {
         "name": "Empty :c",
-        "rarity": "Haha L bozo",
+        "type": "None",
+        "rarity": "Haha",
         "reskin": false,
         "blacklisted": false
     }
