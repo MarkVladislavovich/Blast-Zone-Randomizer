@@ -3,7 +3,7 @@ import json
 import time
 from SettingsManager import SettingsManager
 
-def generate_loadout(all_weapons, slot_count, allow_reskins, allow_empty, multi_empty=False):
+def generate_loadout(all_weapons, slot_count, allow_reskins, allow_empty, multi_empty=False, multi_chance=0.2):
     # Forces slot_count to a maximum of 5
     slot_count = min(slot_count, 5)
 
@@ -50,12 +50,13 @@ if __name__ == "__main__":
     with open("weapons.json", "r") as f:
         weapons = json.load(f)
 
-    # Loading user settings.
+    # Loads user settings.
     settings = SettingsManager()
     slot_amount = settings.get_setting("slot_amount") # Reads the slot amount
     allow_reskins = settings.get_setting("enable_reskins")  # Reads the reskin setting
     allow_empty = settings.get_setting("enable_empty") # Reads the empty setting
     multi_empty = settings.get_setting("multi_empty") # Reads the multi-empty settings
+    multi_chance = settings.get_setting("multi_chance")  # Reads the multi-chance setting
 
     # Generates loadout using the settings
     generate_loadout(
@@ -63,7 +64,6 @@ if __name__ == "__main__":
         slot_count=slot_amount,
         allow_reskins=allow_reskins,
         allow_empty=allow_empty,
-        multi_empty=multi_empty
+        multi_empty=multi_empty,
+        multi_chance=multi_chance
     )
-
-

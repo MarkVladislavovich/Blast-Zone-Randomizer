@@ -69,8 +69,6 @@ class SettingsManager:
             print(f"- {key}: {value}")
         return self.settings
 
-
-
     # Handles Multi-Empty function and updates accordingly.
     # Cycles between three states: Red > Green > Gold > Red.
     def cycle_empty_mode(self):
