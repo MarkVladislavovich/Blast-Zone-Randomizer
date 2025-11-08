@@ -1,7 +1,7 @@
 {
     "enable_reskins": false,
     "enable_empty": true,
-    "multi_empty": true,
+    "multi_empty": false,
     "multi_chance": 0.1,
     "slot_amount": 5,
     "hotkey_slot": 1
