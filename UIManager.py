@@ -1,4 +1,5 @@
-
+import tkinter as tk
+from tkinter import messagebox # Added to show popups/errors
 
 class UIManager:
     def __init__(self, settings_manager, blacklist_manager, randomizer):
@@ -72,4 +73,11 @@ def open_blacklist(self):
 def _setup_ui(self):
     # Positions the buttons, text inputs and slot segments.
     # Layout code uses a GUI Framework (Tkinter.)
-    pass
+    for i in range(5):
+        label = tk.Label(self.root, text="Empty Slot")
+        label.grid(row=0, column=i)
+        self.slots[i]['label'] = label
+
+        btn = tk.Button(self.root, text="Reroll", command=lambda i=i: self.reroll_slot(i))
+        btn.grid(row=1, column=i)
+        self.slots[i]['reroll_btn'] = btn
