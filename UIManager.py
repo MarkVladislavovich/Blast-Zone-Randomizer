@@ -1,83 +1,76 @@
-import tkinter as tk
-from tkinter import messagebox # Added to show popups/errors
-
 class UIManager:
-    def __init__(self, settings_manager, blacklist_manager, randomizer):
+    def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer):
+        self.ui = main_ui
         self.settings = settings_manager
         self.blacklist = blacklist_manager
         self.randomizer = randomizer
 
-    # --- [UI Elements] ---
-        self.slots = [{
-            "weapon": None,
-            "label": None,  # Tkinter Label to display name & rarity
-            "reroll_btn": None
-        } for _ in range(5)]
+        # Tracking for what empty mode is being used.
+        self.empty_states = ['Disabled', 'empty', 'multi-empty']
+        self.empty_index = 0
 
-        # Buttons
-        self.btn_enable_reskin = None # Toggles the enable_reskins.
-        self.btn_enable_empty = None # Toggles enable_empty & multi_empty.
-        self.btn_reroll_slot = [None] * 5 # Manages the slot rerolling.
-        self.btn_blacklist = None # Opens the blacklist UI.
-        self.btn_generate = None # Generates a new loadout.
+        # Logic for button inputs.
+        if hasattr(self.ui, 'btn_enable_reskin'):
+            self.ui.btn_enable_reskin.config(command=self.toggle_reskin)
+        if hasattr(self.ui, 'btn_enable_empty'):
+            self.ui.btn_enable_empty.config(command=self.toggle_empty)
+        if hasattr(self.ui, 'btn_generate'):
+            self.ui.btn_generate.config(command=self.generate_loadout)
+        if hasattr(self.ui, 'btn_blacklist'):
+            self.ui.btn_blacklist.config(command=self.open_blacklist)
 
-    # Input Fields
-        self.txt_multi_chance = None # Allows input for 0-1 for the Multi-chance.
+        # reroll buttons
+        for i, btn in enumerate(getattr(self.ui, 'btn_reroll_slot', [])):
+            if btn:
+                btn.config(command=self.make_reroll_func(i))
 
-    # UI Initialization.
-        self._setup_ui()
+    def make_reroll_func(self, slot_index):
+        def reroll():
+            self.reroll_slot(slot_index)
+        return reroll()
 
-    # [Button Actions]
+        # Button Actions
+    def toggle_reskin(self):
+        self.settings.enable_reskins = not self.settings.enable_reskins
+        if hasattr(self.ui, 'btn_enable_reskin'):
+            self.ui.btn_enable_reskin.config(
+                text=f"Reskins: {'ON' if self.settings.enable_reskins else 'OFF'}"
+            )
 
-    # Changes & Updates reskin button display.
-def toggle_reskin(self):
-    self.settings.enable_reskins = not self.settings.enable_reskins
-    self.btn_enable_reskin.config(text=f"Reskins: {'ON' if self.settings.enable_reskins else 'OFF'}")
+    def toggle_empty(self):
+        self.empty_index = (self.empty_index + 1) % len(self.empty_states)
+        state = self.empty_states[self.empty_index]
+        self.settings.empty_mode = state
+        if hasattr(self.ui, 'btn_enable_empty'):
+            self.ui.btn_enable_empty.config(text=f"Empty Mode: {state}")
 
+    def set_multi_chance(self):
+        try:
+            value = float(self.ui.txt_multi_chance.get()) # Reads the input as a float.
 
-    self.empty_states = ['disabled', 'empty', 'multi-empty']
-    self.empty_index = 0
+            # Locks values between 0 and 1 + Rounds to nearest 0.1 increment
+            value = max(0.0, min(1.0, value))
+            value = round(value * 10) / 10.0
 
-    # Cycles through empty / multi-empty / disabled.
-def toggle_empty(self):
-    self.empty_index = (self.empty_index + 1) % len(self.empty_states)
-    state = self.empty_states[self.empty_index]
-    self.settings.empty_mode = state
-    self.btn_enable_empty.config(text=f"Empty Mode: {state}")
+            self.settings.multi_chance = value # Updates the setting
 
-def set_multi_chance(self):
-    try:
-        value = float(self.txt_multi_chance.get())
-        if 0 <= value <= 1:
-            self.settings.multi_chance = value
-        else:
-            raise ValueError
-    except ValueError:
-        self.txt_multi_chance.delete(0,'end')
-        self.txt_multi_chance.insert(0, str(self.settings.multi_chance))
+            # Ensures the input fields is a rounded value.
+            self.ui.txt_multi_chance.delete(0, 'end')
+            self.ui.txt_multi_chance.insert(0, str(value))
 
-def reroll_slot(self):
-    # rerolls one specific slot on the randomizer.
-    pass
+        except ValueError:
+            self.ui.txt_multi_chance.delete(0, 'end')
+            self.ui.txt_multi_chance.insert(0, str(self.settings.multi_chance))
 
-def generate_loadout(self):
-    # Initiates the Randomizer.py function.
-    pass
+    def reroll_slot(self, slot_index):
+        # Rerolls a specific slot when pressed.
+        weapon = self.randomizer.reroll(slot_index)
+        self.ui.weapon_labels[slot_index].config(text=weapon)
 
-def open_blacklist(self):
-    # opens the blacklist UI for editing.
-    pass
+    def generate_loadout(self):
+        weapons = self.randomizer.generate.loadout()
+        for i, weapon in enumerate(weapons):
+            self.ui.weapon_labels[i].config(text=weapon)
 
-# [Internal UI Setup]
-
-def _setup_ui(self):
-    # Positions the buttons, text inputs and slot segments.
-    # Layout code uses a GUI Framework (Tkinter.)
-    for i in range(5):
-        label = tk.Label(self.root, text="Empty Slot")
-        label.grid(row=0, column=i)
-        self.slots[i]['label'] = label
-
-        btn = tk.Button(self.root, text="Reroll", command=lambda i=i: self.reroll_slot(i))
-        btn.grid(row=1, column=i)
-        self.slots[i]['reroll_btn'] = btn
+    def open_blacklist(self):
+        pass
