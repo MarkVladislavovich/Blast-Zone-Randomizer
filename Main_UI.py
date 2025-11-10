@@ -52,6 +52,16 @@ class MainUI:
 
         self.root.mainloop()
 
+    def on_resize(self, event):  # Doesn't work :c
+        new_width = event.width
+        new_height = event.height
+        resized = self.bg_image.resize((new_width, new_height))
+        self.bg_photo = ImageTk.PhotoImage(resized)
+        self.canvas.create_image(0,0, image=self.bg_photo, anchor="nw")
+
+        self.canvas.bind("<Configure>", self.on_resize)
+
 # Runs if the file is executed:
 if __name__ == "__main__":
+    print("[INFO] Opening Randomizer...")
     ui = MainUI()
