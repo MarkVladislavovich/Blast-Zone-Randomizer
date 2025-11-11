@@ -1,12 +1,28 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
+from SettingsManager import SettingsManager
+from BlacklistManager import BlacklistManager
+from Randomizer import Randomizer
+from UIManager import UIManager
+
+
 class MainUI:
     def __init__(self):
+
+        # Creating managers.
+        self.settings_manager = SettingsManager("settings.json")
+        self.blacklist_manager = BlacklistManager("weapons.json")
+        self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
+
+        # Creating the UI Manager
+        self.ui_manager = UIManager(self, self.settings_manager, self.blacklist_manager, self.randomizer)
+
+        # Tkinter stuff (root I think)
         self.root = tk.Tk() # Creates the main window
         self.root.title("Blast Zone Randomizer")
-        self.root.geometry("900x600") # Sets the window size
-        self.root.configure(bg="white") # Sets the background colour
+        self.root.geometry("900x600") #  window size
+        self.root.configure(bg="white") # background colour
 
         # Creates the Canvas for the whole background
         self.canvas = tk.Canvas(self.root, width=900, height=600)
@@ -17,7 +33,7 @@ class MainUI:
         self.bg_photo = ImageTk.PhotoImage(self.bg_image)
         self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
 
-        # Table Logic!
+        # Weapon Table Logic!
         table_x1, table_y1 = 326, 138
         table_x2, table_y2 = 793, 446
         row_height = (table_y2 - table_y1) // 5
@@ -28,7 +44,7 @@ class MainUI:
         self.slot_labels = []
         self.weapon_labels = []
 
-
+        # Weapons Table
         for i in range(5):
             y1 = table_top + i * row_height
             y2 = y1 + row_height
@@ -50,16 +66,49 @@ class MainUI:
             self.canvas.create_window((mid_x + table_x2) // 2, (y1 + y2) // 2, window=weapon_label)
             self.weapon_labels.append(weapon_label)
 
+        # Options Panel
+        self.options_frame = tk.Frame(self.root, bg="#e0e0e0", width=245, height=458, highlightbackground="black", highlightthickness=1)
+        self.options_frame.pack_propagate(False) # < Prevents the option tab from shrinking
+        self.canvas.create_window(18 + 245/2, 28 + 458/2, window=self.options_frame)
+
+        # BUTTONS!!
+
+        # Reskins
+        self.btn_enable_reskin = tk.Button(self.options_frame, text="Reskins: OFF", width=40, height=4)
+        self.btn_enable_reskin.pack(pady=10)
+
+        # Empty Mode
+        self.btn_enable_empty = tk.Button(self.options_frame, text="Empty Mode: Disabled", width=40, height=4)
+        self.btn_enable_empty.pack(pady=10)
+
+        # Multi-Chance Label
+        self.multi_label = tk.Label(self.options_frame, text="Multi Chance (0-1):", bg="#e0e0e0", font=("TkDefaultFont",12))
+        self.multi_label.pack(pady=10)
+
+        # Multi Chance Entry
+        self.txt_multi_chance = tk.Entry(self.options_frame, justify="center", font=("TkDefaultFont",12))
+        self.txt_multi_chance.insert(0,"0.1")
+        self.txt_multi_chance.pack(pady=20)
+
+
+        # 5th slot button
+        self.btn_slot5_enable = tk.Button(self.options_frame, text="Disable 5th Slot", width=40, height=4)
+        self.btn_slot5_enable.pack(pady=10)
+
+        # Blacklist
+        self.btn_blacklist = tk.Button(self.options_frame, text="Edit Blacklist", width=40, height=4)
+        self.btn_blacklist.pack(pady=10)
+
+        # Generate Button
+        self.btn_generate = tk.Button(
+            self.root, text="Randomize!", font=("TkDefaultFont",20,"bold"),bg="#4CAF50",fg="white",
+            command=self.ui_manager.generate_loadout
+        )
+
+        self.btn_generate.place(x=325,y=473,width=531,height=95)
+
+
         self.root.mainloop()
-
-    def on_resize(self, event):  # Doesn't work :c
-        new_width = event.width
-        new_height = event.height
-        resized = self.bg_image.resize((new_width, new_height))
-        self.bg_photo = ImageTk.PhotoImage(resized)
-        self.canvas.create_image(0,0, image=self.bg_photo, anchor="nw")
-
-        self.canvas.bind("<Configure>", self.on_resize)
 
 # Runs if the file is executed:
 if __name__ == "__main__":

@@ -68,9 +68,12 @@ class UIManager:
         self.ui.weapon_labels[slot_index].config(text=weapon)
 
     def generate_loadout(self):
-        weapons = self.randomizer.generate.loadout()
+        weapons = self.randomizer.generate_loadout() # Gives a list of 5 weapons.
+
+        # This stuff updates the table in Main_UI
         for i, weapon in enumerate(weapons):
-            self.ui.weapon_labels[i].config(text=weapon)
+            if i < len(self.ui.weapon_labels):
+                self.ui.weapon_labels[i].config(text=weapon)
 
     def open_blacklist(self):
         pass

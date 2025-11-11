@@ -56,8 +56,14 @@ class BlacklistManager:
         print(f"[ERROR] Weapon '{name}' not found.")
         return None
 
+    # Clears blacklist.... duh
     def clear_blacklist(self):
         for w in self.weapons:
             w["blacklisted"] = False
         self._save_weapons()
         print("Blacklist successfully cleared.")
+
+    # Method for Randomizer
+    def get_allowed_weapons(self):
+        # Returns weapons that are not currently blacklisted
+        return[w for w in self.weapons if not w.get("blacklisted", False)]
