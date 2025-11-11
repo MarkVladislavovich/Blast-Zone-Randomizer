@@ -9,7 +9,7 @@ class SettingsManager:
 
         # --- [ INTERNAL ] ---
     def _load_settings(self):
-        # Load settings from JSON file, create default if missing.
+        # Loads settings from JSON file, create default if missing, or you stuffed something up
         defaults = {
             "enable_reskins": False,
             "enable_empty": False,
@@ -73,24 +73,26 @@ class SettingsManager:
     # Cycles between three states: Red > Green > Gold > Red.
     def cycle_empty_mode(self):
 
-        empty = self.settings.get("enable_empty", False)
-        multi = self.settings.get("enable_empty", False)
+        empty = self.settings.get_setting("enable_empty")
+        multi = self.settings.get_setting("multi_empty")
 
         if not empty and not multi:
             # Red >>> Green
             self.settings["enable_empty"] = True
             self.settings["multi_empty"] = False
-            print("[SETTINGS] Empty slots enabled.")
+            mode = "Empty"
         elif empty and not multi:
             # Green >>> Gold
             self.settings["enable_empty"] = True
             self.settings["multi_empty"] = True
-            print("[SETTINGS] Multi-empty enabled.")
+            mode = "Multi-Empty"
         else:
             # Gold >>> Red
             self.settings["enable_empty"] = False
             self.settings["multi_empty"] = False
-            print("[SETTINGS] Empty slots disabled.")
+            mode = "Disabled"
 
-        self._save_settings()
+        self.ui.btn_enable_empty.config(text=f"Empty Mode: {mode}")
+
+        self.ui.btn_enable_empty.config(highlightbackground=self.empty_colours[mode], highlightthickness=4)
 

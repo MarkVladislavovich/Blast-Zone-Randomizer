@@ -6,6 +6,7 @@ from BlacklistManager import BlacklistManager
 from Randomizer import Randomizer
 from UIManager import UIManager
 
+import time
 
 class MainUI:
     def __init__(self):
@@ -24,7 +25,7 @@ class MainUI:
         self.root.geometry("900x600") #  window size
         self.root.configure(bg="white") # background colour
 
-        # Creates the Canvas for the whole background
+        # Creates the big ol Canvas for the whole background
         self.canvas = tk.Canvas(self.root, width=900, height=600)
         self.canvas.pack(fill="both", expand=True)
 
@@ -99,9 +100,9 @@ class MainUI:
         self.btn_blacklist = tk.Button(self.options_frame, text="Edit Blacklist", width=40, height=4)
         self.btn_blacklist.pack(pady=10)
 
-        # Generate Button
+        # Scary Generate Button
         self.btn_generate = tk.Button(
-            self.root, text="Randomize!", font=("TkDefaultFont",20,"bold"),bg="#4CAF50",fg="white",
+            self.root, text="Randomize!", font=("TkDefaultFont",30,"bold"),bg="#4CAF50",fg="white",
             command=self.ui_manager.generate_loadout
         )
 
@@ -109,6 +110,13 @@ class MainUI:
 
 
         self.root.mainloop()
+
+        # Slowing the result because I felt fancy c:
+    def display_loadout_slow(self, loadout, delay=0.5):
+        for i, weapon in enumerate(loadout):
+            self.weapon_labels[i].config(text=weapon)
+            self.root.update()
+            time.sleep(delay)
 
 # Runs if the file is executed:
 if __name__ == "__main__":

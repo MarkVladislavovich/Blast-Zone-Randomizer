@@ -1,7 +1,4 @@
 import random
-import json
-import time
-from SettingsManager import SettingsManager
 
 class Randomizer:
     def __init__(self, settings_manager, blacklist_manager):
@@ -11,18 +8,19 @@ class Randomizer:
     def generate_loadout(self):
         all_weapons = self.blacklist.get_allowed_weapons()
 
-        slot_count = min(self.settings.slot_amount, 5)  # Forces slot_count to a maximum of 5
-        allow_reskins = self.settings.enable_reskins
-        allow_empty = self.settings.enable_empty
-        multi_empty = self.settings.multi_empty
-        multi_chance = self.settings.multi_chance
+        slot_count = min(self.settings.get_setting("slot_amount"),5)
+        allow_reskins = self.settings.get_setting("enable_reskins")
+        allow_empty = self.settings.get_setting("enable_empty")
+        multi_empty = self.settings.get_setting("multi_empty")
+        multi_chance = self.settings.get_setting("multi_chance")
 
         filtered = [    # Filter weapons based on the settings
             w for w in all_weapons
-            if (allow_reskins or not w["reskin"])
-            and (allow_empty or w.get("type", "weapon") != "None")
-            and not w.get("blacklisted", False)
-    ]
+            if (allow_reskins or not w.get("reskin", False))
+                and (allow_empty or w.get("type", "weapon") != "None")  # <<< Use get() for optional "type"
+                and not w.get("blacklisted", False)
+                ]
+
         # Separates empty shit from non-empty shit
         empty_weapon = [w for w in filtered if w.get("type") == "None"]
         non_empty = [w for w in filtered if w.get("type") != "None"]
@@ -41,4 +39,10 @@ class Randomizer:
                 elif empty_weapon:
                     loadout.append(random.choice(empty_weapon)["name"])
 
-        return loadout
+        result = []
+        for w in loadout:
+            if isinstance(w,dict):
+                result.append(f"{w['name']} ({w.get('rarity','')})")
+            else:
+                result.append(str(w))
+        return result

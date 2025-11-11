@@ -1,3 +1,6 @@
+import time
+import threading # To stop UI from freezing
+
 class UIManager:
     def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer):
         self.ui = main_ui
@@ -7,22 +10,35 @@ class UIManager:
 
         # Tracking for what empty mode is being used.
         self.empty_states = ['Disabled', 'empty', 'multi-empty']
-        self.empty_index = 0
+        self.empty_index = 0 # < Dumbas remember to make this exactly in starting mode
 
-        # Logic for button inputs.
-        if hasattr(self.ui, 'btn_enable_reskin'):
-            self.ui.btn_enable_reskin.config(command=self.toggle_reskin)
-        if hasattr(self.ui, 'btn_enable_empty'):
-            self.ui.btn_enable_empty.config(command=self.toggle_empty)
-        if hasattr(self.ui, 'btn_generate'):
-            self.ui.btn_generate.config(command=self.generate_loadout)
-        if hasattr(self.ui, 'btn_blacklist'):
-            self.ui.btn_blacklist.config(command=self.open_blacklist)
+        # Logic for colouring on the funny empty button
+        self.empty_colours = {
+            "Disabled": "red",  # No empty slots
+            "Empty": "green",   # Single Empty mode
+            "Multi-Empty": "gold"   # Multi-empty mode
+        }
+        # Prevents early button links
+        self.ui_initialized = False
 
         # reroll buttons
         for i, btn in enumerate(getattr(self.ui, 'btn_reroll_slot', [])):
             if btn:
                 btn.config(command=self.make_reroll_func(i))
+
+    def init_ui(self):
+        # Links the buttons to the appropriate command.
+        self.ui_initialized = True
+
+        if hasattr(self.ui, 'btn_enable_reskin'):
+            self.ui.btn_enable_reskin.config(command=self.toggle_reskin())
+        if hasattr(self.ui, 'btn_enable_empty'):
+            self.ui.btn_enable_empty.config(command=self.toggle_empty())
+        if hasattr(self.ui, 'btn_generate'):
+            self.ui.btn_generate.config(command=self.generate_loadout())
+        if hasattr(self.ui, 'btn_blacklist'):
+            self.ui.btn_blacklist.config(command=self.open_blacklist())
+
 
     def make_reroll_func(self, slot_index):
         def reroll():
@@ -30,6 +46,7 @@ class UIManager:
         return reroll()
 
         # Button Actions
+
     def toggle_reskin(self):
         self.settings.enable_reskins = not self.settings.enable_reskins
         if hasattr(self.ui, 'btn_enable_reskin'):
@@ -37,12 +54,23 @@ class UIManager:
                 text=f"Reskins: {'ON' if self.settings.enable_reskins else 'OFF'}"
             )
 
-    def toggle_empty(self):
+    def toggle_empty(self): # Cycles index
         self.empty_index = (self.empty_index + 1) % len(self.empty_states)
         state = self.empty_states[self.empty_index]
         self.settings.empty_mode = state
-        if hasattr(self.ui, 'btn_enable_empty'):
-            self.ui.btn_enable_empty.config(text=f"Empty Mode: {state}")
+
+        # Updates thy settings
+        self.settings.empty_mode = state
+
+        # Updat buton text
+        self.ui.btn_enable_empty.config(text=f"Empty Mode: {state}")
+
+        # Updates the boarder colour for the button.
+        colour = self.empty_colours[state]
+        self.ui.btn_enable_empty.config(
+            highlightbackground=colour,
+            highlightthickness=4
+        )
 
     def set_multi_chance(self):
         try:
@@ -68,12 +96,20 @@ class UIManager:
         self.ui.weapon_labels[slot_index].config(text=weapon)
 
     def generate_loadout(self):
-        weapons = self.randomizer.generate_loadout() # Gives a list of 5 weapons.
+        # Creates placeholder text
+        for label in self.ui.weapon_labels:
+            label.config(text="Randomizing. . .")
 
-        # This stuff updates the table in Main_UI
-        for i, weapon in enumerate(weapons):
-            if i < len(self.ui.weapon_labels):
-                self.ui.weapon_labels[i].config(text=weapon)
+        def _generate():
+            weapons = self.randomizer.generate_loadout() # Gives a list of 5 weapons.
+
+                # This stuff updates the table in Main_UI
+            for i, weapon in enumerate(weapons):
+                time.sleep(0.3)
+                if i < len(self.ui.weapon_labels):
+                    self.ui.weapon_labels[i].config(text=weapon)
+
+        threading.Thread(target=_generate, daemon=True).start()
 
     def open_blacklist(self):
         pass
