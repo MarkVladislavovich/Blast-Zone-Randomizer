@@ -1,5 +1,6 @@
 import random
 
+
 class Randomizer:
     def __init__(self, settings_manager, blacklist_manager):
         self.settings = settings_manager
@@ -10,16 +11,15 @@ class Randomizer:
 
         slot_count = min(self.settings.get_setting("slot_amount"),5)
         allow_reskins = self.settings.get_setting("enable_reskins")
-        allow_empty = self.settings.get_setting("enable_empty")
+        enable_empty = self.settings.get_setting("enable_empty")
         multi_empty = self.settings.get_setting("multi_empty")
         multi_chance = self.settings.get_setting("multi_chance")
 
         filtered = [    # Filter weapons based on the settings
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
-                and (allow_empty or w.get("type", "weapon") != "None")  # <<< Use get() for optional "type"
                 and not w.get("blacklisted", False)
-                ]
+        ]
 
         # Separates empty shit from non-empty shit
         empty_weapon = [w for w in filtered if w.get("type") == "None"]
@@ -27,18 +27,31 @@ class Randomizer:
 
         loadout = []
 
-        for _ in range(slot_count):
-            if multi_empty and empty_weapon and random.random() < multi_chance:
-                loadout.append(random.choice(empty_weapon))
+        # Sees what slots are empty
+        empty_slots = [False] * slot_count
+        if enable_empty and not multi_empty and slot_count > 0:
+            # Single picks only 1 random slot
+            idx = random.randint(0, slot_count-1)
+            empty_slots[idx] = True
+        elif enable_empty and multi_empty:
+            # Multi allows any slot to be empty
+            for i in range(slot_count):
+                if random.random() < multi_chance:
+                    empty_slots[i] = True
+        # Disabled doesn't need code since its off.
 
+        for i in range(slot_count):
+            if empty_slots[i] and empty_weapon:
+                loadout.append(random.choice(empty_weapon))
             else:
                 if non_empty:
                     choice = random.choice(non_empty)
-                    loadout.append(choice["name"])
+                    loadout.append(choice)
                     non_empty.remove(choice)
                 elif empty_weapon:
-                    loadout.append(random.choice(empty_weapon)["name"])
+                    loadout.append(random.choice(empty_weapon))
 
+        # Converts to strings for displaying
         result = []
         for w in loadout:
             if isinstance(w,dict):

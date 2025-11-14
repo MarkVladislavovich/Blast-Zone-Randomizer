@@ -73,21 +73,22 @@ class SettingsManager:
 
         if not empty and not multi:
             # Red >>> Green
-            self.settings["enable_empty"] = True
-            self.settings["multi_empty"] = False
-            mode = "Empty"
+            self.set_setting("enable_empty", True)
+            self.set_setting("multi_empty", False)
+            mode = "Single"
         elif empty and not multi:
             # Green >>> Gold
-            self.settings["enable_empty"] = True
-            self.settings["multi_empty"] = True
+            self.set_setting("enable_empty", True)
+            self.set_setting("multi_empty", False)
             mode = "Multi-Empty"
         else:
             # Gold >>> Red
-            self.settings["enable_empty"] = False
-            self.settings["multi_empty"] = False
+            self.set_setting("enable_empty", False)
+            self.set_setting("multi_empty", False)
             mode = "Disabled"
 
         self.ui.btn_enable_empty.config(text=f"Empty Mode: {mode}")
 
         self.ui.btn_enable_empty.config(highlightbackground=self.empty_colours[mode], highlightthickness=4)
 
+        return mode
