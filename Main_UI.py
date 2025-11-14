@@ -29,6 +29,20 @@ class MainUI:
         self.canvas = tk.Canvas(self.root, width=900, height=600)
         self.canvas.pack(fill="both", expand=True)
 
+        # Title part
+        title_label = tk.Label(
+            self.root,
+            text="Blast Zone Randomizer",
+            bg="white",
+            font=("TkDefaultFont", 24, "bold")
+        )
+
+        self.canvas.create_window(
+            326 + 464/2,    # X Center
+            28 + 71/2,      # Y Center
+            window=title_label, width=464,height=71
+        )
+
         # TEMPORARY MS-PAINT REFERENCE IMAGE
         self.bg_image = Image.open("Blast Zone Randomizer Wireframe.png")
         self.bg_photo = ImageTk.PhotoImage(self.bg_image)
@@ -105,9 +119,9 @@ class MainUI:
             self.root, text="Randomize!", font=("TkDefaultFont",30,"bold"),bg="#4CAF50",fg="white",
             command=self.ui_manager.generate_loadout
         )
-
         self.btn_generate.place(x=325,y=473,width=531,height=95)
 
+        self.ui_manager.init_ui()
 
         self.root.mainloop()
 

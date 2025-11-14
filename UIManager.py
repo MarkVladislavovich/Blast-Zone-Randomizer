@@ -1,5 +1,7 @@
 import time
 import threading # To stop UI from freezing
+from types import new_class
+
 
 class UIManager:
     def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer):
@@ -9,7 +11,7 @@ class UIManager:
         self.randomizer = randomizer
 
         # Tracking for what empty mode is being used.
-        self.empty_states = ['Disabled', 'empty', 'multi-empty']
+        self.empty_states = ['Disabled', 'Empty', 'Multi-empty']
         self.empty_index = 0 # < Dumbas remember to make this exactly in starting mode
 
         # Logic for colouring on the funny empty button
@@ -22,36 +24,40 @@ class UIManager:
         self.ui_initialized = False
 
         # reroll buttons
-        for i, btn in enumerate(getattr(self.ui, 'btn_reroll_slot', [])):
-            if btn:
-                btn.config(command=self.make_reroll_func(i))
+
 
     def init_ui(self):
         # Links the buttons to the appropriate command.
         self.ui_initialized = True
 
         if hasattr(self.ui, 'btn_enable_reskin'):
-            self.ui.btn_enable_reskin.config(command=self.toggle_reskin())
+            self.ui.btn_enable_reskin.config(command=self.toggle_reskin)
         if hasattr(self.ui, 'btn_enable_empty'):
-            self.ui.btn_enable_empty.config(command=self.toggle_empty())
+            self.ui.btn_enable_empty.config(command=self.toggle_empty)
         if hasattr(self.ui, 'btn_generate'):
-            self.ui.btn_generate.config(command=self.generate_loadout())
+            self.ui.btn_generate.config(command=self.generate_loadout)
         if hasattr(self.ui, 'btn_blacklist'):
-            self.ui.btn_blacklist.config(command=self.open_blacklist())
+            self.ui.btn_blacklist.config(command=self.open_blacklist)
 
+        for i, btn in enumerate(getattr(self.ui, 'btn_reroll_slot', [])):
+            if btn:
+                btn.config(command=self.make_reroll_func(i))
 
     def make_reroll_func(self, slot_index):
         def reroll():
             self.reroll_slot(slot_index)
-        return reroll()
+        return reroll
 
         # Button Actions
 
-    def toggle_reskin(self):
-        self.settings.enable_reskins = not self.settings.enable_reskins
+    def toggle_reskin(self): # Flips boolean
+        new_value = not self.settings.get_setting("enable_reskins")
+        self.settings.set_setting("enable_reskins", new_value)
+
+        # Updato buton text
         if hasattr(self.ui, 'btn_enable_reskin'):
             self.ui.btn_enable_reskin.config(
-                text=f"Reskins: {'ON' if self.settings.enable_reskins else 'OFF'}"
+                text=f"Reskins: {'ON' if new_value else 'OFF'}"
             )
 
     def toggle_empty(self): # Cycles index

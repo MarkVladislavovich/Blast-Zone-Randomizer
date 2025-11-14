@@ -51,16 +51,11 @@ class SettingsManager:
 
         # --- [ EXTERNAL ] ---
     def get_setting(self, key):
-            # Returns the value of the setting
-            return self.settings.get(key)
+        return self.settings.get(key)
 
     def set_setting(self, key, value):
-        # Changes the value of the key and saves it
-        if key not in self.settings:
-            print(f"[WARNING] Setting '{key}' does not exist. Adding regardless.")
-            self.settings[key] = value
-            self._save_settings()
-            print(f"[INFO] Setting '{key}' updated to {value}")
+       self.settings[key] = value
+       self._save_settings()
 
     def list_settings(self):
         # Prints all the settings for debugging
