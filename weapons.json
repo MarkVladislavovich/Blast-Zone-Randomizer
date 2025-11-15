@@ -144,6 +144,18 @@
         "blacklisted": false
     },
     {
+        "name": "Heavy Bomb",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Star Cannon",
+        "rarity": "Epic",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
         "name": "Fusion Cannon",
         "rarity": "Legendary",
         "reskin": false,
@@ -182,6 +194,12 @@
     },
     {
         "name": "Spikey Bomb",
+        "rarity": "Legendary",
+        "reskin": false,
+        "blacklisted": false
+    },
+    {
+        "name": "Rocket Gloves",
         "rarity": "Legendary",
         "reskin": false,
         "blacklisted": false
@@ -235,6 +253,12 @@
         "blacklisted": false
     },
     {
+        "name": "Golden Impact Bomb",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
         "name": "Platinum Anvil",
         "rarity": "Mythic",
         "reskin": true,
@@ -283,6 +307,12 @@
         "blacklisted": false
     },
     {
+        "name": "Platinum Impact Bomb",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
         "name": "Silver Anvil",
         "rarity": "Mythic",
         "reskin": true,
@@ -326,6 +356,12 @@
     },
     {
         "name": "Silver Rocket Hammer",
+        "rarity": "Mythic",
+        "reskin": true,
+        "blacklisted": false
+    },
+    {
+        "name": "Silver Impact Bomb",
         "rarity": "Mythic",
         "reskin": true,
         "blacklisted": false
