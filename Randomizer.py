@@ -15,7 +15,7 @@ class Randomizer:
         multi_empty = self.settings.get_setting("multi_empty")
         multi_chance = self.settings.get_setting("multi_chance")
 
-        filtered = [    # Filter weapons based on the settings
+        filtered = [    # Filters weapons based on the settings
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
                 and not w.get("blacklisted", False)
@@ -38,8 +38,9 @@ class Randomizer:
             for i in range(slot_count):
                 if random.random() < multi_chance:
                     empty_slots[i] = True
-        # Disabled doesn't need code since its off.
+        # Disabled doesn't need code since its off, duh.
 
+        # Fix for the empty slot shit, I can't remember its late. -M 14/11/25 2:31am
         for i in range(slot_count):
             if empty_slots[i] and empty_weapon:
                 loadout.append(random.choice(empty_weapon))
@@ -59,3 +60,5 @@ class Randomizer:
             else:
                 result.append(str(w))
         return result
+
+        # The amount of times I had to rewrite this bastard is absurd.

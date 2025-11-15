@@ -6,7 +6,7 @@ from SettingsManager import SettingsManager
 
 # --- Pillow Check --- (NEEDED FOR UI)
 def check_pillow():
-    # Checks if Pillow is installed, if not PillowAutoInstaller triggers an install prompt.
+    # Sees if you have Pillow installed, if not tells PillowAutoInstaller to wake up and give an install prompt.
     try:
         from PIL import Image, ImageTk
         print("[INFO] Successfully located Pillow Library.")
@@ -28,17 +28,17 @@ def check_pillow():
 
 # --- Settings Check ---
 
-def check_settings(): # Checks if the Settings.json file is not missing
+def check_settings(): # Sees if the Settings.json file is not missing
     print("[STARTUP] Locating settings.json...")
     if not os.path.exists("settings.json"):
-        print("[WARNING] settings.json failed to validate, reset to defaults.")
+        print("[WARNING] settings.json failed to validate, resetting to defaults.")
     settings = SettingsManager("settings.json")
     print("[INFO] settings.json loaded!")
     return settings
 
 # --- Weapon List Check ---
 
-# Then checks if weapons.json is not missing.
+# Checks if weapons.json is missing, or you decided to stress test to see if I did not.
 def load_weapons(file_path="weapons.json"):
     print("[STARTUP] Locating weapons.json...")
     if not os.path.exists(file_path): # Failsafe 1 for if file is not found.

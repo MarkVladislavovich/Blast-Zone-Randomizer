@@ -47,6 +47,7 @@ class MainUI:
         self.bg_image = Image.open("Blast Zone Randomizer Wireframe.png")
         self.bg_photo = ImageTk.PhotoImage(self.bg_image)
         self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
+        # Graphic design is NOT this man's passion! :skull:
 
         # Weapon Table Logic!
         table_x1, table_y1 = 326, 138
@@ -131,7 +132,10 @@ class MainUI:
             self.root.update()
             time.sleep(delay)
 
-# Runs if the file is executed:
+# Runs if the file is executed (Why did I even add this? you need the console to see this.)
 if __name__ == "__main__":
     print("[INFO] Opening Randomizer...")
     ui = MainUI()
+
+
+    # This file was such a pain in my ass, I'd be screwed if I did not make a wireframe.

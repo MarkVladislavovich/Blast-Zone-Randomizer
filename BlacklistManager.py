@@ -8,7 +8,7 @@ class BlacklistManager:
         self.weapons = self._load_weapons()  # call internal method to load weapons
 
         # --- [ INTERNAL ] ---
-        # Loading weapons from the JSON.
+        # Loads weapons from the JSON.
     def _load_weapons(self):
         if not os.path.exists(self.file_path):
             print(f"[ERROR] File missing: {self.file_path}")
@@ -24,7 +24,7 @@ class BlacklistManager:
             json.dump(self.weapons, f, indent=4)
 
         # --- [ EXTERNAL ] ---
-        # Toggles if the blacklist is on/off for a weapon.
+        # Tells a weapon to change its blacklisted state
     def toggle(self, name):
         for w in self.weapons:
             if w["name"].lower() == name.lower():
@@ -65,5 +65,5 @@ class BlacklistManager:
 
     # Method for Randomizer
     def get_allowed_weapons(self):
-        # Returns weapons that are not currently blacklisted
+        # Gives back the weapons that are not currently blacklisted
         return[w for w in self.weapons if not w.get("blacklisted", False)]
