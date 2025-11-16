@@ -44,7 +44,7 @@ class MainUI:
         )
 
         # TEMPORARY MS-PAINT REFERENCE IMAGE
-        self.bg_image = Image.open("Blast Zone Randomizer Wireframe.png")
+        self.bg_image = Image.open("Randomizer_Background_Final.png")
         self.bg_photo = ImageTk.PhotoImage(self.bg_image)
         self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
         # Graphic design is NOT this man's passion! :skull:
