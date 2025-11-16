@@ -65,7 +65,7 @@ class MainUI:
             y1 = table_top + i * row_height
             y2 = y1 + row_height
 
-            # Draws a rectangle row.
+            # Draws a rectangle row, shocking I know.
             self.canvas.create_rectangle(table_x1, y1, table_x2, y2,
                                          fill=table_bg_colour, outline=border_colour)
 
@@ -81,6 +81,32 @@ class MainUI:
             weapon_label = tk.Label(self.root, text="Weapon Name", bg=table_bg_colour)
             self.canvas.create_window((mid_x + table_x2) // 2, (y1 + y2) // 2, window=weapon_label)
             self.weapon_labels.append(weapon_label)
+
+        # Buttons for the reroll stuffs
+        reroll_coord = [
+            (803, 142, 60, 60),
+            (803, 203, 60, 60),
+            (803, 265, 60, 60),
+            (803, 327, 60, 60),
+            (803, 388, 60, 60),
+        ]
+
+        self.reroll_buttons = []
+
+        for i, (x, y, w, h) in enumerate(reroll_coord):
+            reroll_btn = tk.Button(
+                self.root,
+                text="↻",
+                font=("TkDefaultFont", 20, "bold"),
+                command=lambda idx=i: self.ui_manager.reroll_slot(idx)
+            )
+
+        # Centers button
+            self.canvas.create_window(x + w/2, y + h/2, window=reroll_btn, width=w, height=h)
+            self.reroll_buttons.append(reroll_btn)
+
+        self.ui_manager.btn_reroll_slot = self.reroll_buttons
+        self.ui_manager.init_ui()
 
         # Options Panel
         self.options_frame = tk.Frame(self.root, bg="#e0e0e0", width=245, height=458, highlightbackground="black", highlightthickness=1)

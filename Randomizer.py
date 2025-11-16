@@ -65,4 +65,11 @@ class Randomizer:
                 result.append(str(w))
         return result
 
+    def reroll(self, slot_index):
+        loadout = self.generate_loadout()
+        if slot_index < len(loadout):
+            return loadout[slot_index]
+        return "No Weapon"
+
+
         # The amount of times I had to rewrite this bastard is absurd.
