@@ -10,6 +10,10 @@ class Randomizer:
         all_weapons = self.blacklist.get_allowed_weapons()
 
         slot_count = min(self.settings.get_setting("slot_amount"),5)
+
+        if self.settings.get_setting("disable_fifth_slot"):
+            slot_count = min(slot_count, 4) # Limits to 4 slots for disabling 5th slot
+
         allow_reskins = self.settings.get_setting("enable_reskins")
         enable_empty = self.settings.get_setting("enable_empty")
         multi_empty = self.settings.get_setting("multi_empty")

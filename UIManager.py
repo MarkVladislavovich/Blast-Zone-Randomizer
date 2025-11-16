@@ -37,6 +37,8 @@ class UIManager:
             self.ui.btn_generate.config(command=self.generate_loadout)
         if hasattr(self.ui, 'btn_blacklist'):
             self.ui.btn_blacklist.config(command=self.open_blacklist)
+        if hasattr(self.ui, 'btn_disable_5th'):
+            self.ui.btn_disable_5th.config(command=self.disable_5th_slot)
 
         for i, btn in enumerate(getattr(self.ui, 'btn_reroll_slot', [])):
             if btn:
@@ -113,8 +115,13 @@ class UIManager:
 
     def generate_loadout(self):
         # Creates placeholder text
-        for label in self.ui.weapon_labels:
-            label.config(text="Randomizing. . .")
+        disable_5th = self.settings.get_setting("disable_fifth_slot")
+
+        for i, label in enumerate(self.ui.weapon_labels):
+            if disable_5th and i == 4:
+                label.config(text="[Disabled]")
+            else:
+                label.config(text="Randomizing. . .")
 
         def _generate():
             weapons = self.randomizer.generate_loadout() # Gives a list of 5 weapons.
@@ -126,6 +133,17 @@ class UIManager:
                     self.ui.weapon_labels[i].config(text=weapon)
 
         threading.Thread(target=_generate, daemon=True).start()
+
+    def disable_5th_slot(self):
+        # Flips the current setting
+        new_value = not self.settings.get_setting("disable_fifth_slot")
+        self.settings.set_setting("disable_fifth_slot", new_value)
+
+        if hasattr(self.ui, 'btn_disable_5th'): # Updates text
+            self.ui.btn_disable_5th.config(
+                text=f"5th Slot: {'Disabled' if new_value else 'Enabled'}"
+            )
+
 
     def open_blacklist(self):
         pass

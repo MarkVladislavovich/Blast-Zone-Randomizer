@@ -16,7 +16,8 @@ class SettingsManager:
             "multi_empty": False,
             "multi_chance": 0.2,
             "slot_amount": 4,
-            "hotkey_slot": 1
+            "hotkey_slot": 1,
+            "disable_fifth_slot": False
         }
 
         if not os.path.exists(self.file_path):

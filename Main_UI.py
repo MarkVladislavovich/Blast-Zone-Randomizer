@@ -107,8 +107,8 @@ class MainUI:
         self.txt_multi_chance.pack(pady=20)
 
         # 5th slot button
-        self.btn_slot5_enable = tk.Button(self.options_frame, text="Disable 5th Slot", width=40, height=4)
-        self.btn_slot5_enable.pack(pady=10)
+        self.btn_disable_5th = tk.Button(self.options_frame, text="5th Slot: Enabled", width=40, height=4)
+        self.btn_disable_5th.pack(pady=10)
 
         # Blacklist
         self.btn_blacklist = tk.Button(self.options_frame, text="Edit Blacklist", width=40, height=4)
