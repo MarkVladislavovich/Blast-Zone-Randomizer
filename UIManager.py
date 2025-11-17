@@ -88,7 +88,6 @@ class UIManager:
             highlightthickness=4
         )
 
-
     def set_multi_chance(self):
         try:
             value = float(self.ui.txt_multi_chance.get()) # Reads the input as a float.

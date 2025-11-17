@@ -43,7 +43,7 @@ class MainUI:
             window=title_label, width=464,height=71
         )
 
-        # TEMPORARY MS-PAINT REFERENCE IMAGE
+        # Background Image
         self.bg_image = Image.open("Randomizer_Background_Final.png")
         self.bg_photo = ImageTk.PhotoImage(self.bg_image)
         self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
@@ -109,9 +109,9 @@ class MainUI:
         self.ui_manager.init_ui()
 
         # Options Panel
-        self.options_frame = tk.Frame(self.root, bg="#e0e0e0", width=245, height=458, highlightbackground="black", highlightthickness=1)
+        self.options_frame = tk.Frame(self.root, bg="#e0e0e0", width=245, height=550, highlightbackground="black", highlightthickness=1)
         self.options_frame.pack_propagate(False) # < Prevents the option tab from shrinking
-        self.canvas.create_window(18 + 245/2, 28 + 458/2, window=self.options_frame)
+        self.canvas.create_window(18 + 245/2, 28 + 458/2 + 20, window=self.options_frame)
 
         # BUTTONS!!
 
@@ -131,6 +131,17 @@ class MainUI:
         self.txt_multi_chance = tk.Entry(self.options_frame, justify="center", font=("TkDefaultFont",12))
         self.txt_multi_chance.insert(0,"0.1")
         self.txt_multi_chance.pack(pady=20)
+
+        # Apply button so you can actually use the damn feature
+        self.btn_apply_multi = tk.Button(
+            self.options_frame,
+            text="Apply",
+            width=10,
+            height=1,
+            command=self.ui_manager.set_multi_chance
+        )
+        self.btn_apply_multi.pack(pady=5)
+
 
         # 5th slot button
         self.btn_disable_5th = tk.Button(self.options_frame, text="5th Slot: Enabled", width=40, height=4)
