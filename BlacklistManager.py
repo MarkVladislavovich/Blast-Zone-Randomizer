@@ -64,6 +64,8 @@ class BlacklistManager:
         print("Blacklist successfully cleared.")
 
     # Method for Randomizer
-    def get_allowed_weapons(self):
+    def get_allowed_weapons(self, full_list=False):
         # Gives back the weapons that are not currently blacklisted
+        if full_list:
+            return self.weapons
         return[w for w in self.weapons if not w.get("blacklisted", False)]

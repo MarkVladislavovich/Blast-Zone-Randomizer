@@ -1,9 +1,9 @@
 {
     "enable_reskins": false,
-    "enable_empty": true,
-    "multi_empty": true,
-    "multi_chance": 1.0,
+    "enable_empty": false,
+    "multi_empty": false,
+    "multi_chance": 0.1,
     "slot_amount": 5,
     "hotkey_slot": 1,
-    "disable_fifth_slot": false
+    "disable_fifth_slot": true
 }

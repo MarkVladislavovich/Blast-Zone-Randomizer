@@ -1,9 +1,12 @@
 import time
 import threading # To stop UI from freezing
+import tkinter
+import tkinter as tk
 
 
 class UIManager:
     def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer):
+        self.blacklist_vars = None
         self.ui = main_ui
         self.settings = settings_manager
         self.blacklist = blacklist_manager
@@ -23,6 +26,7 @@ class UIManager:
         self.ui_initialized = False
 
         # reroll buttons
+        self.blacklist_window = None
 
 
     def init_ui(self):
@@ -145,4 +149,39 @@ class UIManager:
 
 
     def open_blacklist(self):
-        pass
+        # First creates the new window
+        self.blacklist_window = tkinter.Toplevel(self.ui.root)
+        self.blacklist_window.title = "Edit Blacklist"
+        self.blacklist_window.geometry("400x500")
+        self.blacklist_window.configure(bg="white")
+
+        # Labels n  shit
+        tk.Label(self.blacklist_window, text="Enable/Disable Weapons", font=("TkDefaultFont", 14, "bold"), bg="white").pack(pady=10)
+
+        # Makes frame scrollable
+        canvas = tk.Canvas(self.blacklist_window, bg="white")
+        scrollbar = tk.Scrollbar(self.blacklist_window, orient="vertical", command=canvas.yview)
+        scroll_frame = tk.Frame(canvas, bg="white")
+
+        scroll_frame.bind(
+            "<Configure>",
+            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+        )
+
+        canvas.create_window((0,0), window=scroll_frame, anchor="nw")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.pack(side="left", fill="both", expand=True)
+        scrollbar.pack(side="right", fill="y")
+
+        self.blacklist_vars = {}
+        for weapon in self.blacklist.get_allowed_weapons(full_list=True):
+            if weapon.get("type") == "None": # Skips the "Empty" entry
+                continue
+
+            var = tk.BooleanVar(value=not weapon.get("blacklisted", False))
+            chk = tk.Checkbutton(scroll_frame, text=weapon["name"], variable=var, bg="white", anchor="w")
+            chk.pack(fill="x", padx=10)
+            self.blacklist_vars[weapon["name"]] = var
+
+            tk.Button(self.blacklist_window, text="Save", command=self.blacklist).pack(pady=10)
