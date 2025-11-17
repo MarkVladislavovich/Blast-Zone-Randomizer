@@ -109,9 +109,9 @@ class MainUI:
         self.ui_manager.init_ui()
 
         # Options Panel
-        self.options_frame = tk.Frame(self.root, bg="#e0e0e0", width=245, height=550, highlightbackground="black", highlightthickness=1)
+        self.options_frame = tk.Frame(self.root, bg="#e0e0e0", width=245, height=520, highlightbackground="black", highlightthickness=1)
         self.options_frame.pack_propagate(False) # < Prevents the option tab from shrinking
-        self.canvas.create_window(18 + 245/2, 28 + 458/2 + 20, window=self.options_frame)
+        self.canvas.create_window(18 + 245/2, 28 + 450/2 + 20, window=self.options_frame)
 
         # BUTTONS!!
 
@@ -156,7 +156,7 @@ class MainUI:
             self.root, text="Randomize!", font=("TkDefaultFont",30,"bold"),bg="#4CAF50",fg="white",
             command=self.ui_manager.generate_loadout
         )
-        self.btn_generate.place(x=325,y=473,width=531,height=95)
+        self.btn_generate.place(x=325,y=473,width=500,height=95)
 
         self.ui_manager.init_ui()
 

@@ -2,10 +2,11 @@ import time
 import threading # To stop UI from freezing
 import tkinter
 import tkinter as tk
+from BlacklistManager import BlacklistManager
 
 
 class UIManager:
-    def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer):
+    def __init__(self, main_ui, settings_manager, blacklist_manager: BlacklistManager, randomizer):
         self.blacklist_vars = None
         self.ui = main_ui
         self.settings = settings_manager
@@ -144,44 +145,79 @@ class UIManager:
 
         if hasattr(self.ui, 'btn_disable_5th'): # Updates text
             self.ui.btn_disable_5th.config(
-                text=f"5th Slot: {'Disabled' if new_value else 'Enabled'}"
-            )
-
+                text=f"5th Slot: {'Disabled' if new_value else 'Enabled'}")
 
     def open_blacklist(self):
+
         # First creates the new window
         self.blacklist_window = tkinter.Toplevel(self.ui.root)
         self.blacklist_window.title = "Edit Blacklist"
-        self.blacklist_window.geometry("400x500")
+        self.blacklist_window.geometry("450x550")
         self.blacklist_window.configure(bg="white")
 
-        # Labels n  shit
-        tk.Label(self.blacklist_window, text="Enable/Disable Weapons", font=("TkDefaultFont", 14, "bold"), bg="white").pack(pady=10)
+        # Gives the big ol fancy heading text
+        (tk.Label(self.blacklist_window, text="Enable/Disable Weapons",
+                  font=("TkDefaultFont", 16, "bold"), bg="white").pack(pady=10))
 
-        # Makes frame scrollable
-        canvas = tk.Canvas(self.blacklist_window, bg="white")
-        scrollbar = tk.Scrollbar(self.blacklist_window, orient="vertical", command=canvas.yview)
+        # List that has the scroll list
+        container = tk.Frame(self.blacklist_window, width=420)
+        container.pack(fill="both", expand=True, padx=10, pady=(0,10))
+
+        # Canvas
+        canvas = tk.Canvas(container, bg="white")
+        canvas.pack(side="left", fill="both", expand=True)
+
+        # Scroll Bar
+        scrollbar = tk.Scrollbar(container, orient="vertical", command=canvas.yview)
+        scrollbar.pack(side="right", fill="y")
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        # Scrollable frame
         scroll_frame = tk.Frame(canvas, bg="white")
+        canvas.create_window((0,0), window=scroll_frame, anchor="nw")
 
+        # updates scroll region when the frame changes
         scroll_frame.bind(
             "<Configure>",
             lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
 
-        canvas.create_window((0,0), window=scroll_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
-
-        canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
-
+        # Boxes for the weapons
         self.blacklist_vars = {}
-        for weapon in self.blacklist.get_allowed_weapons(full_list=True):
-            if weapon.get("type") == "None": # Skips the "Empty" entry
-                continue
 
+        for weapon in self.blacklist.get_allowed_weapons(full_list=True):
+            if weapon.get("type") == "None": # Skips the Empty slot
+                continue
             var = tk.BooleanVar(value=not weapon.get("blacklisted", False))
-            chk = tk.Checkbutton(scroll_frame, text=weapon["name"], variable=var, bg="white", anchor="w")
+            chk = tk.Checkbutton(scroll_frame, text=weapon["name"], variable=var, bg="white", anchor="w", font=("TkDefaultFont", 12))
+
             chk.pack(fill="x", padx=10)
             self.blacklist_vars[weapon["name"]] = var
 
-            tk.Button(self.blacklist_window, text="Save", command=self.blacklist).pack(pady=10)
+        # Bottom fram buton
+        button_frame = tk.Frame(self.blacklist_window, bg="white")
+        button_frame.pack(fill="x", side="bottom", pady=10)
+
+        tk.Button(self.blacklist_window,text="Save",font=("TkDefaultFont", 14, "bold"),bg="#4CAF50",
+                  fg="white",command=self.save_blacklist).pack(pady=10)
+        tk.Button(self.blacklist_window,text="Clear",font=("TkDefaultFont", 14, "bold"),bg="#f44336",
+                  fg="white",command=self.clear_blacklist).pack(pady=10)
+
+    def save_blacklist(self):
+        # Checkbox stuff
+        for name, var in self.blacklist_vars.items():
+            for w in self.blacklist.weapons:
+                if w["name"] == name:
+                    w["blacklisted"] = not var.get()
+                    break
+
+        # save to file
+        self.blacklist._save_weapons()    # < shut up pycharm please
+        # close window
+        self.blacklist_window.destroy()
+
+    def clear_blacklist(self):
+        # Clears... the blacklist...
+        self.blacklist.clear_blacklist()
+        for var in self.blacklist_vars.values():
+            var.set(True)

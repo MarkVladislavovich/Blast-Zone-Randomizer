@@ -69,7 +69,7 @@ class Randomizer:
         loadout = self.generate_loadout()
         if slot_index < len(loadout):
             return loadout[slot_index]
-        return "Hey Einstein, you have to re-enable the 5th slot first."
+        return "I can't find any :c"
 
 
         # The amount of times I had to rewrite this bastard is absurd.
