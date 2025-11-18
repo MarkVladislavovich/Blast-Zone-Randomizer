@@ -69,7 +69,7 @@ class Randomizer:
         loadout = self.generate_loadout()
         if slot_index < len(loadout):
             return loadout[slot_index]
-        return "I can't find any :c"
+        return "I can't find any weapons :c"
 
 
         # The amount of times I had to rewrite this bastard is absurd.
