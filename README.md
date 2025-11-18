@@ -1,4 +1,4 @@
-This is a public free randomizer for the Roblox game Blast Zone, guaranteeing atleast a few questionable, horrible loadouts.
+This is a public, **free** randomizer for the Roblox game Blast Zone, guaranteeing atleast a few questionable, horrible loadouts.
 
 Tired of picking the same loadout everytime? Want to use the most horrible loadouts ever to exist? 
 Or maybe you just want to suffer.
