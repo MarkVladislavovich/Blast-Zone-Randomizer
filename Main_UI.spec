@@ -5,7 +5,7 @@ a = Analysis(
     ['Main_UI.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('Randomizer_Background_Final.png', '.'), ('weapons.json', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
