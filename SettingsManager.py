@@ -7,6 +7,16 @@ class SettingsManager:
         self.file_path = file_path
         self.settings = self._load_settings()
 
+
+        self.ui = None
+        self.empty_colours = {}
+
+        # allows UI to bind
+        # Lets Main_UI work with UI controls
+    def bind_ui(self, ui, empty_colours):
+        self.ui = ui
+        self.empty_colours = empty_colours
+
         # --- [ INTERNAL ] ---
     def _load_settings(self):
         # Loads settings from JSON file, create default if missing, or you stuffed something up
@@ -50,7 +60,7 @@ class SettingsManager:
             json.dump(self.settings, f, indent=4)
 
 
-        # --- [ EXTERNAL ] ---
+    # --- [ EXTERNAL ] ---
     def get_setting(self, key):
         return self.settings.get(key)
 
@@ -60,7 +70,7 @@ class SettingsManager:
 
     def list_settings(self):
         # Prints all the settings for debugging
-        print("n\nCurrent Settings:")
+        print("\n\nCurrent Settings:")
         for key, value in self.settings.items():
             print(f"- {key}: {value}")
         return self.settings
@@ -69,8 +79,8 @@ class SettingsManager:
     # Cycles between three states: Red > Green > Gold > Red.
     def cycle_empty_mode(self):
 
-        empty = self.settings.get_setting("enable_empty")
-        multi = self.settings.get_setting("multi_empty")
+        empty = self.get_setting("enable_empty")
+        multi = self.get_setting("multi_empty")
 
         if not empty and not multi:
             # Red >>> Green
@@ -80,7 +90,7 @@ class SettingsManager:
         elif empty and not multi:
             # Green >>> Gold
             self.set_setting("enable_empty", True)
-            self.set_setting("multi_empty", False)
+            self.set_setting("multi_empty", True)
             mode = "Multi-Empty"
         else:
             # Gold >>> Red
@@ -88,8 +98,11 @@ class SettingsManager:
             self.set_setting("multi_empty", False)
             mode = "Disabled"
 
-        self.ui.btn_enable_empty.config(text=f"Empty Mode: {mode}")
 
-        self.ui.btn_enable_empty.config(highlightbackground=self.empty_colours[mode], highlightthickness=4)
-
+        if self.ui:
+            self.ui.btn_enable_empty.config(text=f"Empty Mode: {mode}")
+            self.ui.btn_enable_empty.config(
+                highlightbackground=self.empty_colours.get(mode,"black"),
+                highlightthickness=4
+            )
         return mode
