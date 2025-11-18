@@ -1,6 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
+from AssetManager import AssetManager
 from SettingsManager import SettingsManager
 from BlacklistManager import BlacklistManager
 from Randomizer import Randomizer
@@ -13,7 +14,8 @@ class MainUI:
 
         # Creating managers.
         self.settings_manager = SettingsManager("settings.json")
-        self.blacklist_manager = BlacklistManager("weapons.json")
+        self.asset_manager = AssetManager()
+        self.blacklist_manager = BlacklistManager(self.asset_manager, "weapons.json")
         self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
 
         # Creating the UI Manager
