@@ -10,7 +10,7 @@ Only limits are what you choose... or what i couldn't figure out how to program.
 Full loadout generation (4 slots or 5 slot generation)
 Toggeable Reskins (Allows for Reskins to appear or not)
 Blacklisting (Allows for individual weapons to be removed)
-Individual slot rerolling
+Individual slot rerolling.
 Optional extra pain with Empty slots (Single or Multiple with customizable chances)
 
 **Requirements:**
