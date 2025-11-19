@@ -114,7 +114,12 @@ class UIManager:
 
     def reroll_slot(self, slot_index):
         # Rerolls a specific slot when pressed.
-        weapon = self.randomizer.reroll(slot_index)
+        current_loadout = [label.cget("text") for label in self.ui.weapon_labels]
+
+        # Rerolls using the current_loadout to avoid duplicates
+        weapon = self.randomizer.reroll(slot_index, current_loadout)
+
+        # ui stuff
         self.ui.weapon_labels[slot_index].config(text=weapon)
 
     def generate_loadout(self):

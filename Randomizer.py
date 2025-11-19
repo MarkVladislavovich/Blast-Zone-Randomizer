@@ -25,7 +25,7 @@ class Randomizer:
                 and not w.get("blacklisted", False)
         ]
 
-        # Separates empty shit from non-empty shit
+        # Separates empty shit from non-empty stuff
         empty_weapon = [w for w in filtered if w.get("type") == "None"]
         non_empty = [w for w in filtered if w.get("type") != "None"]
 
@@ -65,11 +65,48 @@ class Randomizer:
                 result.append(str(w))
         return result
 
-    def reroll(self, slot_index):
-        loadout = self.generate_loadout()
-        if slot_index < len(loadout):
-            return loadout[slot_index]
-        return "I can't find any weapons :c"
+    def reroll(self, slot_index, current_loadout):
+        # Funny easter egg
+        if slot_index >= len(current_loadout) or current_loadout[slot_index] == "[DISABLED]":
+            return "I can't find any weapons :c"
+
+        # Gives weapon list again
+        all_weapons = self.blacklist.get_allowed_weapons()
+
+        allow_reskins = self.settings.get_setting("enable_reskins")
+        filtered = [
+            w for w in all_weapons
+            if (allow_reskins or not w.get("reskin", False))
+                and not w.get("blacklisted", False)
+        ]
+        # only includes empty if its on
+        enable_empty = self.settings.get_setting("enable_empty")
+
+        # Separates empties
+        non_empty = [w for w in filtered if w.get("type") != "None"]
+        empty_weapon = [w for w in filtered if w.get("type") == "None"] if enable_empty else []
+
+        # builds list so reroll doesn't stupidly choose another item already in the list
+        other_items = current_loadout[:slot_index] + current_loadout[slot_index+1:]
+
+        # Filters already used items to avoid duplicates
+        available_items = []
+        for w in non_empty + empty_weapon:
+            w_name = f"{w['name']} ({w.get('rarity','')})" if isinstance(w, dict) else str(w)
+            if w_name not in other_items:
+                available_items.append(w)
+
+        if not available_items:
+            # Fallback incase the pool is empty
+            return current_loadout[slot_index]
+
+        # Picks new item that is not in the table already
+        choice = random.choice(available_items)
+        result = f"{choice['name']} ({choice.get('rarity','')})" if isinstance(choice, dict) else str(choice)
+
+        return result
+
+        # Also yes this is the randomizer logic re-used.
 
 
         # The amount of times I had to rewrite this bastard is absurd.
