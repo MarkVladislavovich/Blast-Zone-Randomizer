@@ -3,15 +3,19 @@ import threading # To stop UI from freezing
 import tkinter
 import tkinter as tk
 from BlacklistManager import BlacklistManager
-
+from AssetManager import AssetManager
 
 class UIManager:
-    def __init__(self, main_ui, settings_manager, blacklist_manager: BlacklistManager, randomizer):
+    def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer, asset_manager):
         self.blacklist_vars = None
         self.ui = main_ui
         self.settings = settings_manager
         self.blacklist = blacklist_manager
         self.randomizer = randomizer
+        self.asset_manager = asset_manager
+
+        # Placeholder for future images
+        self.weapon_images = []
 
         # Tracking for what empty mode is being used.
         self.empty_states = ['Disabled', 'Single', 'Multi-Empty']
