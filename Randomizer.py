@@ -66,28 +66,46 @@ class Randomizer:
         return result
 
     def reroll(self, slot_index, current_loadout):
-        # Funny easter egg
-        if slot_index >= len(current_loadout) or current_loadout[slot_index] == "[DISABLED]":
+
+        if slot_index == 4 and self.settings.get_setting("disable_fifth_slot"):
             return "I can't find any weapons :c"
+
+        allow_reskins = self.settings.get_setting("enable_reskins")
+        enable_empty = self.settings.get_setting("enable_empty")
+        multi_empty = self.settings.get_setting("multi_empty")
 
         # Gives weapon list again
         all_weapons = self.blacklist.get_allowed_weapons()
 
-        allow_reskins = self.settings.get_setting("enable_reskins")
         filtered = [
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
                 and not w.get("blacklisted", False)
         ]
-        # only includes empty if its on
-        enable_empty = self.settings.get_setting("enable_empty")
 
         # Separates empties
         non_empty = [w for w in filtered if w.get("type") != "None"]
         empty_weapon = [w for w in filtered if w.get("type") == "None"] if enable_empty else []
 
         # builds list so reroll doesn't stupidly choose another item already in the list
-        other_items = current_loadout[:slot_index] + current_loadout[slot_index+1:]
+        empty_names = [f"{w['name']} ({w.get('rarity', '')})" for w in empty_weapon]
+
+        # Funny easter egg
+        if slot_index >= len(current_loadout) or current_loadout[slot_index] == "[DISABLED]":
+            return "I can't find any weapons :c"
+        if not enable_empty and current_loadout[slot_index] in empty_names:
+            return "I can't find any weapons :c"
+
+        other_items = []
+        for i, item in enumerate(current_loadout):
+            if i == slot_index:
+                continue
+
+            if multi_empty and item in empty_names:
+                # Fixes Multi-Empty
+                continue
+            if item != "[DISABLED]":
+                other_items.append(item)
 
         # Filters already used items to avoid duplicates
         available_items = []

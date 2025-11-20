@@ -1,11 +1,11 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
-from AssetManager import AssetManager
 from SettingsManager import SettingsManager
 from BlacklistManager import BlacklistManager
 from Randomizer import Randomizer
 from UIManager import UIManager
+from AssetManager import AssetManager
 
 import time
 
@@ -14,12 +14,18 @@ class MainUI:
 
         # Creating managers.
         self.settings_manager = SettingsManager("settings.json")
-        self.asset_manager = AssetManager()
+        self.asset_manager = AssetManager()  # only once
         self.blacklist_manager = BlacklistManager(self.asset_manager, "weapons.json")
         self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
 
         # Creating the UI Manager
-        self.ui_manager = UIManager(self, self.settings_manager, self.blacklist_manager, self.randomizer)
+        self.ui_manager = UIManager(
+            self,
+            self.settings_manager,
+            self.blacklist_manager,
+            self.randomizer,
+            self.asset_manager
+        )
 
         # Tkinter stuff (root I think)
         self.root = tk.Tk() # Creates the main window

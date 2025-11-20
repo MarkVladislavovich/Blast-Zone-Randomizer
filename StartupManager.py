@@ -14,7 +14,7 @@ def check_pillow():
     except ImportError:
         print("[ERROR] Pillow library unable to be located.")
         try:
-            from PillowAutoInstaller import pillow_prompt
+            from InstallationManager import pillow_prompt
             installed = pillow_prompt() # Returns true if the installation successfully succeeds.
             if installed:
                 print("[INFO] Pillow installed successfully, Thank you! continuing startup... ")
