@@ -152,7 +152,7 @@ class MainUI:
 
 
         # 5th slot button
-        self.btn_disable_5th = tk.Button(self.options_frame, text="5th Slot: Enabled", width=40, height=4, command=self.ui_manager.toggle_5th_slot)
+        self.btn_disable_5th = tk.Button(self.options_frame, text="5th Slot: Enabled", width=40, height=4, command=self.ui_manager.disable_5th_slot)
         self.btn_disable_5th.pack(pady=10)
 
         # Blacklist
