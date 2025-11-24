@@ -52,7 +52,7 @@ class MainUI:
         )
 
         # Background Image
-        self.bg_image = Image.open("Randomizer_Background_Final.png")
+        self.bg_image = self.asset_manager.load_image("Randomizer_Background_Final.png")
         self.bg_photo = ImageTk.PhotoImage(self.bg_image)
         self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
         # Graphic design is NOT this man's passion! :skull:
@@ -152,7 +152,7 @@ class MainUI:
 
 
         # 5th slot button
-        self.btn_disable_5th = tk.Button(self.options_frame, text="5th Slot: Enabled", width=40, height=4)
+        self.btn_disable_5th = tk.Button(self.options_frame, text="5th Slot: Enabled", width=40, height=4, command=self.ui_manager.toggle_5th_slot)
         self.btn_disable_5th.pack(pady=10)
 
         # Blacklist

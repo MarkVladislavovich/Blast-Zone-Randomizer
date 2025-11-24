@@ -2,8 +2,7 @@ import time
 import threading # To stop UI from freezing
 import tkinter
 import tkinter as tk
-from BlacklistManager import BlacklistManager
-from AssetManager import AssetManager
+
 
 class UIManager:
     def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer, asset_manager):
@@ -154,7 +153,9 @@ class UIManager:
 
         if hasattr(self.ui, 'btn_disable_5th'): # Updates text
             self.ui.btn_disable_5th.config(
-                text=f"5th Slot: {'Disabled' if new_value else 'Enabled'}")
+                text=f"5th Slot: {'Disabled' if new_value else 'Enabled'}"
+            )
+            self.ui.root.update_idletasks()
 
     def open_blacklist(self):
 
