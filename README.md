@@ -26,5 +26,6 @@ Pillow is **required** - The app will not function without it.
 
 **Attribution stuff:**
 Free to use & share
-Created by: Mark (MarkovVladislavovich)
+Created by: Mark
 GitHub: https://github.com/MarkVladislavovich
+Discord: mark_vladislavovich (Mark)
