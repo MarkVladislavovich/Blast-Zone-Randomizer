@@ -1,18 +1,57 @@
 import datetime
+import os
 
 class DebugManager:
-    LOG_FILE = "exe_debug_log.txt"  # Stored in working directory
+    Debug_Enabled = False # Toggle to activate Debug outputs
+    Output_Directory = "debug_output"
 
-    @staticmethod
-    def log(message):
+    # ----- File Writer -----
+    @classmethod
+    def _write_file(cls, filename, data):
+        if not cls.Debug_Enabled: # Checks if Debug_Enabled is set to False.
+            return False
+
         try:
-            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            with open(DebugManager.LOG_FILE, "a", encoding="utf-8") as f:
-                f.write(f"[{timestamp}] {message}\n")
-        except Exception:
-            pass  # silently ignore logging errors
+            os.makedirs(cls.Output_Directory, exist_ok=True)
+            path = os.path.join(cls.Output_Directory, filename)
 
-    # This is really only generated since I don't want to remove its integration.
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(data)       # Opens a file and writes data inside.
+
+            return True
+        except Exception:
+            return False
+
+    # ----- Functions -----
+
+    def weapon_log(self):
+        try:
+            weapons = self.randomizer.generate_loadout()
+            DebugManager.log(f"Weapons Generated: {weapons}")
+        except Exception as e:
+            DebugManager.log(f"Randomizer Error: {e}")
+            return
+
+        for i, weapon in enumerate(weapons):
+            def slot_update(idx=i,w=weapons):
+                try:
+                    disable = self.settings.get_setting("disable_fifth_slot")
+                    DebugManager.log(f"Updating slot {idx}, weapon: {w}, disable_fifth_slot={disable}")
+
+                    if idx == 4 and disable:
+                        self.ui.weapon_labels[idx].config(text="[Disabled]")
+                    else:
+                        self.ui.weapon_labels[idx].config(text=w)
+                except Exception as e:
+                    DebugManager.log(f"Slot {idx} update error: {e}")
+
+            self.ui.root.after(300 * (i + 1), slot_update())
+
+
+
+
+
+
 
 
     # Solved a REALLY annoying bug 11:38PM 29/11/2025:
