@@ -1,0 +1,6 @@
+[2026-02-04 15:18:07] Weapons generated: ['Rocket Hammer (Legendary)', 'Star Cannon (Epic)', 'Small Bomb (Epic)', 'Bone Bomb (Epic)', 'Grenade Launcher (Epic)']
+[2026-02-04 15:18:07] Updating slot 0, weapon: Rocket Hammer (Legendary), disable_fifth_slot=False
+[2026-02-04 15:18:07] Updating slot 1, weapon: Star Cannon (Epic), disable_fifth_slot=False
+[2026-02-04 15:18:08] Updating slot 2, weapon: Small Bomb (Epic), disable_fifth_slot=False
+[2026-02-04 15:18:08] Updating slot 3, weapon: Bone Bomb (Epic), disable_fifth_slot=False
+[2026-02-04 15:18:08] Updating slot 4, weapon: Grenade Launcher (Epic), disable_fifth_slot=False
