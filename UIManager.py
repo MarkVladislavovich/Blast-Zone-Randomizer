@@ -1,6 +1,6 @@
 import tkinter
 import tkinter as tk
-from DebugManager import DebugManager
+# from DebugManager import DebugManager
 
 
 class UIManager:
@@ -136,23 +136,24 @@ class UIManager:
         def _generate():
             try:
                 weapons = self.randomizer.generate_loadout()
-                DebugManager.log(f"Weapons generated: {weapons}")
+                # DebugManager.log(f"Weapons generated: {weapons}")
             except Exception as e:
-                DebugManager.log(f"Randomizer error: {e}")
+                # DebugManager.log(f"Randomizer error: {e}")
                 return
 
             for i, weapon in enumerate(weapons):
                 def update_slot(idx=i, w=weapon):
                     try:
                         disable = self.settings.get_setting("disable_fifth_slot")
-                        DebugManager.log(f"Updating slot {idx}, weapon: {w}, disable_fifth_slot={disable}")
+                        # DebugManager.log(f"Updating slot {idx}, weapon: {w}, disable_fifth_slot={disable}")
 
                         if idx == 4 and disable:
                             self.ui.weapon_labels[idx].config(text="[Disabled]")
                         else:
                             self.ui.weapon_labels[idx].config(text=w)
                     except Exception as e:
-                        DebugManager.log(f"Slot {idx} update error: {e}")
+                        # DebugManager.log(f"Slot {idx} update error: {e}")
+                        pass
 
                 self.ui.root.after(300 * (i + 1), update_slot)
 
