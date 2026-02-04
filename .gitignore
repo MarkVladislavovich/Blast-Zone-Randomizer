@@ -1,0 +1,20 @@
+# Virtual environments
+.venv/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build junk
+build/
+dist/
+*.spec
+
+# IDE stuff
+.idea/
+.vscode/
+
+# Development stuff
+Development/
