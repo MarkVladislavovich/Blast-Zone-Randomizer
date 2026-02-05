@@ -1,4 +1,5 @@
 **Blast Zone Loadout Randomizer**
+
 Started: October 2025
 
 This is a public, **free** randomizer for the Roblox game Blast Zone, guaranteeing at least a few questionable, horrible loadouts.
