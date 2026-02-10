@@ -7,14 +7,6 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Build junk
-build/
-dist/
-*.spec
-
 # IDE stuff
 .idea/
 .vscode/
-
-# Development stuff
-Development/
