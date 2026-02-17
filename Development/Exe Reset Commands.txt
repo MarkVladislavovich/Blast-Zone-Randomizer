@@ -1,9 +1,0 @@
-pyinstaller --onefile --windowed `
---add-data "Randomizer_Background_Final.png;." `
---add-data "weapons.json;." `
---add-data "settings.json;." `
-Main_UI.py
-
-
-Remove-Item -Recurse -Force .\build
-Remove-Item -Recurse -Force .\dist
