@@ -1,0 +1,21 @@
+> Select Repo:
+cd "D:\Blast Zone Randomizer Project\Blast-Zone-Randomizer"
+cd "D:\Blast Zone Randomizer Project\Blast-Zone-Randomizer\Development"
+
+> Check Status:
+git status
+
+> Add all changes:
+git add -A
+
+> Commit Changes:
+git commit -m "MSG"
+
+> Pull remote:
+git pull --rebase origin main
+
+> Push local commits:
+git push origin main
+
+> Remove Item:
+Remove-Item "FILELOCATION" -Recurse -Force
