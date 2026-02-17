@@ -32,8 +32,8 @@ Free to use & share
 Created by: Mark
 GitHub: https://github.com/MarkVladislavovich
 Discord: mark_vladislavovich (Mark)
-Started: October 2025
-Lost commit history due to Migrating data 2nd February 2026
+Started: October 2025 |
+Lost commit history due to Migrating data 2nd February 2026, I'd rather lose history then dox myself so I think it was worth it.
 
 
 This program **can** be copied/modified freely, though credit would be appreciated
