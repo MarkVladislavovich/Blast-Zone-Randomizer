@@ -1,0 +1,34 @@
+Hello! This file is for installing the BZ Randomizer during its Beta release.
+
+---- Python Installation ----
+
+Step 1: Install Python from https://www.python.org/
+
+Step 2: During Installation, select 'Add Python to PATH' to allow commands to the Terminal.
+
+---- Command Prompt ----
+
+Step 3: Press Win + R, Type 'cmd' and press Enter.
+(Or search for PowerShell inside the start menu)
+
+---- Upgrade Pip ---- (Python's Packet Manager)
+
+Step 4: Type: "python -m pip install --upgrade pip
+(This ensures you have the latest version of pip to avoid errors)
+
+---- Dependencies Install ----
+
+Step 5: Install Pillow (Required to create the UI) type: "python -m pip install pillow"
+
+Step 6: Verify Tkinter, python -c "import tkinter; print(tkinter.TkVersion)"
+(If this shows a version number without an error, e.g 8.6. It means it is installed correctly)
+
+---- Run the .exe ----
+
+The .exe for the application is inside Blast-Zone-Randomizer-main\Blast-Zone-Randomizer-main\dist\
+under Main_UI. 
+
+
+
+If you have any complications feel free to reach out, and I will try to help if I can.
+
