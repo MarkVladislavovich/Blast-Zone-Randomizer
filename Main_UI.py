@@ -6,6 +6,7 @@ from BlacklistManager import BlacklistManager
 from Randomizer import Randomizer
 from UIManager import UIManager
 from AssetManager import AssetManager
+from VersionController import VersionController
 
 import time
 
@@ -17,6 +18,10 @@ class MainUI:
         self.asset_manager = AssetManager()  # only once
         self.blacklist_manager = BlacklistManager(self.asset_manager, "weapons.json")
         self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
+
+        # Version control shenanigans
+        self.version_controller = VersionController()
+        self.version = self.version_controller.version
 
         # Creating the UI Manager
         self.ui_manager = UIManager(
@@ -40,18 +45,45 @@ class MainUI:
         self.canvas = tk.Canvas(self.root, width=900, height=600)
         self.canvas.pack(fill="both", expand=True)
 
+        title_frame = tk.Frame(self.root, bg="white", bd=4, relief="groove", width=464, height=71)
+
         # Title part
         title_label = tk.Label(
-            self.root,
+            title_frame,
             text="Blast Zone Randomizer",
             bg="white",
+            fg="black",
             font=("TkDefaultFont", 24, "bold")
+        )
+        # Packs inside the frame
+        title_label.pack(expand=True, fill="both",pady=10, padx=10)
+
+        # Version control stuff!!!!! So you know the version!
+        version_label = tk.Label(
+            self.root, relief="groove",
+            text=f"Version: {self.version}", # Updates the numbers
+            bg="#e0e0e0",
+            fg="black",
+            font=("TkDefaultFont", 12)
+        )
+        self.canvas.create_window(
+            50 + (233-50)/2,        # Centre X value
+            525 + (586-505)/2,      # Centre Y value
+            window=version_label,
+            width=(218-50),
+            height=(586-545)
         )
 
         self.canvas.create_window(
-            326 + 464/2,    # X Center
+            326 + 494/2,
+            28 + 71/2,
+            window=title_frame, width=464, height=71
+        )
+
+        self.canvas.create_window(
+            326 + 514/2,    # X Center
             28 + 71/2,      # Y Center
-            window=title_label, width=464,height=71
+            window=title_frame, width=464,height=71
         )
 
         # Background Image
