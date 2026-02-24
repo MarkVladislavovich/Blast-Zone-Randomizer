@@ -10,7 +10,7 @@ Well this is the perfect side application for any certified blaster!
 Only limits are what you choose... or what I couldn't figure out how to program.
 
 **Features:**
-Full loadout generation (4 slots or 5 slot generation)
+Full loadout generation (4-slot or 5-slot generation)
 Toggleable Reskins (Allows for Reskins to appear or not)
 Blacklisting (Allows for individual weapons to be removed)
 Individual slot rerolling.
@@ -24,8 +24,9 @@ At the current moment this was built on Windows 11, confirmation it can run on L
 
 **Get Started:**
 1. Download the provided files.
-2. Go to the folder named "Development" and find the "Beta Installation" text file.
+2. Go to the folder named "Development" and find the "Alpha Installation" text file.
 3. Follow the instructions provided.
+(this will change once the program is finished c: )
 
 **Attribution stuff:**
 Free to use & share
