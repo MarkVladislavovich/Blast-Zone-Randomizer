@@ -5,7 +5,7 @@ Hello! This file is for installing the BZ Randomizer during its Alpha release.
 Step 1: Install Python from https://www.python.org/
 Preferably download Python 3.10 or newer versions, 64-bit recommended.
 
-Step 2: During Installation, select 'Add Python to PATH' to allow commands to the Terminal.
+Step 2: During Installation, select 'Add Python to PATH' to allow commands to the Terminal, then restart the terminal.
 
 Verification: To verify if Python has properly installed, run the following command:
 "python --version" or "python3 --version"
@@ -14,14 +14,15 @@ Verification: To verify if Python has properly installed, run the following comm
 
 Step 3: Open up the Command Prompt
 Windows: Press Win + R, Type 'cmd' and press Enter.
-Linux: Ctrl + Alt + T              
+Linux: Ctrl + Alt + T to open Terminal.
 ~~MacOS: Command + Space, type "Terminal"~~ [NOT supported as of now!]
 
 # Upgrade Pip (Python's Packet Manager)
 
-Step 4: Type: "python -m pip install --upgrade pip"
-If that fails, input "python3 -m pip install --upgrade pip"
+Step 4: Type: python -m pip install --upgrade pip
+If that fails, input: python3 -m pip install --upgrade pip
 (This ensures you have the latest version of pip to avoid errors, and -m avoids issues with the PATH.)
+If you see a message pip is already upto date, then great! it's already installed.
 
 # Dependencies Install
 
@@ -30,7 +31,7 @@ Step 5: Install Pillow (Required to create the UI) type:
 
 Step 6: Verify Tkinter type:
 python -c "import tkinter; print(tkinter.TkVersion)"
-
+It should show a version number like 8.5, if you get an error then Tkinter is likely not installed.
 
 # Run the .exe
 
