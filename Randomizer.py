@@ -98,9 +98,9 @@ class Randomizer:
 
         # Funny easter egg
         if slot_index >= len(current_loadout) or current_loadout[slot_index] == "[DISABLED]":
-            return "I can't find any weapons :c"
+            return "…ᘛ⁐̤ᕐᐷ"
         if not enable_empty and current_loadout[slot_index] in empty_names:
-            return "I can't find any weapons :c"
+            return "…ᘛ⁐̤ᕐᐷ"
 
         other_items = []
         for i, item in enumerate(current_loadout):
