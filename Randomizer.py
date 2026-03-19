@@ -59,7 +59,7 @@ class Randomizer:
                 elif empty_weapon:
                     loadout.append(random.choice(empty_weapon))
 
-        # Logs the result for the debugger
+        # Logs the result for the debugger         <<<< After DebugManager is made please toggle this me
        # DebugManager.log(f"[Randomizer] loadout={loadout}")
 
         # Converts to strings for displaying
@@ -74,7 +74,7 @@ class Randomizer:
     def reroll(self, slot_index, current_loadout):
 
         if slot_index == 4 and self.settings.get_setting("disable_fifth_slot"):
-            return "I can't find any weapons :c"
+            return "…ᘛ⁐̤ᕐᐷ"
 
         allow_reskins = self.settings.get_setting("enable_reskins")
         enable_empty = self.settings.get_setting("enable_empty")

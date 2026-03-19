@@ -15,4 +15,4 @@ class VersionController:
             return version
 
         except Exception:
-            return "v0.0.0"
+            return "vX.X.X"
