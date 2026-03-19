@@ -10,3 +10,6 @@ __pycache__/
 # IDE stuff
 .idea/
 .vscode/
+
+# User Generated Stuffs
+.settings.json
