@@ -34,15 +34,16 @@ At the current moment this was built on Windows 11, confirmation it can run on L
 - Created by: Mark
 - GitHub: https://github.com/MarkVladislavovich
 - Discord: mark_vladislavovich (Mark)
-- Started: October 2025 
+- Started: October 2025
+  
 This program **can** be copied/modified freely, though credit would be appreciated
 
 Lost commit history due to Migrating data 2nd February 2026, 
 I'd rather lose history then dox myself so I think it was worth it.
 
-**Important note | AI Usage:**
-Yes, I did have assistance from **AI** to write the code, but I designed & planned the architecture prior to the beginning of its assistance (Late October 2025).
-No code was copied & pasted, and was recreated & formatted by hand (or technically keyboard) since I struggle with coding but can plan systems quite well. I thought it would be best to be upfront about AI's role.
+# **Important note | AI Usage:**
+Yes, I did have assistance from **AI** to write the code, but I designed & planned the architecture prior to the beginning of its assistance (Early November 2025).
+**No code was copied & pasted**, rather it was recreated & formatted by hand (or technically keyboard) since I struggle with coding but can plan systems quite well. I thought it would be best to be upfront about AI's role.
 
 And remember this is my first ever project, and I am entirely unexperienced and still learning.
 
