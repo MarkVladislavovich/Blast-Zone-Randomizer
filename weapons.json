@@ -17,7 +17,7 @@
     {"name": "Impulse Jumper", "rarity": "Uncommon", "reskin": false, "blacklisted": false},
     {"name": "Impulse Nuke", "rarity": "Uncommon", "reskin": false, "blacklisted": false},
     {"name": "Impulse Remote Explosive", "rarity": "Uncommon", "reskin": false, "blacklisted": false},
-    {"name": "Explosive Barrel", "rarity": "Uncommon", "reskin": false, "blacklisted": false},
+    {"name": "Exploding Barrel", "rarity": "Uncommon", "reskin": false, "blacklisted": false},
 
     {"name": "Bone Bomb", "rarity": "Epic", "reskin": false, "blacklisted": false},
     {"name": "Bouncy Bomb", "rarity": "Epic", "reskin": false, "blacklisted": false},
