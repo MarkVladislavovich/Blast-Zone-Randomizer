@@ -212,6 +212,18 @@ class MainUI:
             self.root.update()
             time.sleep(delay)
 
+
+    # def holyshit_it_exploded
+
+        # User presses close button
+
+        # UI plays explosion gif
+
+        # Plays funny explosion audio
+
+        # Closes application
+
+
 # Runs if the file is executed (Why did I even add this? you need the console to see this.)
 if __name__ == "__main__":
     print("[INFO] Opening Randomizer...")
