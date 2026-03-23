@@ -33,7 +33,7 @@ class SettingsManager:
             # Default settings
             self.settings = defaults
             self._save_settings()
-            print(f"[INFO] Created default settings at {self.file_path}")
+            # print(f"[INFO] Created default settings at {self.file_path}")
             return defaults
         try:
             with open(self.file_path, "r") as f:
@@ -48,7 +48,7 @@ class SettingsManager:
             return settings
 
         except json.JSONDecodeError:
-            print("[ERROR] Unable to parse settings.json. Reverting to default.")
+            # print("[ERROR] Unable to parse settings.json. Reverting to default.")
             self.settings = defaults
             self._save_settings()
             return defaults
@@ -74,9 +74,11 @@ class SettingsManager:
             print(f"- {key}: {value}")
         return self.settings
 
-    # Handles Multi-Empty function and updates accordingly.
-    # Cycles between three states: Red > Green > Gold > Red.
-    def cycle_empty_mode(self):
+    # [THIS IS NOT USED ANYMORE! AND WILL BE REMOVED LATER!]
+
+    # Handled Multi-Empty function and updates accordingly.
+    # Cycled between three states: Red > Green > Gold > Red.
+    #def cycle_empty_mode(self):
 
         empty = self.get_setting("enable_empty")
         multi = self.get_setting("multi_empty")
@@ -96,7 +98,6 @@ class SettingsManager:
             self.set_setting("enable_empty", False)
             self.set_setting("multi_empty", False)
             mode = "Disabled"
-
 
         if self.ui:
             self.ui.btn_enable_empty.config(text=f"Empty Mode: {mode}")

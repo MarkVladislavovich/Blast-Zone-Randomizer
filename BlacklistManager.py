@@ -12,14 +12,14 @@ class BlacklistManager:
     # Loads weapons from the JSON.
     def _load_weapons(self):
         if not os.path.exists(self.file_path):
-            print(f"[ERROR] {self.file_path} is missing, restoring default.")
+            # print(f"[ERROR] {self.file_path} is missing, restoring default.")
             self.weapons = []
             self._save_weapons()
             return self.weapons
 
         with open(self.file_path, "r", encoding='utf-8') as f:
             weapons = json.load(f)
-        print(f"Successfully loaded {len(weapons)} from {self.file_path}")
+        # print(f"Successfully loaded {len(weapons)} from {self.file_path}")
         return weapons
 
         # Saves updates back to the file.
@@ -39,13 +39,13 @@ class BlacklistManager:
                 w["blacklisted"] = not w.get("blacklisted", False)
                 self._save_weapons()
                 status = "blacklisted" if w["blacklisted"] else "un-blacklisted"
-                print(f"{w['name']} is now {status}.")
+                # print(f"{w['name']} is now {status}.")
                 return w["blacklisted"]
-        print(f"[ERROR] Weapon '{name}' not found.")
+        # print(f"[ERROR] Weapon '{name}' not found.")
         return None
 
         # Lists all currently blacklisted weapons.
-    def list_blacklisted(self):
+    # def list_blacklisted(self):
         blacklisted = [w["name"] for w in self.weapons if w.get("blacklisted", False)]
         if not blacklisted:
             print("No weapons currently blacklisted.")
@@ -54,13 +54,14 @@ class BlacklistManager:
             for name in blacklisted:
                 print(f"- {name}")
         return blacklisted
+        # This is entirely useless for the Exe releases.
 
     # Clears blacklist.... duh
     def clear_blacklist(self):
         for w in self.weapons:
             w["blacklisted"] = False
         self._save_weapons()
-        print("Blacklist successfully cleared.")
+        # print("Blacklist successfully cleared.")
 
     # Method for Randomizer
     def get_allowed_weapons(self, full_list=False):
