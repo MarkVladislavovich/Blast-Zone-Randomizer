@@ -43,7 +43,7 @@ I'd rather lose history then dox myself so I think it was worth it.
 
 # **Important note | AI Usage:**
 Yes, I did have assistance from **AI** to write the code, but I designed & planned the architecture prior to the beginning of its assistance (Early November 2025).
-**No code was copied & pasted**, rather it was recreated & formatted by hand (or technically keyboard) since I struggle with coding but can plan systems quite well. I thought it would be best to be upfront about AI's role.
+**No code was copied & pasted**, rather it was recreated & formatted by hand (or technically keyboard) since I struggle with coding but can plan systems quite well. I thought it would be best to be upfront about AI's role and the fact as this project goes on I plan to fully phase out its "assistance".
 
 And remember this is my first ever project, and I am entirely unexperienced and still learning.
 
