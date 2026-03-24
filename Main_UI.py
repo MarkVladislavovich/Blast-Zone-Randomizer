@@ -168,11 +168,13 @@ class MainUI:
 
         # Multi-Chance Label
         self.multi_label = tk.Label(self.options_frame, text="Multi Chance (0-1):", bg="#e0e0e0", font=("TkDefaultFont",12))
+        # self.multi_label = tk.Label(self.options_frame, text= {multi_chance}) Testing to add a icon to show current
         self.multi_label.pack(pady=10)
 
         # Multi Chance Entry
         self.txt_multi_chance = tk.Entry(self.options_frame, justify="center", font=("TkDefaultFont",12))
-        self.txt_multi_chance.insert(0,"0.1")
+        current_value = self.settings_manager.get_setting("multi_chance") # Grabs the current multi-chance instead of "0.1"
+        self.txt_multi_chance.insert(0, current_value)
         self.txt_multi_chance.pack(pady=20)
 
         # Apply button so you can actually use the damn feature
@@ -212,12 +214,21 @@ class MainUI:
             self.root.update()
             time.sleep(delay)
 
+    # Functions to make the Randomizer explode when closed
 
-    # def holyshit_it_exploded
+    # def close_explosion_mode
+
+        # is always explode?
+            # Fucking explode
+
+        # is not?
+            # randomly set chance to explode
+
+    # def holyshit_it_just_exploded
 
         # User presses close button
 
-        # UI plays explosion gif
+        # UI fucking explodes (Play gif)
 
         # Plays funny explosion audio
 
