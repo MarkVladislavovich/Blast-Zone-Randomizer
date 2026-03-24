@@ -152,14 +152,15 @@ class MainUI:
 
         # Settings Icon Placeholder
         settings_label = tk.Label(
-            self.root, relief="groove", text="Settings", bg="#e0e0e0",
+            self.canvas, relief="groove", text="Settings", bg="#e0e0e0",
             fg="black", font=("TkDefaultFont", 12)
-        )
+        )   # add command=self.open_settings
         # Creates the label in the canvas
-        self.canvas.create_window(60, 60, window=settings_label)
+        settings_panel = self.canvas.create_window(852, 64, window=settings_label, width=70, height=70)
+        self.canvas.tag_raise(settings_panel)
 
         # Draws cube after label
-        cube = self.canvas.create_rectangle(818, 59, 885, 126, fill="blue", outline="black")
+        cube = self.canvas.create_rectangle(818, 29, 885, 98, fill="white", outline="black")
 
         self.canvas.tag_raise(cube)
 
