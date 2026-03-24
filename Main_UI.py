@@ -59,17 +59,6 @@ class MainUI:
         # Packs inside the frame
         title_label.pack(expand=True, fill="both",pady=10, padx=10)
 
-        # Settings Icon Placeholder
-        settings_label = tk.Label(
-            self.root, relief="groove",
-            text="Settings",
-            bg="#e0e0e0",
-            fg="black",
-            font=("TkDefaultFont", 12)
-        )
-        settings_label.pack()
-
-
         # Version control stuff!!!!! So you know the version!
         self.version = version #creates version
 
@@ -160,6 +149,19 @@ class MainUI:
         self.options_frame = tk.Frame(self.root, bg="#e0e0e0", width=245, height=520, highlightbackground="black", highlightthickness=1)
         self.options_frame.pack_propagate(False) # < Prevents the option tab from shrinking
         self.canvas.create_window(18 + 245/2, 28 + 450/2 + 20, window=self.options_frame)
+
+        # Settings Icon Placeholder
+        settings_label = tk.Label(
+            self.root, relief="groove", text="Settings", bg="#e0e0e0",
+            fg="black", font=("TkDefaultFont", 12)
+        )
+        # Creates the label in the canvas
+        self.canvas.create_window(60, 60, window=settings_label)
+
+        # Draws cube after label
+        cube = self.canvas.create_rectangle(818, 59, 885, 126, fill="blue", outline="black")
+
+        self.canvas.tag_raise(cube)
 
         # BUTTONS!!
 
