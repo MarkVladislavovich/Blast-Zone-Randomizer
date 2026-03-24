@@ -55,8 +55,20 @@ class MainUI:
             fg="black",
             font=("TkDefaultFont", 24, "bold")
         )
+
         # Packs inside the frame
         title_label.pack(expand=True, fill="both",pady=10, padx=10)
+
+        # Settings Icon Placeholder
+        settings_label = tk.Label(
+            self.root, relief="groove",
+            text="Settings",
+            bg="#e0e0e0",
+            fg="black",
+            font=("TkDefaultFont", 12)
+        )
+        settings_label.pack()
+
 
         # Version control stuff!!!!! So you know the version!
         self.version = version #creates version
@@ -70,25 +82,14 @@ class MainUI:
         )
         version_label.pack()
 
-        self.canvas.create_window(
-            50 + (233-50)/2,        # Centre X value
-            525 + (586-505)/2,      # Centre Y value
-            window=version_label,
-            width=(218-50),
-            height=(586-545)
-        )
+        self.canvas.create_window(50 + (233-50)/2, 525 + (586-505)/2,      # Centre X & Y
+            window=version_label, width=(218-50), height=(586-545))
 
-        self.canvas.create_window(
-            326 + 494/2,
-            28 + 71/2,
-            window=title_frame, width=464, height=71
-        )
+        self.canvas.create_window(326 + 494/2, 28 + 71/2,
+            window=title_frame, width=464, height=71)
 
-        self.canvas.create_window(
-            326 + 514/2,    # X Center
-            28 + 71/2,      # Y Center
-            window=title_frame, width=464,height=71
-        )
+        self.canvas.create_window(326 + 514/2, 28 + 71/2,      # X & Y Centre
+            window=title_frame, width=464,height=71)
 
         # Background Image
         self.bg_image = self.asset_manager.load_image("Randomizer_Background_Final.png")
@@ -172,7 +173,7 @@ class MainUI:
 
         # Multi-Chance Label
         self.multi_label = tk.Label(self.options_frame, text="Multi Chance (0-1):", bg="#e0e0e0", font=("TkDefaultFont",12))
-        # self.multi_label = tk.Label(self.options_frame, text= {multi_chance}) Testing to add a icon to show current
+        # self.multi_label = tk.Label(self.options_frame, text= {multi_chance}) Testing to add an icon to show current
         self.multi_label.pack(pady=10)
 
         # Multi Chance Entry
@@ -232,7 +233,7 @@ class MainUI:
 
         # User presses close button
 
-        # UI fucking explodes (Play gif)
+        # UI fucking explodes (Play GIF)
 
         # Plays funny explosion audio
 
