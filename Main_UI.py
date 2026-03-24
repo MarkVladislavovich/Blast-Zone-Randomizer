@@ -11,7 +11,7 @@ from VersionController import VersionController
 import time
 
 class MainUI:
-    def __init__(self):
+    def __init__(self, version):
 
         # Creating managers.
         self.settings_manager = SettingsManager("settings.json")
@@ -59,13 +59,17 @@ class MainUI:
         title_label.pack(expand=True, fill="both",pady=10, padx=10)
 
         # Version control stuff!!!!! So you know the version!
+        self.version = version #creates version
+
         version_label = tk.Label(
             self.root, relief="groove",
-            text=f"Version: {self.version}", # Updates the numbers
+            text=f"Version: {self.version}", # shows the numbers
             bg="#e0e0e0",
             fg="black",
             font=("TkDefaultFont", 12)
         )
+        version_label.pack()
+
         self.canvas.create_window(
             50 + (233-50)/2,        # Centre X value
             525 + (586-505)/2,      # Centre Y value
@@ -238,7 +242,9 @@ class MainUI:
 # Runs if the file is executed (Why did I even add this? you need the console to see this.)
 if __name__ == "__main__":
     print("[INFO] Opening Randomizer...")
-    ui = MainUI()
+
+    version_controller = VersionController()
+    ui = MainUI(version=version_controller.version)
 
 
     # This file was such a pain in my ass, I'd be screwed if I did not make a wireframe.

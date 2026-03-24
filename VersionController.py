@@ -1,6 +1,5 @@
 import subprocess
 
-
 class VersionController:
     def __init__(self):
         self.version = self.get_git_version()
@@ -11,8 +10,6 @@ class VersionController:
             version = subprocess.check_output(
                 ["git", "describe", "--tags", "--abbrev=0"],
                 stderr=subprocess.DEVNULL).decode().strip()
-
             return version
-
         except Exception:
             return "vX.X.X"

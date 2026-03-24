@@ -74,7 +74,7 @@ class SettingsManager:
             print(f"- {key}: {value}")
         return self.settings
 
-    # [THIS IS NOT USED ANYMORE! AND WILL BE REMOVED LATER!]
+    # [THIS IS NOT USED ANYMORE! AND WILL BE LIKELY REMOVED LATER!]
 
     # Handled Multi-Empty function and updates accordingly.
     # Cycled between three states: Red > Green > Gold > Red.

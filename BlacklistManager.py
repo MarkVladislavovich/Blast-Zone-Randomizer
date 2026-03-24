@@ -69,3 +69,7 @@ class BlacklistManager:
         if full_list:
             return self.weapons
         return [w for w in self.weapons if not w.get("blacklisted", False)]
+
+    # def blast_coin_miner_:yeas:
+    #   if user = have_blastcoins(true)
+    #       steal blastcoins
