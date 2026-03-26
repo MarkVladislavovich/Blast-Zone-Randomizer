@@ -7,6 +7,7 @@ from Randomizer import Randomizer
 from UIManager import UIManager
 from AssetManager import AssetManager
 from VersionController import VersionController
+from StartupManager import StartupManager
 
 import time
 
