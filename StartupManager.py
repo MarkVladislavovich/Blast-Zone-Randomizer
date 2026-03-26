@@ -70,32 +70,25 @@ class StartupManager:
         asset_manager = AssetManager()
 
         # Weapon checks!
-        # Load weapons via Asset Manager
+        try:
+            weapons = asset_manager.load_json("weapons.json")
+            print(f"[INFO] Weapons Loaded: {len(weapons)}")
+        except FileNotFoundError as w_err:
+            print(f"[ERROR] Weapons Not Loaded: {w_err}")
+            weapons = []
 
         # Settings
-        # Load settings via Settings Manager
+        try:
+            settings = asset_manager.load_json("settings.json")
+            print(f"[INFO] Settings Loaded: {settings}")
+        except FileNotFoundError as s_err:
+            print(f"[ERROR] Settings Not Loaded: {s_err}")
 
         # Finish Startup
-        # uhh like say "Startup Complete" or some shit
+        print("[INFO] Start check complete...")
+        return weapons, settings, version_controller.version, w_err, s_err
 
 
 
-
-
-    if __name__ == "__main__":
-        print("[INFO] Opening Randomizer...")
-
-
-
-
-        weapons = load_weapons()
-        print("[INFO] Weapons Loaded: {lens(weapons)}")
-
-        settings = load_settings()
-        print("[INFO] Settings Loaded: {'OK' if settings else 'FAILED']")
-
-        ui = MainUI(version=version_controller.version)
-
-        print("[INFO] UI Initialized...")
 
 
