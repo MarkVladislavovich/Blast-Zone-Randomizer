@@ -3,7 +3,9 @@ import os
 import json
 
 from SettingsManager import SettingsManager
-
+from AssetManager import AssetManager
+from VersionController import VersionController
+from Main_UI import MainUI
 
 class StartupManager:
     def check_pillow(self):
@@ -56,5 +58,44 @@ class StartupManager:
         results.append(self.check_pillow())
         results.append(self.check_settings())
         return results
+
+    def startup_check(self):
+        print("[INFO] Starting Check...")
+
+        # Shows the version stuffs
+        version_controller = VersionController()
+        print("[INFO] Version: {version_controller.version}")
+
+        # Wakes up AssetManager
+        asset_manager = AssetManager()
+
+        # Weapon checks!
+        # Load weapons via Asset Manager
+
+        # Settings
+        # Load settings via Settings Manager
+
+        # Finish Startup
+        # uhh like say "Startup Complete" or some shit
+
+
+
+
+
+    if __name__ == "__main__":
+        print("[INFO] Opening Randomizer...")
+
+
+
+
+        weapons = load_weapons()
+        print("[INFO] Weapons Loaded: {lens(weapons)}")
+
+        settings = load_settings()
+        print("[INFO] Settings Loaded: {'OK' if settings else 'FAILED']")
+
+        ui = MainUI(version=version_controller.version)
+
+        print("[INFO] UI Initialized...")
 
 
