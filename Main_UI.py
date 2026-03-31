@@ -243,4 +243,13 @@ class MainUI:
 
         # Closes application
 
+    # Runs if the file is executed (Why did I even add this? you need the console to see this.)
+    if __name__ == "__main__":
+        print("[INFO] Opening Randomizer...")
+
+
+
+version_controller = VersionController()
+ui = MainUI(version=version_controller.version)
+
     # This file was such a pain in my ass, I'd be screwed if I did not make a wireframe.
