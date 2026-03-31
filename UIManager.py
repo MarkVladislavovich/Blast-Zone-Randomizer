@@ -85,7 +85,7 @@ class UIManager:
         else:
             label = "Multi-Empty"
 
-        print(f"[DEBUG] Empty Mode: enable_empty={enable}, multi_empty={multi} > {label}")
+        # print(f"[DEBUG] Empty Mode: enable_empty={enable}, multi_empty={multi} > {label}")
         return f"Empty Mode: {label}"
 
     def toggle_empty(self): # Cycles index
@@ -184,7 +184,7 @@ class UIManager:
 
     def get_d5s_state(self):
         value = self.settings.get_setting('disable_fifth_slot')
-        print(f"[DEBUG] disable_fifth_slot = {value}")
+        # print(f"[DEBUG] disable_fifth_slot = {value}")
         return f"5th Slot: {'Disabled' if value else 'Enabled'}"
     # This returns the current value for Disable Fifth Slot inside the Settings
 
