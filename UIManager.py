@@ -60,10 +60,9 @@ class UIManager:
 
     def get_rkn_state(self):
         value = self.settings.get_setting('enable_reskins')
-        print(f"[DEBUG] enable_reskin = {value}")
+        # print(f"[DEBUG] enable_reskin = {value}")
         return f"Reskins: {'ON' if value else 'OFF'}"
-
-    # This returns the current value for Disable Fifth Slot inside the Settings
+    # This returns the current value for Reskins inside the Settings
 
     def toggle_reskin(self): # Flips boolean
         new_value = not self.settings.get_setting("enable_reskins")
@@ -75,34 +74,46 @@ class UIManager:
                 text=f"Reskins: {'ON' if new_value else 'OFF'}"
             )
 
-    # get_EMP_state
+    def get_emp_state(self):
+        enable = self.settings.get_setting("enable_empty")
+        multi = self.settings.get_setting("multi_empty")
+
+        if not enable:
+            label = "Disabled"
+        elif enable and not multi:
+            label = "Single"
+        else:
+            label = "Multi-Empty"
+
+        print(f"[DEBUG] Empty Mode: enable_empty={enable}, multi_empty={multi} > {label}")
+        return f"Empty Mode: {label}"
 
     def toggle_empty(self): # Cycles index
-        self.empty_index = (self.empty_index + 1) % len(self.empty_states)
-        state = self.empty_states[self.empty_index]
+        current_label = self.get_emp_state().split(": ")[1] # Disabled
 
         # Updates JSON-backed so the randomizer can actually see the damn values
-        if state == "Disabled":
-            self.settings.set_setting("enable_empty", False)
-            self.settings.set_setting("multi_empty", False)
-        elif state == "Single":
+        if current_label == "Disabled":
+            # Cycles to Single
             self.settings.set_setting("enable_empty", True)
             self.settings.set_setting("multi_empty", False)
-        elif state == "Multi-Empty":
+        elif current_label == "Single":
+            # Cycles to Multi
             self.settings.set_setting("enable_empty", True)
             self.settings.set_setting("multi_empty", True)
+        elif current_label == "Multi-Empty":
+            # Cycles back to Disabled
+            self.settings.set_setting("enable_empty", False)
+            self.settings.set_setting("multi_empty", False)
 
+        self.ui.btn_enable_empty.config(text=self.get_emp_state())
+        self.ui.root.update()
 
-        self.settings.empty_mode = state # Updates thy settings
-
-        self.ui.btn_enable_empty.config(text=f"Empty Mode: {state}")
-
-        # Boarder colour updating
-        colour = self.empty_colours[state]
-        self.ui.btn_enable_empty.config(
-            highlightbackground=colour,
-            highlightthickness=4
-        )
+        # Old Boarder colour updating code for the recycled colour swapping idea
+        # colour = self.empty_colours[state]
+        # self.ui.btn_enable_empty.config(
+           # highlightbackground=colour,
+           # highlightthickness=4
+        # )
 
     def set_multi_chance(self):
         try:

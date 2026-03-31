@@ -172,7 +172,7 @@ class MainUI:
         self.btn_enable_reskin.pack(pady=10)
 
         # Empty Mode
-        self.btn_enable_empty = tk.Button(self.options_frame, text="Empty Mode: Disabled", width=40, height=4)
+        self.btn_enable_empty = tk.Button(self.options_frame, text=self.ui_manager.get_emp_state(), width=40, height=4)
         self.btn_enable_empty.pack(pady=10)
 
         # Multi-Chance Label
