@@ -58,7 +58,12 @@ class UIManager:
 
         # Button Actions
 
-    # get_RKN_state
+    def get_rkn_state(self):
+        value = self.settings.get_setting('enable_reskins')
+        print(f"[DEBUG] enable_reskin = {value}")
+        return f"Reskins: {'ON' if value else 'OFF'}"
+
+    # This returns the current value for Disable Fifth Slot inside the Settings
 
     def toggle_reskin(self): # Flips boolean
         new_value = not self.settings.get_setting("enable_reskins")
@@ -166,9 +171,9 @@ class UIManager:
         threading.Thread(target=_generate, daemon=True).start()
 
 
-    def get_D5S_state(self):
+    def get_d5s_state(self):
         value = self.settings.get_setting('disable_fifth_slot')
-        # print(f"[DEBUG] disable_fifth_slot = {value}")
+        print(f"[DEBUG] disable_fifth_slot = {value}")
         return f"5th Slot: {'Disabled' if value else 'Enabled'}"
     # This returns the current value for Disable Fifth Slot inside the Settings
 
@@ -180,7 +185,7 @@ class UIManager:
         # UI updater thingamabob
         if hasattr(self.ui, 'btn_disable_5th'): # Updates text
             self.ui.btn_disable_5th.config(
-                text=self.get_D5S_state(),
+                text=self.get_d5s_state(),
             )
             self.ui.root.update_idletasks()
 

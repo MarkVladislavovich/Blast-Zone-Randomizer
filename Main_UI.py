@@ -168,7 +168,7 @@ class MainUI:
         # BUTTONS!!
 
         # Reskins
-        self.btn_enable_reskin = tk.Button(self.options_frame, text="Reskins: OFF", width=40, height=4)
+        self.btn_enable_reskin = tk.Button(self.options_frame, text=self.ui_manager.get_rkn_state(), width=40, height=4)
         self.btn_enable_reskin.pack(pady=10)
 
         # Empty Mode
@@ -198,7 +198,7 @@ class MainUI:
 
 
         # 5th slot button
-        self.btn_disable_5th = tk.Button(self.options_frame,text=self.ui_manager.get_D5S_state(),
+        self.btn_disable_5th = tk.Button(self.options_frame,text=self.ui_manager.get_d5s_state(),
         width=40, height=4, command=self.ui_manager.disable_5th_slot)
         self.btn_disable_5th.pack(pady=10)
 
