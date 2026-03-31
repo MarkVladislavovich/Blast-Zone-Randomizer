@@ -7,7 +7,7 @@ from Randomizer import Randomizer
 from UIManager import UIManager
 from AssetManager import AssetManager
 from VersionController import VersionController
-from StartupManager import StartupManager
+# from StartupManager import StartupManager
 
 import time
 
@@ -61,7 +61,7 @@ class MainUI:
         title_label.pack(expand=True, fill="both",pady=10, padx=10)
 
         # Version control stuff!!!!! So you know the version!
-        self.version = version #creates version
+        vc = VersionController
 
         version_label = tk.Label(
             self.root, relief="groove",

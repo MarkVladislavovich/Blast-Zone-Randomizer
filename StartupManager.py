@@ -5,7 +5,7 @@ import json
 from SettingsManager import SettingsManager
 from AssetManager import AssetManager
 from VersionController import VersionController
-from Main_UI import MainUI
+# from Main_UI import MainUI
 
 class StartupManager:
     def check_pillow(self):
