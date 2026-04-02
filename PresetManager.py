@@ -5,6 +5,17 @@
 # | Preset Name | Load | Save | Delete |
 
 class PresetManager:
+    def __init__(self):
+        # load file
+        # presets
+        # active preset = "Default"
+        # load preset()
+
+    def load_presets(self):
+    # import json
+    # try to open it
+        # if fails file not found, use default
+
     def active_preset(self):
 
         # Check what preset is currently being used
