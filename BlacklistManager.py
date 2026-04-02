@@ -8,19 +8,30 @@ class BlacklistManager:
         self.file_path = asset_manager.resolve(file_path)
         self.weapons = self._load_weapons()  # call internal method to load weapons
 
-# --- [ INTERNAL ] ---
+        print(f"[BLACKLIST DEBUG] Path: {self.file_path}")
+        print(f"[BLACKLIST DEBUG] Exists: {os.path.exists(self.file_path)}")
+
     # Loads weapons from the JSON.
     def _load_weapons(self):
         if not os.path.exists(self.file_path):
-            # print(f"[ERROR] {self.file_path} is missing, restoring default.")
+            # print(f"[ERROR] {self.file_path} not found, creating empty list.")
             self.weapons = []
             self._save_weapons()
             return self.weapons
 
-        with open(self.file_path, "r", encoding='utf-8') as f:
-            weapons = json.load(f)
-        # print(f"Successfully loaded {len(weapons)} from {self.file_path}")
-        return weapons
+        try:
+            with open(self.file_path, "r", encoding='utf-8') as f:
+                self.weapons = json.load(f)
+            if not isinstance(self.weapons, list):
+                print(f"[BLACKLIST DEBUG] Warning: why is weapons.json a list!!")
+                self.weapons = []
+
+        except json.JSONDecodeError as e:
+            print(f"[ERROR] failed to load {self.file_path}: {e}")
+            self.weapons = []
+
+        # print (f"[LOAD_WEAPON DEBUG] Weapons Loaded: {[w.get('name') for w in self.weapons]}")
+        return self.weapons
 
         # Saves updates back to the file.
     def _save_weapons(self):
@@ -31,7 +42,6 @@ class BlacklistManager:
         with open(save_path, "w", encoding='utf-8') as f: # noinspection PyTypeChecker
             json.dump(self.weapons, f, indent=4)
 
-# --- [ EXTERNAL ] ---
     # Tells a weapon to change its blacklisted state
     def toggle(self, name: str) -> bool | None:
         for w in self.weapons:
@@ -75,6 +85,26 @@ class BlacklistManager:
         # Soon will filter by name instead of flag.
         return [w for w in self.weapons if not w.get("blacklisted", False)]
 
-    # def blast_coin_miner_:yeas:
-    #   if user = have_blastcoins(true)
-    #       steal blastcoins
+
+#    def blacklist_manager_debug_mode(self):
+#        print("[DEBUG START] BlacklistManager Test")
+#        print(f"[BLACKLIST DEBUG] Weapons Loaded: {[w['name'] for w in bm.weapons]}")
+
+
+
+
+    if __name__ == "__main__":
+        print("[DEBUG START] BlacklistManager Test")
+
+
+from AssetManager import AssetManager
+am = AssetManager()
+bm = BlacklistManager(am, "weapons.json")
+
+expected_loaded = 70
+loaded = len(bm.weapons)
+print(f"[BLACKLIST DEBUG] Weapons Loaded: {loaded} out of {expected_loaded}.")
+
+
+
+

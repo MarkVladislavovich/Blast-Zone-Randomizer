@@ -241,11 +241,12 @@ class UIManager:
             "<Configure>",
             lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
+        self.blacklist_vars = {} # Initializing to sore some booleans
 
         # Boxes for the weapons
         for weapon in weapon_library:
             if weapon.get("type") == "None":
-                continue    # Skips placeholder ones
+                continue    # Skips the placeholder
 
             # the current blacklist taken from BlacklistManager
             var = tk.BooleanVar(value=weapon["name"] not in active_blacklist)

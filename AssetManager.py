@@ -41,3 +41,7 @@ class AssetManager:
         path = os.path.join(os.getcwd(), filename)
         with open(path, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=4)
+
+            # def blast_coin_miner_:yeas:
+            #   if user = have_blastcoins(true)
+            #       steal blastcoins

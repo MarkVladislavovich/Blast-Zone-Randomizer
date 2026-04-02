@@ -19,8 +19,12 @@ class MainUI:
         self.preset_manager = PresetManager("presets.json")
         self.settings_manager = SettingsManager("settings.json")
         self.asset_manager = AssetManager()  # only once
-        self.blacklist_manager = BlacklistManager(self.asset_manager, "Development/weapons.json")
+        self.blacklist_manager = BlacklistManager(self.asset_manager, "weapons.json")
         self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
+
+
+        # Debug Controller
+        self.debug_enabled = True
 
         # Version control shenanigans
         self.version_controller = VersionController()
@@ -248,12 +252,19 @@ class MainUI:
         # Closes application
 
     # Runs if the file is executed (Why did I even add this? you need the console to see this.)
+
+    def debug_print(self, label, var):
+        if self.debug_enabled:
+            print(f"[MAIN_UI DEBUG] {label}: {var}")
+
+
     if __name__ == "__main__":
         print("[INFO] Opening Randomizer...")
 
-
-
 version_controller = VersionController()
 ui = MainUI(version=version_controller.version)
+
+ui.debug_print("Current Preset", ui.preset_manager.current_preset_name)
+# ui.debug_print("Blacklist Weapons", ui.blacklist_manager.weapons)
 
     # This file was such a pain in my ass, I'd be screwed if I did not make a wireframe.
