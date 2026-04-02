@@ -4,38 +4,44 @@
 # Presets will be structured like this:
 # | Preset Name | Load | Save | Delete |
 
-# Active Preset
+class PresetManager:
+    def active_preset(self):
 
-    # Check what preset is currently being used
+        # Check what preset is currently being used
+        pass
 
-# Change the Preset
+    def change_preset(self):
 
-    # See what Preset (5 Slots) was interacted with
+        # See what Preset (5 Slots) was interacted with
 
-    # Save current Preset to its slot
+        # Save current Preset to its slot
 
-    # Load selected Preset
+        # Load selected Preset
+        pass
 
-# Create new Preset
+    def create_preset(self):
 
     # Ask for Preset Name
 
     # Save currently applied Blacklist tags
 
     # Add new Preset to list w/ Name
+        pass
 
-# Reset Preset
-# Recycle the def clear_blacklist from BlacklistManager
+    def reset_preset(self):
+        # Recycle the def clear_blacklist from BlacklistManager
+        pass
 
-# Save Preset
+    def save_preset(self):
 
     # Ask for Confirmation
         # Y
             # Override Preset list
         # N
             # Pass
+        pass
 
-# Delete Preset
+    def delete_preset(self):
 
     # Ask for Confirmation
         # Y
@@ -43,14 +49,17 @@
             # Remove Preset from list
         # N
             # Pass
+        pass
 
-# Add item to Preset
+    def add_weapon_to_preset(self):
 
     # Weapon box is ticked
     # Add weapon to list
+        pass
 
-# Remove item from Preset
+    def remove_weapon_from_preset(self):
 
     # Weapon is unticked from box
     # Remove weapon from list
+        pass
 

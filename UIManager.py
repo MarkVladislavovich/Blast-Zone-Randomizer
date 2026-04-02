@@ -4,13 +4,14 @@ import tkinter as tk
 
 
 class UIManager:
-    def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer, asset_manager):
+    def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer, asset_manager, preset_manager):
         self.blacklist_vars = None
         self.ui = main_ui
         self.settings = settings_manager
         self.blacklist = blacklist_manager
         self.randomizer = randomizer
         self.asset_manager = asset_manager
+        self.preset_manager = preset_manager
 
         # Placeholder for future images
         self.weapon_images = []
@@ -201,6 +202,9 @@ class UIManager:
             self.ui.root.update_idletasks()
 
     def open_blacklist(self):
+        # Loads the preset & the library
+        weapon_library = self.blacklist.weapons
+        active_blacklist = self.preset_manager.active_preset().get("blacklisted", [])
 
         # First creates the new window
         self.blacklist_window = tkinter.Toplevel(self.ui.root)
@@ -239,16 +243,23 @@ class UIManager:
         )
 
         # Boxes for the weapons
-        self.blacklist_vars = {}
+        for weapon in weapon_library:
+            if weapon.get("type") == "None":
+                continue    # Skips placeholder ones
 
-        for weapon in self.blacklist.get_allowed_weapons(full_list=True):
-            if weapon.get("type") == "None": # Skips the Empty slot
-                continue
-            var = tk.BooleanVar(value=not weapon.get("blacklisted", False))
-            chk = tk.Checkbutton(scroll_frame, text=weapon["name"], variable=var, bg="white", anchor="w", font=("TkDefaultFont", 12))
-
+            # the current blacklist taken from BlacklistManager
+            var = tk.BooleanVar(value=weapon["name"] not in active_blacklist)
+            chk = tk.Checkbutton(scroll_frame,
+                                 text=weapon["name"],
+                                 variable=var,
+                                 bg="white",
+                                 anchor="w",
+                                 font=("TkDefaultFont", 12))
             chk.pack(fill="x", padx=10)
+
             self.blacklist_vars[weapon["name"]] = var
+
+            # [REFACTOR] CHANGE TO WEAPONS.JSON TO DISPLAY ALL ENTRIES
 
         # Bottom fram buton
         button_frame = tk.Frame(self.blacklist_window, bg="white")

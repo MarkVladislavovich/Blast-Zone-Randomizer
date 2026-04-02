@@ -7,6 +7,7 @@ from Randomizer import Randomizer
 from UIManager import UIManager
 from AssetManager import AssetManager
 from VersionController import VersionController
+from PresetManager import PresetManager
 # from StartupManager import StartupManager
 
 import time
@@ -15,9 +16,10 @@ class MainUI:
     def __init__(self, version):
 
         # Creating managers.
+        self.preset_manager = PresetManager("presets.json")
         self.settings_manager = SettingsManager("settings.json")
         self.asset_manager = AssetManager()  # only once
-        self.blacklist_manager = BlacklistManager(self.asset_manager, "weapons.json")
+        self.blacklist_manager = BlacklistManager(self.asset_manager, "Development/weapons.json")
         self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
 
         # Version control shenanigans
@@ -30,7 +32,8 @@ class MainUI:
             self.settings_manager,
             self.blacklist_manager,
             self.randomizer,
-            self.asset_manager
+            self.asset_manager,
+            self.preset_manager
         )
 
         # Tkinter stuff for background (perhaps a root of some sort :o)
