@@ -68,6 +68,11 @@ class BlacklistManager:
         # Gives back the weapons that are not currently blacklisted
         if full_list:
             return self.weapons
+
+        # Gets the blacklist for the current preset.
+        # current_blacklist = preset.get_blacklist
+
+        # Soon will filter by name instead of flag.
         return [w for w in self.weapons if not w.get("blacklisted", False)]
 
     # def blast_coin_miner_:yeas:
