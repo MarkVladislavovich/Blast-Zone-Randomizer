@@ -79,11 +79,17 @@ class BlacklistManager:
         if full_list:
             return self.weapons
 
-        # Gets the blacklist for the current preset.
-        # current_blacklist = preset.get_blacklist
+        # for weapons inside self.weapons
+            # get the weapon name
 
-        # Soon will filter by name instead of flag.
-        return [w for w in self.weapons if not w.get("blacklisted", False)]
+        # and if not a name
+            # print a warning for debugging
+            # continue
+
+        # if not in blacklist
+            #append
+
+        # then return
 
 
 #    def blacklist_manager_debug_mode(self):
