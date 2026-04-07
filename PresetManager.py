@@ -1,4 +1,5 @@
 # This will allow BlacklistManager to load and save Presets
+from PIL.JpegPresets import presets
 
 
 # Presets will be structured like this:
@@ -41,15 +42,21 @@ class PresetManager:
         # Recycle the def clear_blacklist from BlacklistManager
         pass
 
-    def save_preset(self):
+    def _save_preset(self):
         # Ask for Confirmation
             # Y: Override Preset list
             # N: Pass
-        pass
+        self._save_preset()
+        print(f"[PRESET SAVE] Preset Saved (Auto-Confirm)")
 
-    def delete_preset(self):
+    def delete_preset(self, preset_name: str):
         # Ask for Confirmation
-            # Y: Delete data + Remove Preset from list
+        if preset_name in self.presets:
+            del self.presets[preset_name]
+            self._save_preset()
+            print(f"[PRESET DEBUG] Preset: {preset_name} deleted.)")
+        else:
+            print(f"[PRESET DEBUG] Preset: {preset_name} not found.")
             # N: Pass
         pass
 
@@ -68,9 +75,9 @@ class PresetManager:
         print("[DEBUG START] PresetManager Test...")
 
 pm = PresetManager("presets.json")
-print(f"[FINAL PRESET DEBUG] Loaded Presets: {pm.presets}")
-print(f"[FINAL PRESET DEBUG] Active Preset: {pm.current_preset_name}")
-print(f"[FINAL PRESET DEBUG] Active Blacklist {pm.active_preset()}")
+print(f"[PRESET DEBUG1] Loaded Presets: {pm.presets}")
+print(f"[PRESET DEBUG2] Active Preset: {pm.current_preset_name}")
+print(f"[PRESET DEBUG3] Active Blacklist {pm.active_preset()}")
 
 
 

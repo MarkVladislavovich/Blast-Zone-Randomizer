@@ -3,13 +3,13 @@ import os
 from AssetManager import AssetManager
 
 class BlacklistManager:
-    def __init__(self, asset_manager: AssetManager, file_path="weapons.json"):
+    def __init__(self, asset_manager: AssetManager, preset_manager, file_path="weapons.json"):
         self.asset_manager = asset_manager
         self.file_path = asset_manager.resolve(file_path)
+        self.preset_manager = preset_manager
         self.weapons = self._load_weapons()  # call internal method to load weapons
 
-        print(f"[BLACKLIST DEBUG] Path: {self.file_path}")
-        print(f"[BLACKLIST DEBUG] Exists: {os.path.exists(self.file_path)}")
+        print(f"[BLACKLIST DEBUG] Exists: {os.path.exists(self.file_path)} | Path: {self.file_path}")
 
     # Loads weapons from the JSON.
     def _load_weapons(self):
@@ -76,15 +76,28 @@ class BlacklistManager:
     # Method for Randomizer
     def get_allowed_weapons(self, full_list=False):
         # Gives back the weapons that are not currently blacklisted
+        print(f"[ALLOWED DEBUG] Total weapons in manager: {len(self.weapons)}")
+        print(f"[ALLOWED DEBUG] Active preset: {self.preset_manager.current_preset_name}")
+        print(f"[ALLOWED DEBUG] Blacklist: {self.preset_manager.active_preset().get('blacklisted', [])}")
         if full_list:
             return self.weapons
 
-        # for weapons inside self.weapons
-            # get the weapon name
+        allowed = []
 
-        # and if not a name
-            # print a warning for debugging
-            # continue
+        for w in self.weapons:
+            name = w.get("name")
+            if not name:
+                print(f"[FILTER ERROR] Weapon name missing: {w}")
+                continue
+
+            if self.preset_manager.is_blacklisted(name):
+                continue
+
+            allowed.append(w)
+            print(f"[ALLOWED DEBUG] Weapons Loaded: {[w.get('name', '<MISSING NAME.') for w in allowed]}")
+
+        return allowed
+
 
         # if not in blacklist
             #append
