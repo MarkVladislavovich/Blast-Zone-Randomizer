@@ -81,6 +81,12 @@ class PresetManager:
             self._save_preset()
             print(f"[PRESET DEBUG] Removed '{weapon_name}' from preset: {self.current_preset_name}")
 
+    def is_blacklisted(self, weapon_name: str):
+        # Checks if a weapon is currently in the blacklist preset
+        preset = self.active_preset()
+        blacklist = preset.get("blacklisted", [])
+        return weapon_name in blacklist
+
 
     if __name__ == "__main__":
         print("[DEBUG START] PresetManager Test...")

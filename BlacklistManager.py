@@ -84,7 +84,7 @@ class BlacklistManager:
                 continue
 
             allowed.append(w)
-            print(f"[ALLOWED DEBUG] Weapons Loaded: {[w.get('name', '<MISSING NAME.') for w in allowed]}")
+            # print(f"[ALLOWED DEBUG] Weapons Loaded: {[w.get('name', '<MISSING NAME.') for w in allowed]}")
 
         return allowed
 

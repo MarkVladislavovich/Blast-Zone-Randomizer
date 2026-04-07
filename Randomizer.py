@@ -2,9 +2,9 @@ import random
 from DebugManager import DebugManager # Used in Line 63 for printing output from Randomizer
 
 class Randomizer:
-    def __init__(self, settings_manager, blacklist_manager):
-        self.settings = settings_manager
+    def __init__(self, blacklist_manager, settings_manager):
         self.blacklist = blacklist_manager
+        self.settings = settings_manager
 
     def generate_loadout(self):
         all_weapons = self.blacklist.get_allowed_weapons()
@@ -130,6 +130,27 @@ class Randomizer:
 
         return result
 
-        # Also yes this is the randomizer logic re-used.
+    # Also yes this is the randomizer logic re-used.
+
+    if __name__ == "__main__":
+        from BlacklistManager import BlacklistManager
+        from PresetManager import PresetManager
+        from SettingsManager import SettingsManager
+        from AssetManager import AssetManager
+        from Randomizer import Randomizer
+
+        # Creating managers for testing
+        asset_manager = AssetManager()
+        settings_manager = SettingsManager("settings.json")
+        preset_manager = PresetManager("preset.json")
+        blacklist_manager = BlacklistManager(asset_manager, preset_manager)
+
+        randomiser = Randomizer(blacklist_manager, settings_manager)
+
+        loadout = randomiser.generate_loadout()
+        print("[RANDOMIZER TEST] Generated Loadout:")
+        print("\n".join(f"Slot {i}: {weapon}" for i, weapon in enumerate(loadout, start=1)))
+
+
 
         # …ᘛ⁐̤ᕐᐷ
