@@ -249,7 +249,7 @@ class UIManager:
                 continue    # Skips the placeholder
 
             # the current blacklist taken from BlacklistManager
-            var = tk.BooleanVar(value=weapon["name"] not in active_blacklist)
+            var = tk.BooleanVar(value=weapon["name"] in active_blacklist)
             chk = tk.Checkbutton(scroll_frame,
                                  text=weapon["name"],
                                  variable=var,
@@ -274,13 +274,11 @@ class UIManager:
     def save_blacklist(self):
         # Checkbox stuff
         for name, var in self.blacklist_vars.items():
-            for w in self.blacklist.weapons:
-                if w["name"] == name:
-                    w["blacklisted"] = not var.get()
-                    break
+            if var.get() is False: # Checks if item should be blacklisted
+                self.preset_manager.remove_weapon_from_preset(name)
+            else:
+                self.preset_manager.add_weapon_to_preset(name)
 
-        # save to file
-        self.blacklist._save_weapons()    # < shut up pycharm please
         # close window
         self.blacklist_window.destroy()
 
@@ -288,4 +286,4 @@ class UIManager:
         # Clears... the blacklist...
         self.blacklist.clear_blacklist()
         for var in self.blacklist_vars.values():
-            var.set(True)
+            var.set(False)

@@ -16,7 +16,6 @@ class BlacklistManager:
         if not os.path.exists(self.file_path):
             # print(f"[ERROR] {self.file_path} not found, creating empty list.")
             self.weapons = []
-            self._save_weapons()
             return self.weapons
 
         try:
@@ -33,21 +32,12 @@ class BlacklistManager:
         # print (f"[LOAD_WEAPON DEBUG] Weapons Loaded: {[w.get('name') for w in self.weapons]}")
         return self.weapons
 
-        # Saves updates back to the file.
-    def _save_weapons(self):
-        # Saves into the same working directory
-        save_name = os.path.basename(self.file_path)
-        save_path = os.path.join(os.getcwd(), save_name)
-
-        with open(save_path, "w", encoding='utf-8') as f: # noinspection PyTypeChecker
-            json.dump(self.weapons, f, indent=4)
 
     # Tells a weapon to change its blacklisted state
     def toggle(self, name: str) -> bool | None:
         for w in self.weapons:
             if w["name"].lower() == name.lower():
                 w["blacklisted"] = not w.get("blacklisted", False)
-                self._save_weapons()
                 status = "blacklisted" if w["blacklisted"] else "un-blacklisted"
                 # print(f"{w['name']} is now {status}.")
                 return w["blacklisted"]
