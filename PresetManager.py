@@ -1,6 +1,8 @@
+import json
+import os
+
 # This will allow BlacklistManager to load and save Presets
 from PIL.JpegPresets import presets
-
 
 # Presets will be structured like this:
 # | Preset Name | Load | Save | Delete |
@@ -46,7 +48,8 @@ class PresetManager:
         # Ask for Confirmation
             # Y: Override Preset list
             # N: Pass
-        self._save_preset()
+        with open(self.preset_file, "w", encoding="utf-8") as f:
+            json.dump(self.presets, f, indent=4)
         print(f"[PRESET SAVE] Preset Saved (Auto-Confirm)")
 
     def delete_preset(self, preset_name: str):
@@ -54,21 +57,29 @@ class PresetManager:
         if preset_name in self.presets:
             del self.presets[preset_name]
             self._save_preset()
-            print(f"[PRESET DEBUG] Preset: {preset_name} deleted.)")
+            print(f"[PRESET DEBUG] Preset: {preset_name} deleted.")
         else:
             print(f"[PRESET DEBUG] Preset: {preset_name} not found.")
-            # N: Pass
-        pass
 
-    def add_weapon_to_preset(self):
-        # Weapon box is ticked
-        # Add weapon to list
-        pass
+    def add_weapon_to_preset(self, weapon_name: str):
+        # Makes sure its editing the current preset
+        preset = self.active_preset()
+        blacklist = preset.get("blacklisted", [])
+        if weapon_name not in blacklist:
+            blacklist.append(weapon_name) # Adds weapon to list
+            preset["blacklisted"] = blacklist
+            self._save_preset() # Saves it to the current preset
+            print(f"[PRESET DEBUG] Added '{weapon_name}' to preset: {self.current_preset_name}")
 
-    def remove_weapon_from_preset(self):
+    def remove_weapon_from_preset(self, weapon_name: str):
         # Weapon is unticked from box
-        # Remove weapon from list
-        pass
+        preset = self.active_preset()
+        blacklist = preset.get("blacklisted", [])
+        if weapon_name in blacklist:
+            blacklist.remove(weapon_name)
+            preset["blacklisted"] = blacklist
+            self._save_preset()
+            print(f"[PRESET DEBUG] Removed '{weapon_name}' from preset: {self.current_preset_name}")
 
 
     if __name__ == "__main__":

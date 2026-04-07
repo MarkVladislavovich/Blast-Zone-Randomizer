@@ -74,5 +74,7 @@
     {"name": "Silver Rocket Hammer", "rarity": "Mythic", "reskin": true},
     {"name": "Silver Impact Bomb", "rarity": "Mythic", "reskin": true},
 
+    {"name": "Leek", "rarity": "Event", "reskin": false},
+
     {"name": "Empty :c", "type": "None", "rarity": "Haha", "reskin": false}
 ]
