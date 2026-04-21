@@ -161,14 +161,13 @@ class UIManager:
 
                 if not weapons:
                     print("[UI ERROR] No weapons returned from Randomizer")
-                    for i, label in enumerate(self.ui.weapon_labels):
-                        label.config(text="[ERROR]")
                     return
-                # DebugManager.log(f"Weapons generated: {weapons}")
 
             except Exception as e:
                 print(f"[ERROR] Randomizer Error:", e)
                 return
+
+            self.ui.display_loadout_slow(weapons)
 
             for i, weapon in enumerate(weapons):
                 def update_slot(idx=i, w=weapon):
@@ -185,8 +184,6 @@ class UIManager:
                         if idx == 4 and disable:
                             text = "[Disabled]"
 
-                        self.ui.weapon_labels[idx].config(text=text)
-
                     except Exception as e:
                         print(f"[UI ERROR] Slot {idx}: {e}")
 
@@ -200,7 +197,7 @@ class UIManager:
     def get_d5s_state(self):
         value = self.settings.get_setting('disable_fifth_slot')
         # print(f"[DEBUG] disable_fifth_slot = {value}")
-        return f"5th Slot: {'Disabled' if value else 'Enabled'}"
+        return f"Fifth Slot: {'Disabled' if value else 'Enabled'}"
     # This returns the current value for Disable Fifth Slot inside the Settings
 
     def disable_5th_slot(self):
@@ -230,7 +227,7 @@ class UIManager:
         self.blacklist_window.resizable(False, True)
 
         # Gives the big ol fancy heading text
-        (tk.Label(self.blacklist_window, text="Enable/Disable Weapons",
+        (tk.Label(self.blacklist_window, text="Disable Weapons",
                   font=("TkDefaultFont", 16, "bold"), bg="white").pack(pady=10))
 
         # List that has the scroll list

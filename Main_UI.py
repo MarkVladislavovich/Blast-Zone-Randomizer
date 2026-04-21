@@ -161,7 +161,7 @@ class MainUI:
         # Settings Icon Placeholder
         settings_label = tk.Label(
             self.canvas, relief="groove", text="Settings", bg="#e0e0e0",
-            fg="black", font=("TkDefaultFont", 12)
+            fg="grey", font=("TkDefaultFont", 12)
         )   # add command=self.open_settings
         # Creates the label in the canvas
         settings_panel = self.canvas.create_window(852, 64, window=settings_label, width=70, height=70)
@@ -225,19 +225,28 @@ class MainUI:
         self.root.mainloop()
 
         # Slowing the result because I felt fancy c:
-    def display_loadout_slow(self, loadout, delay=500):
+    def display_loadout_slow(self, loadout, delay=350):
+        # makes only 1 slot go at a time.
         def update_slot(i=0):
             if i >= len(loadout):
                 return
 
-            self.weapon_labels[i].config(text=loadout[i])
+            # Grabs current weapon
+            weapon = loadout[i]
 
-            self.root.after(delay, lambda: update_slot(i + 1))
+            # Converts the raw data into just a name
+            if isinstance(weapon, dict):
+                text = weapon.get("name", "unknown")
+            else:
+                text = str(weapon)
 
-        update_slot(0)
+            self.weapon_labels[i].config(text=text) # Updates the UI for the slot
+
+            self.root.after(delay, lambda: update_slot(i + 1)) # Makes the next slot delayed
+
+        self.root.after(delay, lambda: update_slot(0)) # Starts the updates
 
     # Functions to make the Randomizer explode when closed
-
     # def close_explosion_mode
 
         # is always explode?
@@ -270,7 +279,7 @@ class MainUI:
 version_controller = VersionController()
 ui = MainUI(version=version_controller.version)
 
-ui.debug_print("Current Preset", ui.preset_manager.current_preset_name)
+# ui.debug_print("Current Preset", ui.preset_manager.current_preset_name)
 # ui.debug_print("Blacklist Weapons", ui.blacklist_manager.weapons)
 
     # This file was such a pain in my ass, I'd be screwed if I did not make a wireframe.

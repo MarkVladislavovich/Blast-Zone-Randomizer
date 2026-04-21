@@ -8,9 +8,9 @@ class BlacklistManager:
         self.file_path = asset_manager.resolve(file_path)
         self.preset_manager = preset_manager
         self.weapons = self._load_weapons()  # call internal method to load weapons
-        print("[BLACKLIST INIT] preset_manager =", type(self.preset_manager))
+        #print("[BLACKLIST INIT] preset_manager =", type(self.preset_manager))
 
-        print(f"[BLACKLIST DEBUG] Exists: {os.path.exists(self.file_path)} | Path: {self.file_path}")
+        #print(f"[BLACKLIST DEBUG] Exists: {os.path.exists(self.file_path)} | Path: {self.file_path}")
 
     # Loads weapons from the JSON.
     def _load_weapons(self):
@@ -59,15 +59,15 @@ class BlacklistManager:
 
     # Clears blacklist.... duh
     def clear_blacklist(self):
-        print("[DEPRECATED] clear_blacklist > PresetManager.reset_preset")
+        #print("[DEPRECATED] clear_blacklist > PresetManager.reset_preset")
         self.preset_manager.reset_preset()
 
     # Method for Randomizer
     def get_allowed_weapons(self, full_list=False):
         # Gives back the weapons that are not currently blacklisted
-        print(f"[ALLOWED DEBUG] Total weapons in manager: {len(self.weapons)}")
-        print(f"[ALLOWED DEBUG] Active preset: {self.preset_manager.current_preset_name}")
-        print(f"[ALLOWED DEBUG] Blacklist: {self.preset_manager.active_preset().get('blacklisted', [])}")
+        #print(f"[ALLOWED DEBUG] Total weapons in manager: {len(self.weapons)}")
+        #print(f"[ALLOWED DEBUG] Active preset: {self.preset_manager.current_preset_name}")
+        #print(f"[ALLOWED DEBUG] Blacklist: {self.preset_manager.active_preset().get('blacklisted', [])}")
         if full_list:
             return self.weapons
 
@@ -111,7 +111,7 @@ bm = BlacklistManager(am, "weapons.json")
 
 expected_loaded = 70
 loaded = len(bm.weapons)
-print(f"[BLACKLIST DEBUG] Weapons Loaded: {loaded} out of {expected_loaded}.")
+#print(f"[BLACKLIST DEBUG] Weapons Loaded: {loaded} out of {expected_loaded}.")
 
 
 

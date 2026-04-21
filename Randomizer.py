@@ -5,14 +5,12 @@ class Randomizer:
     def __init__(self, blacklist_manager, settings_manager):
         self.blacklist = blacklist_manager
         self.settings = settings_manager
-        print("[DEBUG blacklist]", type(blacklist_manager))
-        print("[DEBUG settings]", type(settings_manager))
 
     def generate_loadout(self):
         all_weapons = self.blacklist.get_allowed_weapons()
 
-        print("[DEBUG blacklist object]", type(self.blacklist))
-        print("[DEBUG settings object]", type(self.settings))
+        #print("[DEBUG blacklist object]", type(self.blacklist))
+        #print("[DEBUG settings object]", type(self.settings))
 
         # Always generate 5 slots since this bastard got me stuck for several days.
         slot_count = 5
@@ -146,8 +144,8 @@ class Randomizer:
         randomiser = Randomizer(blacklist_manager, settings_manager)
 
         loadout = randomiser.generate_loadout()
-        print("[RANDOMIZER TEST] Generated Loadout:")
-        print("\n".join(f"Slot {i}: {weapon}" for i, weapon in enumerate(loadout, start=1)))
+        #print("[RANDOMIZER TEST] Generated Loadout:")
+        #print("\n".join(f"Slot {i}: {weapon}" for i, weapon in enumerate(loadout, start=1)))
 
 
 

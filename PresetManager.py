@@ -11,8 +11,12 @@ class PresetManager:
     def __init__(self, preset_file="presets.json"):
         self.preset_file = preset_file
         self.presets = {}
-        self.current_preset_name = "Default"
         self.load_presets()
+
+        if "Default" not in self.presets: # Failsafe that loads the default if it cannot find a Preset.
+            self.presets["Default"] = {"blacklisted": []}
+
+        self.current_preset_name = "Default"
 
 
     def load_presets(self):
@@ -50,14 +54,14 @@ class PresetManager:
             # N: Pass
         with open(self.preset_file, "w", encoding="utf-8") as f:
             json.dump(self.presets, f, indent=4)
-        print(f"[PRESET SAVE] Preset Saved (Auto-Confirm)")
+        #print(f"[PRESET SAVE] Preset Saved (Auto-Confirm)")
 
     def delete_preset(self, preset_name: str):
         # Ask for Confirmation
         if preset_name in self.presets:
             del self.presets[preset_name]
             self._save_preset()
-            print(f"[PRESET DEBUG] Preset: {preset_name} deleted.")
+            #print(f"[PRESET DEBUG] Preset: {preset_name} deleted.")
         else:
             print(f"[PRESET DEBUG] Preset: {preset_name} not found.")
 
@@ -69,7 +73,7 @@ class PresetManager:
             blacklist.append(weapon_name) # Adds weapon to list
             preset["blacklisted"] = blacklist
             self._save_preset() # Saves it to the current preset
-            print(f"[PRESET DEBUG] Added '{weapon_name}' to preset: {self.current_preset_name}")
+            #print(f"[PRESET DEBUG] Added '{weapon_name}' to preset: {self.current_preset_name}")
 
     def remove_weapon_from_preset(self, weapon_name: str):
         # Weapon is unticked from box
@@ -79,7 +83,7 @@ class PresetManager:
             blacklist.remove(weapon_name)
             preset["blacklisted"] = blacklist
             self._save_preset()
-            print(f"[PRESET DEBUG] Removed '{weapon_name}' from preset: {self.current_preset_name}")
+            #print(f"[PRESET DEBUG] Removed '{weapon_name}' from preset: {self.current_preset_name}")
 
     def is_blacklisted(self, weapon_name: str):
         # Checks if a weapon is currently in the blacklist preset
@@ -92,9 +96,9 @@ class PresetManager:
         print("[DEBUG START] PresetManager Test...")
 
 pm = PresetManager("presets.json")
-print(f"[PRESET DEBUG1] Loaded Presets: {pm.presets}")
-print(f"[PRESET DEBUG2] Active Preset: {pm.current_preset_name}")
-print(f"[PRESET DEBUG3] Active Blacklist {pm.active_preset()}")
+#print(f"[PRESET DEBUG1] Loaded Presets: {pm.presets}")
+#print(f"[PRESET DEBUG2] Active Preset: {pm.current_preset_name}")
+#print(f"[PRESET DEBUG3] Active Blacklist {pm.active_preset()}")
 
 
 
