@@ -1,7 +1,17 @@
+#1 
 pyinstaller --onefile --windowed `
 --add-data "Randomizer_Background_Final.png;." `
 --add-data "weapons.json;." `
 --add-data "settings.json;." `
+--add-data "presets.json;." `
+Main_UI.py
+
+#2
+py -m PyInstaller --onefile --windowed `
+--add-data "Randomizer_Background_Final.png;." `
+--add-data "weapons.json;." `
+--add-data "settings.json;." `
+--add-data "presets.json;." `
 Main_UI.py
 
 
