@@ -2,9 +2,9 @@ import random
 from DebugManager import DebugManager # Used in Line 63 for printing output from Randomizer
 
 class Randomizer:
-    def __init__(self, settings_manager, blacklist_manager):
-        self.settings = settings_manager
+    def __init__(self, blacklist_manager, settings_manager):
         self.blacklist = blacklist_manager
+        self.settings = settings_manager
 
     def generate_loadout(self):
         all_weapons = self.blacklist.get_allowed_weapons()
@@ -20,12 +20,11 @@ class Randomizer:
         filtered = [    # Filters weapons based on the settings
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
-                and not w.get("blacklisted", False)
         ]
 
         # Separates empty shit from non-empty stuff
-        empty_weapon = [w for w in filtered if w.get("type") == "None"]
-        non_empty = [w for w in filtered if w.get("type") != "None"]
+        empty_weapon = [w for w in filtered if isinstance(w, dict) and w.get("type") == "None"]
+        non_empty = [w for w in filtered if isinstance(w, dict) and w.get("type") != "None"]
 
         loadout = []
 
@@ -62,14 +61,8 @@ class Randomizer:
         # Logs the result for the debugger         <<<< After DebugManager is made please toggle this me
        # DebugManager.log(f"[Randomizer] loadout={loadout}")
 
-        # Converts to strings for displaying
-        result = []
-        for w in loadout:
-            if isinstance(w,dict):
-                result.append(f"{w['name']} ({w.get('rarity','')})")
-            else:
-                result.append(str(w))
-        return result
+        # Used to Converts to strings for displaying
+        return loadout
 
     def reroll(self, slot_index, current_loadout):
 
@@ -130,6 +123,27 @@ class Randomizer:
 
         return result
 
-        # Also yes this is the randomizer logic re-used.
+    # Also yes this is the randomizer logic re-used.
+
+    if __name__ == "__main__":
+        from BlacklistManager import BlacklistManager
+        from PresetManager import PresetManager
+        from SettingsManager import SettingsManager
+        from AssetManager import AssetManager
+        from Randomizer import Randomizer
+
+        # Creating managers for testing
+        asset_manager = AssetManager()
+        settings_manager = SettingsManager("settings.json")
+        preset_manager = PresetManager("preset.json")
+        blacklist_manager = BlacklistManager(asset_manager, preset_manager)
+
+        randomiser = Randomizer(blacklist_manager, settings_manager)
+
+        loadout = randomiser.generate_loadout()
+        #print("[RANDOMIZER TEST] Generated Loadout:")
+        #print("\n".join(f"Slot {i}: {weapon}" for i, weapon in enumerate(loadout, start=1)))
+
+
 
         # …ᘛ⁐̤ᕐᐷ

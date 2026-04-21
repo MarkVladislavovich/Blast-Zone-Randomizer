@@ -4,13 +4,14 @@ import tkinter as tk
 
 
 class UIManager:
-    def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer, asset_manager):
+    def __init__(self, main_ui, settings_manager, blacklist_manager, randomizer, asset_manager, preset_manager):
         self.blacklist_vars = None
         self.ui = main_ui
         self.settings = settings_manager
         self.blacklist = blacklist_manager
         self.randomizer = randomizer
         self.asset_manager = asset_manager
+        self.preset_manager = preset_manager
 
         # Placeholder for future images
         self.weapon_images = []
@@ -85,7 +86,6 @@ class UIManager:
         else:
             label = "Multi-Empty"
 
-        # print(f"[DEBUG] Empty Mode: enable_empty={enable}, multi_empty={multi} > {label}")
         return f"Empty Mode: {label}"
 
     def toggle_empty(self): # Cycles index
@@ -141,7 +141,7 @@ class UIManager:
         # Rerolls using the current_loadout to avoid duplicates
         weapon = self.randomizer.reroll(slot_index, current_loadout)
 
-        # ui stuff
+        # ui stuff slot index
         self.ui.weapon_labels[slot_index].config(text=weapon)
 
     def generate_loadout(self):
@@ -156,10 +156,16 @@ class UIManager:
         def _generate():
             try:
                 weapons = self.randomizer.generate_loadout()
-                # DebugManager.log(f"Weapons generated: {weapons}")
+
+                if not weapons:
+                    print("[UI ERROR] No weapons returned from Randomizer")
+                    return
+
             except Exception as e:
-                # DebugManager.log(f"Randomizer error: {e}")
+                print(f"[ERROR] Randomizer Error:", e)
                 return
+
+            self.ui.display_loadout_slow(weapons)
 
             for i, weapon in enumerate(weapons):
                 def update_slot(idx=i, w=weapon):
@@ -167,15 +173,18 @@ class UIManager:
                         disable = self.settings.get_setting("disable_fifth_slot")
                         # DebugManager.log(f"Updating slot {idx}, weapon: {w}, disable_fifth_slot={disable}")
 
-                        if idx == 4 and disable:
-                            self.ui.weapon_labels[idx].config(text="[Disabled]")
+                        if isinstance(w, dict):
+                            text = f"{w['name']} ({w.get('rarity',  '')})"
                         else:
-                            self.ui.weapon_labels[idx].config(text=w)
-                    except Exception as e:
-                        # DebugManager.log(f"Slot {idx} update error: {e}")
-                        pass
+                            text = str(w)
 
-                self.ui.root.after(300 * (i + 1), update_slot)
+                        if idx == 4 and disable:
+                            text = "[Disabled]"
+
+                    except Exception as e:
+                        print(f"[UI ERROR] Slot {idx}: {e}")
+
+                self.ui.root.after(i * 100, update_slot)
 
         # Start the generator in a separate thread
         import threading
@@ -185,7 +194,7 @@ class UIManager:
     def get_d5s_state(self):
         value = self.settings.get_setting('disable_fifth_slot')
         # print(f"[DEBUG] disable_fifth_slot = {value}")
-        return f"5th Slot: {'Disabled' if value else 'Enabled'}"
+        return f"Fifth Slot: {'Disabled' if value else 'Enabled'}"
     # This returns the current value for Disable Fifth Slot inside the Settings
 
     def disable_5th_slot(self):
@@ -201,6 +210,9 @@ class UIManager:
             self.ui.root.update_idletasks()
 
     def open_blacklist(self):
+        # Loads the preset & the library
+        weapon_library = self.blacklist.weapons
+        active_blacklist = self.preset_manager.active_preset().get("blacklisted", [])
 
         # First creates the new window
         self.blacklist_window = tkinter.Toplevel(self.ui.root)
@@ -212,7 +224,7 @@ class UIManager:
         self.blacklist_window.resizable(False, True)
 
         # Gives the big ol fancy heading text
-        (tk.Label(self.blacklist_window, text="Enable/Disable Weapons",
+        (tk.Label(self.blacklist_window, text="Disable Weapons",
                   font=("TkDefaultFont", 16, "bold"), bg="white").pack(pady=10))
 
         # List that has the scroll list
@@ -237,18 +249,26 @@ class UIManager:
             "<Configure>",
             lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
+        self.blacklist_vars = {} # Initializing to sore some booleans
 
         # Boxes for the weapons
-        self.blacklist_vars = {}
+        for weapon in weapon_library:
+            if weapon.get("type") == "None":
+                continue    # Skips the placeholder
 
-        for weapon in self.blacklist.get_allowed_weapons(full_list=True):
-            if weapon.get("type") == "None": # Skips the Empty slot
-                continue
-            var = tk.BooleanVar(value=not weapon.get("blacklisted", False))
-            chk = tk.Checkbutton(scroll_frame, text=weapon["name"], variable=var, bg="white", anchor="w", font=("TkDefaultFont", 12))
-
+            # the current blacklist taken from BlacklistManager
+            var = tk.BooleanVar(value=weapon["name"] in active_blacklist)
+            chk = tk.Checkbutton(scroll_frame,
+                                 text=weapon["name"],
+                                 variable=var,
+                                 bg="white",
+                                 anchor="w",
+                                 font=("TkDefaultFont", 12))
             chk.pack(fill="x", padx=10)
+
             self.blacklist_vars[weapon["name"]] = var
+
+            # [REFACTOR] CHANGE TO WEAPONS.JSON TO DISPLAY ALL ENTRIES
 
         # Bottom fram buton
         button_frame = tk.Frame(self.blacklist_window, bg="white")
@@ -262,18 +282,16 @@ class UIManager:
     def save_blacklist(self):
         # Checkbox stuff
         for name, var in self.blacklist_vars.items():
-            for w in self.blacklist.weapons:
-                if w["name"] == name:
-                    w["blacklisted"] = not var.get()
-                    break
+            if var.get() is False: # Checks if item should be blacklisted
+                self.preset_manager.remove_weapon_from_preset(name)
+            else:
+                self.preset_manager.add_weapon_to_preset(name)
 
-        # save to file
-        self.blacklist._save_weapons()    # < shut up pycharm please
         # close window
         self.blacklist_window.destroy()
 
     def clear_blacklist(self):
         # Clears... the blacklist...
-        self.blacklist.clear_blacklist()
+        self.preset_manager.reset_preset()
         for var in self.blacklist_vars.values():
-            var.set(True)
+            var.set(False)

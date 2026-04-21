@@ -3,41 +3,39 @@ import os
 from AssetManager import AssetManager
 
 class BlacklistManager:
-    def __init__(self, asset_manager: AssetManager, file_path="weapons.json"):
+    def __init__(self, asset_manager: AssetManager, preset_manager, file_path="weapons.json"):
         self.asset_manager = asset_manager
         self.file_path = asset_manager.resolve(file_path)
+        self.preset_manager = preset_manager
         self.weapons = self._load_weapons()  # call internal method to load weapons
 
-# --- [ INTERNAL ] ---
     # Loads weapons from the JSON.
     def _load_weapons(self):
         if not os.path.exists(self.file_path):
-            # print(f"[ERROR] {self.file_path} is missing, restoring default.")
+            # print(f"[ERROR] {self.file_path} not found, creating empty list.")
             self.weapons = []
-            self._save_weapons()
             return self.weapons
 
-        with open(self.file_path, "r", encoding='utf-8') as f:
-            weapons = json.load(f)
-        # print(f"Successfully loaded {len(weapons)} from {self.file_path}")
-        return weapons
+        try:
+            with open(self.file_path, "r", encoding='utf-8') as f:
+                self.weapons = json.load(f)
+            if not isinstance(self.weapons, list):
+                print(f"[BLACKLIST DEBUG] Warning: why is weapons.json a list!!")
+                self.weapons = []
 
-        # Saves updates back to the file.
-    def _save_weapons(self):
-        # Saves into the same working directory
-        save_name = os.path.basename(self.file_path)
-        save_path = os.path.join(os.getcwd(), save_name)
+        except json.JSONDecodeError as e:
+            print(f"[ERROR] failed to load {self.file_path}: {e}")
+            self.weapons = []
 
-        with open(save_path, "w", encoding='utf-8') as f: # noinspection PyTypeChecker
-            json.dump(self.weapons, f, indent=4)
+        # print (f"[LOAD_WEAPON DEBUG] Weapons Loaded: {[w.get('name') for w in self.weapons]}")
+        return self.weapons
 
-# --- [ EXTERNAL ] ---
+
     # Tells a weapon to change its blacklisted state
     def toggle(self, name: str) -> bool | None:
         for w in self.weapons:
             if w["name"].lower() == name.lower():
                 w["blacklisted"] = not w.get("blacklisted", False)
-                self._save_weapons()
                 status = "blacklisted" if w["blacklisted"] else "un-blacklisted"
                 # print(f"{w['name']} is now {status}.")
                 return w["blacklisted"]
@@ -46,30 +44,72 @@ class BlacklistManager:
 
         # Lists all currently blacklisted weapons.
     # def list_blacklisted(self):
-        blacklisted = [w["name"] for w in self.weapons if w.get("blacklisted", False)]
-        if not blacklisted:
-            print("No weapons currently blacklisted.")
-        else:
-            print("\nCurrently blacklisted weapons:")
-            for name in blacklisted:
-                print(f"- {name}")
-        return blacklisted
+#        blacklisted = [w["name"] for w in self.weapons if w.get("blacklisted", False)]
+#        if not blacklisted:
+#            print("No weapons currently blacklisted.")
+#        else:
+#            print("\nCurrently blacklisted weapons:")
+#            for name in blacklisted:
+#                print(f"- {name}")
+#        return blacklisted
         # This is entirely useless for the Exe releases.
 
     # Clears blacklist.... duh
     def clear_blacklist(self):
-        for w in self.weapons:
-            w["blacklisted"] = False
-        self._save_weapons()
-        # print("Blacklist successfully cleared.")
+        #print("[DEPRECATED] clear_blacklist > PresetManager.reset_preset")
+        self.preset_manager.reset_preset()
 
     # Method for Randomizer
     def get_allowed_weapons(self, full_list=False):
         # Gives back the weapons that are not currently blacklisted
+        #print(f"[ALLOWED DEBUG] Total weapons in manager: {len(self.weapons)}")
+        #print(f"[ALLOWED DEBUG] Active preset: {self.preset_manager.current_preset_name}")
+        #print(f"[ALLOWED DEBUG] Blacklist: {self.preset_manager.active_preset().get('blacklisted', [])}")
         if full_list:
             return self.weapons
-        return [w for w in self.weapons if not w.get("blacklisted", False)]
 
-    # def blast_coin_miner_:yeas:
-    #   if user = have_blastcoins(true)
-    #       steal blastcoins
+        allowed = []
+
+        for w in self.weapons:
+            name = w.get("name")
+            if not name:
+                print(f"[FILTER ERROR] Weapon name missing: {w}")
+                continue
+
+            if self.preset_manager.is_blacklisted(name):
+                continue
+
+            allowed.append(w)
+            # print(f"[ALLOWED DEBUG] Weapons Loaded: {[w.get('name', '<MISSING NAME.') for w in allowed]}")
+
+        return allowed
+
+
+        # if not in blacklist
+            #append
+
+        # then return
+
+
+#    def blacklist_manager_debug_mode(self):
+#        print("[DEBUG START] BlacklistManager Test")
+#        print(f"[BLACKLIST DEBUG] Weapons Loaded: {[w['name'] for w in bm.weapons]}")
+
+
+
+
+    if __name__ == "__main__":
+        print("[DEBUG START] BlacklistManager Test")
+
+
+from AssetManager import AssetManager
+am = AssetManager()
+bm = BlacklistManager(am, "weapons.json")
+
+expected_loaded = 70
+loaded = len(bm.weapons)
+#print(f"[BLACKLIST DEBUG] Weapons Loaded: {loaded} out of {expected_loaded}.")
+
+
+
+

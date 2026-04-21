@@ -7,6 +7,7 @@ from Randomizer import Randomizer
 from UIManager import UIManager
 from AssetManager import AssetManager
 from VersionController import VersionController
+from PresetManager import PresetManager
 # from StartupManager import StartupManager
 
 import time
@@ -15,10 +16,15 @@ class MainUI:
     def __init__(self, version):
 
         # Creating managers.
+        self.preset_manager = PresetManager("presets.json")
         self.settings_manager = SettingsManager("settings.json")
         self.asset_manager = AssetManager()  # only once
-        self.blacklist_manager = BlacklistManager(self.asset_manager, "weapons.json")
-        self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
+        self.blacklist_manager = BlacklistManager(self.asset_manager, self.preset_manager)
+        self.randomizer = Randomizer(self.blacklist_manager, self.settings_manager)
+
+
+        # Debug Controller
+        self.debug_enabled = True
 
         # Version control shenanigans
         self.version_controller = VersionController()
@@ -30,7 +36,8 @@ class MainUI:
             self.settings_manager,
             self.blacklist_manager,
             self.randomizer,
-            self.asset_manager
+            self.asset_manager,
+            self.preset_manager
         )
 
         # Tkinter stuff for background (perhaps a root of some sort :o)
@@ -127,7 +134,7 @@ class MainUI:
             (803, 265, 60, 60),
             (803, 327, 60, 60),
             (803, 388, 60, 60),
-        ]
+        ] # not the most efficient, but It'll do.
 
         self.reroll_buttons = []
 
@@ -154,7 +161,7 @@ class MainUI:
         # Settings Icon Placeholder
         settings_label = tk.Label(
             self.canvas, relief="groove", text="Settings", bg="#e0e0e0",
-            fg="black", font=("TkDefaultFont", 12)
+            fg="grey", font=("TkDefaultFont", 12)
         )   # add command=self.open_settings
         # Creates the label in the canvas
         settings_panel = self.canvas.create_window(852, 64, window=settings_label, width=70, height=70)
@@ -218,14 +225,28 @@ class MainUI:
         self.root.mainloop()
 
         # Slowing the result because I felt fancy c:
-    def display_loadout_slow(self, loadout, delay=0.5):
-        for i, weapon in enumerate(loadout):
-            self.weapon_labels[i].config(text=weapon)
-            self.root.update()
-            time.sleep(delay)
+    def display_loadout_slow(self, loadout, delay=350):
+        # makes only 1 slot go at a time.
+        def update_slot(i=0):
+            if i >= len(loadout):
+                return
+
+            # Grabs current weapon
+            weapon = loadout[i]
+
+            # Converts the raw data into just a name
+            if isinstance(weapon, dict):
+                text = weapon.get("name", "unknown")
+            else:
+                text = str(weapon)
+
+            self.weapon_labels[i].config(text=text) # Updates the UI for the slot
+
+            self.root.after(delay, lambda: update_slot(i + 1)) # Makes the next slot delayed
+
+        self.root.after(delay, lambda: update_slot(0)) # Starts the updates
 
     # Functions to make the Randomizer explode when closed
-
     # def close_explosion_mode
 
         # is always explode?
@@ -245,12 +266,20 @@ class MainUI:
         # Closes application
 
     # Runs if the file is executed (Why did I even add this? you need the console to see this.)
+
+    def debug_print(self, label, var):
+        if self.debug_enabled:
+            print(f"[MAIN_UI DEBUG] {label}: {var}")
+
+
     if __name__ == "__main__":
         print("[INFO] Opening Randomizer...")
 
 
-
 version_controller = VersionController()
 ui = MainUI(version=version_controller.version)
+
+# ui.debug_print("Current Preset", ui.preset_manager.current_preset_name)
+# ui.debug_print("Blacklist Weapons", ui.blacklist_manager.weapons)
 
     # This file was such a pain in my ass, I'd be screwed if I did not make a wireframe.

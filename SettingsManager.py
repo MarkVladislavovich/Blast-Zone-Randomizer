@@ -16,7 +16,6 @@ class SettingsManager:
         self.ui = ui
         self.empty_colours = empty_colours
 
-        # --- [ INTERNAL ] ---
     def _load_settings(self):
         # Loads settings from JSON file, create default if missing, or you stuffed something up
         defaults = {
@@ -74,7 +73,8 @@ class SettingsManager:
             print(f"- {key}: {value}")
         return self.settings
 
-    # [THIS IS NOT USED ANYMORE! AND WILL BE LIKELY REMOVED LATER!]
+    # [This chunk was scrapped early because it was annoying to code in, and was incredibly inefficient]
+        # So it now exists here commented out cause I want to keep it for history, cause why not.
 
     # Handled Multi-Empty function and updates accordingly.
     # Cycled between three states: Red > Green > Gold > Red.
