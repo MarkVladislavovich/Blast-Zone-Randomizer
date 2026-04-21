@@ -5,9 +5,14 @@ class Randomizer:
     def __init__(self, blacklist_manager, settings_manager):
         self.blacklist = blacklist_manager
         self.settings = settings_manager
+        print("[DEBUG blacklist]", type(blacklist_manager))
+        print("[DEBUG settings]", type(settings_manager))
 
     def generate_loadout(self):
         all_weapons = self.blacklist.get_allowed_weapons()
+
+        print("[DEBUG blacklist object]", type(self.blacklist))
+        print("[DEBUG settings object]", type(self.settings))
 
         # Always generate 5 slots since this bastard got me stuck for several days.
         slot_count = 5
@@ -20,12 +25,11 @@ class Randomizer:
         filtered = [    # Filters weapons based on the settings
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
-                and not w.get("blacklisted", False)
         ]
 
         # Separates empty shit from non-empty stuff
-        empty_weapon = [w for w in filtered if w.get("type") == "None"]
-        non_empty = [w for w in filtered if w.get("type") != "None"]
+        empty_weapon = [w for w in filtered if isinstance(w, dict) and w.get("type") == "None"]
+        non_empty = [w for w in filtered if isinstance(w, dict) and w.get("type") != "None"]
 
         loadout = []
 
@@ -62,14 +66,8 @@ class Randomizer:
         # Logs the result for the debugger         <<<< After DebugManager is made please toggle this me
        # DebugManager.log(f"[Randomizer] loadout={loadout}")
 
-        # Converts to strings for displaying
-        result = []
-        for w in loadout:
-            if isinstance(w,dict):
-                result.append(f"{w['name']} ({w.get('rarity','')})")
-            else:
-                result.append(str(w))
-        return result
+        # Used to Converts to strings for displaying
+        return loadout
 
     def reroll(self, slot_index, current_loadout):
 

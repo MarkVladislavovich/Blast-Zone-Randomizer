@@ -8,6 +8,7 @@ class BlacklistManager:
         self.file_path = asset_manager.resolve(file_path)
         self.preset_manager = preset_manager
         self.weapons = self._load_weapons()  # call internal method to load weapons
+        print("[BLACKLIST INIT] preset_manager =", type(self.preset_manager))
 
         print(f"[BLACKLIST DEBUG] Exists: {os.path.exists(self.file_path)} | Path: {self.file_path}")
 
@@ -58,10 +59,8 @@ class BlacklistManager:
 
     # Clears blacklist.... duh
     def clear_blacklist(self):
-        for w in self.weapons:
-            w["blacklisted"] = False
-        self._save_weapons()
-        # print("Blacklist successfully cleared.")
+        print("[DEPRECATED] clear_blacklist > PresetManager.reset_preset")
+        self.preset_manager.reset_preset()
 
     # Method for Randomizer
     def get_allowed_weapons(self, full_list=False):

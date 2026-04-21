@@ -142,7 +142,7 @@ class UIManager:
         # Rerolls using the current_loadout to avoid duplicates
         weapon = self.randomizer.reroll(slot_index, current_loadout)
 
-        # ui stuff
+        # ui stuff slot index
         self.ui.weapon_labels[slot_index].config(text=weapon)
 
     def generate_loadout(self):
@@ -155,28 +155,42 @@ class UIManager:
 
         # Function that updates slots after delay
         def _generate():
+            print(f"[RANDOMIZER STARTED] _generate successfully called")
             try:
                 weapons = self.randomizer.generate_loadout()
+
+                if not weapons:
+                    print("[UI ERROR] No weapons returned from Randomizer")
+                    for i, label in enumerate(self.ui.weapon_labels):
+                        label.config(text="[ERROR]")
+                    return
                 # DebugManager.log(f"Weapons generated: {weapons}")
+
             except Exception as e:
-                # DebugManager.log(f"Randomizer error: {e}")
+                print(f"[ERROR] Randomizer Error:", e)
                 return
 
             for i, weapon in enumerate(weapons):
                 def update_slot(idx=i, w=weapon):
+                    print(f"[DEBUG] updated slot {idx} with {w}")
                     try:
                         disable = self.settings.get_setting("disable_fifth_slot")
                         # DebugManager.log(f"Updating slot {idx}, weapon: {w}, disable_fifth_slot={disable}")
 
-                        if idx == 4 and disable:
-                            self.ui.weapon_labels[idx].config(text="[Disabled]")
+                        if isinstance(w, dict):
+                            text = f"{w['name']} ({w.get('rarity',  '')})"
                         else:
-                            self.ui.weapon_labels[idx].config(text=w)
-                    except Exception as e:
-                        # DebugManager.log(f"Slot {idx} update error: {e}")
-                        pass
+                            text = str(w)
 
-                self.ui.root.after(300 * (i + 1), update_slot)
+                        if idx == 4 and disable:
+                            text = "[Disabled]"
+
+                        self.ui.weapon_labels[idx].config(text=text)
+
+                    except Exception as e:
+                        print(f"[UI ERROR] Slot {idx}: {e}")
+
+                self.ui.root.after(i * 100, update_slot)
 
         # Start the generator in a separate thread
         import threading
@@ -284,6 +298,6 @@ class UIManager:
 
     def clear_blacklist(self):
         # Clears... the blacklist...
-        self.blacklist.clear_blacklist()
+        self.preset_manager.reset_preset()
         for var in self.blacklist_vars.values():
             var.set(False)

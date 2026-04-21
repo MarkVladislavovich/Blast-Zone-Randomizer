@@ -19,8 +19,8 @@ class MainUI:
         self.preset_manager = PresetManager("presets.json")
         self.settings_manager = SettingsManager("settings.json")
         self.asset_manager = AssetManager()  # only once
-        self.blacklist_manager = BlacklistManager(self.asset_manager, "weapons.json")
-        self.randomizer = Randomizer(self.settings_manager, self.blacklist_manager)
+        self.blacklist_manager = BlacklistManager(self.asset_manager, self.preset_manager)
+        self.randomizer = Randomizer(self.blacklist_manager, self.settings_manager)
 
 
         # Debug Controller
@@ -134,7 +134,7 @@ class MainUI:
             (803, 265, 60, 60),
             (803, 327, 60, 60),
             (803, 388, 60, 60),
-        ]
+        ] # not the most efficient, but It'll do.
 
         self.reroll_buttons = []
 
@@ -225,11 +225,16 @@ class MainUI:
         self.root.mainloop()
 
         # Slowing the result because I felt fancy c:
-    def display_loadout_slow(self, loadout, delay=0.5):
-        for i, weapon in enumerate(loadout):
-            self.weapon_labels[i].config(text=weapon)
-            self.root.update()
-            time.sleep(delay)
+    def display_loadout_slow(self, loadout, delay=500):
+        def update_slot(i=0):
+            if i >= len(loadout):
+                return
+
+            self.weapon_labels[i].config(text=loadout[i])
+
+            self.root.after(delay, lambda: update_slot(i + 1))
+
+        update_slot(0)
 
     # Functions to make the Randomizer explode when closed
 
@@ -260,6 +265,7 @@ class MainUI:
 
     if __name__ == "__main__":
         print("[INFO] Opening Randomizer...")
+
 
 version_controller = VersionController()
 ui = MainUI(version=version_controller.version)

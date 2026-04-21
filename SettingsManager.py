@@ -16,7 +16,6 @@ class SettingsManager:
         self.ui = ui
         self.empty_colours = empty_colours
 
-        # --- [ INTERNAL ] ---
     def _load_settings(self):
         # Loads settings from JSON file, create default if missing, or you stuffed something up
         defaults = {

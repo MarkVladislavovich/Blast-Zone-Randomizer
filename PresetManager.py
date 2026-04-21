@@ -41,8 +41,8 @@ class PresetManager:
         pass
 
     def reset_preset(self):
-        # Recycle the def clear_blacklist from BlacklistManager
-        pass
+        self.active_preset()["blacklisted"] = []
+        self._save_preset()
 
     def _save_preset(self):
         # Ask for Confirmation
