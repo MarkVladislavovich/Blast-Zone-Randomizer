@@ -73,7 +73,8 @@ class SettingsManager:
             print(f"- {key}: {value}")
         return self.settings
 
-    # [THIS IS NOT USED ANYMORE! AND WILL BE LIKELY REMOVED LATER!]
+    # [This chunk was scrapped early because it was annoying to code in, and was incredibly inefficient]
+        # So it now exists here commented out cause I want to keep it for history, cause why not.
 
     # Handled Multi-Empty function and updates accordingly.
     # Cycled between three states: Red > Green > Gold > Red.

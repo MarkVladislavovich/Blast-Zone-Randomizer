@@ -9,9 +9,6 @@ class Randomizer:
     def generate_loadout(self):
         all_weapons = self.blacklist.get_allowed_weapons()
 
-        #print("[DEBUG blacklist object]", type(self.blacklist))
-        #print("[DEBUG settings object]", type(self.settings))
-
         # Always generate 5 slots since this bastard got me stuck for several days.
         slot_count = 5
 

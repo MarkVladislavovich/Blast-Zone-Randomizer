@@ -8,9 +8,6 @@ class BlacklistManager:
         self.file_path = asset_manager.resolve(file_path)
         self.preset_manager = preset_manager
         self.weapons = self._load_weapons()  # call internal method to load weapons
-        #print("[BLACKLIST INIT] preset_manager =", type(self.preset_manager))
-
-        #print(f"[BLACKLIST DEBUG] Exists: {os.path.exists(self.file_path)} | Path: {self.file_path}")
 
     # Loads weapons from the JSON.
     def _load_weapons(self):

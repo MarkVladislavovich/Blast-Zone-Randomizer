@@ -86,7 +86,6 @@ class UIManager:
         else:
             label = "Multi-Empty"
 
-        # print(f"[DEBUG] Empty Mode: enable_empty={enable}, multi_empty={multi} > {label}")
         return f"Empty Mode: {label}"
 
     def toggle_empty(self): # Cycles index
@@ -155,7 +154,6 @@ class UIManager:
 
         # Function that updates slots after delay
         def _generate():
-            print(f"[RANDOMIZER STARTED] _generate successfully called")
             try:
                 weapons = self.randomizer.generate_loadout()
 
@@ -171,7 +169,6 @@ class UIManager:
 
             for i, weapon in enumerate(weapons):
                 def update_slot(idx=i, w=weapon):
-                    print(f"[DEBUG] updated slot {idx} with {w}")
                     try:
                         disable = self.settings.get_setting("disable_fifth_slot")
                         # DebugManager.log(f"Updating slot {idx}, weapon: {w}, disable_fifth_slot={disable}")
