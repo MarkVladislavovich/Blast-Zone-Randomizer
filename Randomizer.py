@@ -12,10 +12,10 @@ class Randomizer:
         # Always generate 5 slots since this bastard got me stuck for several days.
         slot_count = 5
 
-        allow_reskins = self.settings.get_setting("enable_reskins")
-        enable_empty = self.settings.get_setting("enable_empty")
-        multi_empty = self.settings.get_setting("multi_empty")
-        multi_chance = self.settings.get_setting("multi_chance")
+        allow_reskins = self.settings.get_setting("Randomizer_Settings", "enable_reskins")
+        enable_empty = self.settings.get_setting("Randomizer_Settings", "enable_empty")
+        multi_empty = self.settings.get_setting("Randomizer_Settings", "multi_empty")
+        multi_chance = self.settings.get_setting("Randomizer_Settings", "multi_chance")
 
         filtered = [    # Filters weapons based on the settings
             w for w in all_weapons
@@ -43,7 +43,7 @@ class Randomizer:
         # Fix for the empty slot shit, I can't remember its late, im tired. -M 14/11/25 2:31am
         for i in range(slot_count):
             # Handle 5th slot disabled
-            if i == 4 and self.settings.get_setting("disable_fifth_slot"):
+            if i == 4 and self.settings.get_setting("Randomizer_Settings", "disable_fifth_slot"):
                 loadout.append("[Disabled]")
                 continue
 
@@ -65,12 +65,12 @@ class Randomizer:
 
     def reroll(self, slot_index, current_loadout):
 
-        if slot_index == 4 and self.settings.get_setting("disable_fifth_slot"):
+        if slot_index == 4 and self.settings.get_setting("Randomizer_Settings", "disable_fifth_slot"):
             return "…ᘛ⁐̤ᕐᐷ"
 
-        allow_reskins = self.settings.get_setting("enable_reskins")
-        enable_empty = self.settings.get_setting("enable_empty")
-        multi_empty = self.settings.get_setting("multi_empty")
+        allow_reskins = self.settings.get_setting("Randomizer_Settings", "enable_reskins")
+        enable_empty = self.settings.get_setting("Randomizer_Settings", "enable_empty")
+        multi_empty = self.settings.get_setting("Randomizer_Settings", "multi_empty")
 
         # Gives weapon list again
         all_weapons = self.blacklist.get_allowed_weapons()

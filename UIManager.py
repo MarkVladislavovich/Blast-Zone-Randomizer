@@ -60,14 +60,14 @@ class UIManager:
         # Button Actions
 
     def get_rkn_state(self):
-        value = self.settings.get_setting('enable_reskins')
+        value = self.settings.get_setting("Randomizer_Settings", 'enable_reskins')
         # print(f"[DEBUG] enable_reskin = {value}")
         return f"Reskins: {'ON' if value else 'OFF'}"
     # This returns the current value for Reskins inside the Settings
 
     def toggle_reskin(self): # Flips boolean
-        new_value = not self.settings.get_setting("enable_reskins")
-        self.settings.set_setting("enable_reskins", new_value)
+        new_value = not self.settings.get_setting("Randomizer_Settings", "enable_reskins")
+        self.settings.set_setting("Randomizer_Settings","enable_reskins", new_value)
 
         # Updato buton text
         if hasattr(self.ui, 'btn_enable_reskin'):
@@ -76,8 +76,8 @@ class UIManager:
             )
 
     def get_emp_state(self):
-        enable = self.settings.get_setting("enable_empty")
-        multi = self.settings.get_setting("multi_empty")
+        enable = self.settings.get_setting("Randomizer_Settings", "enable_empty")
+        multi = self.settings.get_setting("Randomizer_Settings", "multi_empty")
 
         if not enable:
             label = "Disabled"
@@ -94,16 +94,16 @@ class UIManager:
         # Updates JSON-backed so the randomizer can actually see the damn values
         if current_label == "Disabled":
             # Cycles to Single
-            self.settings.set_setting("enable_empty", True)
-            self.settings.set_setting("multi_empty", False)
+            self.settings.set_setting("Randomizer_Settings","enable_empty", True)
+            self.settings.set_setting("Randomizer_Settings","multi_empty", False)
         elif current_label == "Single":
             # Cycles to Multi
-            self.settings.set_setting("enable_empty", True)
-            self.settings.set_setting("multi_empty", True)
+            self.settings.set_setting("Randomizer_Settings","enable_empty", True)
+            self.settings.set_setting("Randomizer_Settings","multi_empty", True)
         elif current_label == "Multi-Empty":
             # Cycles back to Disabled
-            self.settings.set_setting("enable_empty", False)
-            self.settings.set_setting("multi_empty", False)
+            self.settings.set_setting("Randomizer_Settings","enable_empty", False)
+            self.settings.set_setting("Randomizer_Settings","multi_empty", False)
 
         self.ui.btn_enable_empty.config(text=self.get_emp_state())
         self.ui.root.update()
@@ -123,14 +123,14 @@ class UIManager:
             value = max(0.0, min(1.0, value))
             value = round(value * 10) / 10.0
 
-            self.settings.set_setting("multi_chance", value)
+            self.settings.set_setting("Randomizer_Settings", "multi_chance", value)
 
             # Ensures the input fields is a rounded value.
             self.ui.txt_multi_chance.delete(0, 'end')
             self.ui.txt_multi_chance.insert(0, str(value))
 
         except ValueError:
-            current = self.settings.get_setting("multi_chance")
+            current = self.settings.get_setting("Randomizer_Settings", "multi_chance")
             self.ui.txt_multi_chance.delete(0, 'end')
             self.ui.txt_multi_chance.insert(0, str(self.settings.multi_chance))
 
@@ -147,7 +147,7 @@ class UIManager:
     def generate_loadout(self):
         # First, show placeholder text for all slots
         for i, label in enumerate(self.ui.weapon_labels):
-            if i == 4 and self.settings.get_setting("disable_fifth_slot"):
+            if i == 4 and self.settings.get_setting("Randomizer_Settings", "disable_fifth_slot"):
                 label.config(text="[Disabled]")
             else:
                 label.config(text="Randomizing. . .")
@@ -170,7 +170,7 @@ class UIManager:
             for i, weapon in enumerate(weapons):
                 def update_slot(idx=i, w=weapon):
                     try:
-                        disable = self.settings.get_setting("disable_fifth_slot")
+                        disable = self.settings.get_setting("Randomizer_Settings", "disable_fifth_slot")
                         # DebugManager.log(f"Updating slot {idx}, weapon: {w}, disable_fifth_slot={disable}")
 
                         if isinstance(w, dict):
@@ -192,15 +192,15 @@ class UIManager:
 
 
     def get_d5s_state(self):
-        value = self.settings.get_setting('disable_fifth_slot')
+        value = self.settings.get_setting("Randomizer_Settings", 'disable_fifth_slot')
         # print(f"[DEBUG] disable_fifth_slot = {value}")
         return f"Fifth Slot: {'Disabled' if value else 'Enabled'}"
     # This returns the current value for Disable Fifth Slot inside the Settings
 
     def disable_5th_slot(self):
         # Flips the current setting
-        new_value = not self.settings.get_setting("disable_fifth_slot")
-        self.settings.set_setting("disable_fifth_slot", new_value)
+        new_value = not self.settings.get_setting("Randomizer_Settings", "disable_fifth_slot")
+        self.settings.set_setting("Randomizer_Settings", "disable_fifth_slot", new_value)
 
         # UI updater thingamabob
         if hasattr(self.ui, 'btn_disable_5th'): # Updates text

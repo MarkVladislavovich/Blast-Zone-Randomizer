@@ -225,7 +225,8 @@ class MainUI:
         self.root.mainloop()
 
         # Slowing the result because I felt fancy c:
-    def display_loadout_slow(self, loadout, delay=350):
+        # To speed up the speed of showing up Delay=X, higher the slower.
+    def display_loadout_slow(self, loadout, delay=250):
         # makes only 1 slot go at a time.
         def update_slot(i=0):
             if i >= len(loadout):
