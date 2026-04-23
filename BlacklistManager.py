@@ -42,18 +42,6 @@ class BlacklistManager:
         # print(f"[ERROR] Weapon '{name}' not found.")
         return None
 
-        # Lists all currently blacklisted weapons.
-    # def list_blacklisted(self):
-#        blacklisted = [w["name"] for w in self.weapons if w.get("blacklisted", False)]
-#        if not blacklisted:
-#            print("No weapons currently blacklisted.")
-#        else:
-#            print("\nCurrently blacklisted weapons:")
-#            for name in blacklisted:
-#                print(f"- {name}")
-#        return blacklisted
-        # This is entirely useless for the Exe releases.
-
     # Clears blacklist.... duh
     def clear_blacklist(self):
         #print("[DEPRECATED] clear_blacklist > PresetManager.reset_preset")

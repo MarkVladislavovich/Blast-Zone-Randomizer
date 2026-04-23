@@ -1,12 +1,12 @@
 # Dependencies
 
 
-# Explosion Exit toggle
+    # Explosion Exit toggle
 
-# User closes application
+    # User closes application
 
-# Explosion gif plays
+    # Explosion gif plays
 
-# Sound effect plays
+    # Sound effect plays
 
-# Window Exists
+    # Window Exists

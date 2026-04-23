@@ -10,7 +10,9 @@ from VersionController import VersionController
 from PresetManager import PresetManager
 # from StartupManager import StartupManager
 
-import time
+# Also try: Metroplexed BZ Loadout Randomizer!
+# URL: https://onecompiler.com/lua/44jrqxf3y
+# For another flavour of chaos!
 
 class MainUI:
     def __init__(self, version):
@@ -21,7 +23,6 @@ class MainUI:
         self.asset_manager = AssetManager()  # only once
         self.blacklist_manager = BlacklistManager(self.asset_manager, self.preset_manager)
         self.randomizer = Randomizer(self.blacklist_manager, self.settings_manager)
-
 
         # Debug Controller
         self.debug_enabled = True
@@ -189,7 +190,7 @@ class MainUI:
 
         # Multi Chance Entry
         self.txt_multi_chance = tk.Entry(self.options_frame, justify="center", font=("TkDefaultFont",12))
-        current_value = self.settings_manager.get_setting("multi_chance") # Grabs the current multi-chance instead of "0.1"
+        current_value = self.settings_manager.get_setting("Randomizer_Settings", "multi_chance") # Grabs the current multi-chance instead of "0.1"
         self.txt_multi_chance.insert(0, current_value)
         self.txt_multi_chance.pack(pady=20)
 
@@ -202,7 +203,6 @@ class MainUI:
             command=self.ui_manager.set_multi_chance
         )
         self.btn_apply_multi.pack(pady=5)
-
 
         # 5th slot button
         self.btn_disable_5th = tk.Button(self.options_frame,text=self.ui_manager.get_d5s_state(),

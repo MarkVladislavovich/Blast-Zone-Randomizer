@@ -1,6 +1,20 @@
 import json
 import os
 
+
+def deep_merge(default, incoming): # This is for _load_settings for the new nested format.
+    # This basically makes sure the missing keys are filled in without flattening nested settings.
+    for key, value in default.items():
+
+        if key not in incoming:  # If the key isn't in file, it'll inject the missing parts with the defaults.
+            incoming[key] = value
+
+        # Makes sure if both values are dictionaries, it'll merge them properly
+        elif isinstance(value, dict) and isinstance(incoming[key], dict):
+            deep_merge(value, incoming[key])
+
+    return incoming
+
 class SettingsManager:
     def __init__(self, file_path="settings.json"):
         self.file_path = file_path
@@ -19,13 +33,23 @@ class SettingsManager:
     def _load_settings(self):
         # Loads settings from JSON file, create default if missing, or you stuffed something up
         defaults = {
-            "enable_reskins": False,
-            "enable_empty": False,
-            "multi_empty": False,
-            "multi_chance": 0.2,
-            "slot_amount": 4,
-            "hotkey_slot": 1,
-            "disable_fifth_slot": False
+            "Randomizer_Settings": {
+                "enable_reskins": True,
+                "enable_empty": False,
+                "multi_empty": False,
+                "multi_chance": 0.5,
+                "slot_amount": 5,
+                "disable_fifth_slot": False
+            },
+            "UI_Effects": {
+                "fish_mode": False,
+                "explosion_mode": False,
+                "always_explode": False
+            },
+            "Misc_Settings": {
+                "true_scaling": False,
+                "hotkey_slot": 1
+            }
         }
 
         if not os.path.exists(self.file_path):
@@ -37,10 +61,8 @@ class SettingsManager:
         try:
             with open(self.file_path, "r") as f:
                 settings = json.load(f)
-            # Merges the missing keys
-            for key, value in defaults.items():
-                if key not in settings:
-                    settings[key] = value
+
+            settings = deep_merge(defaults, settings)
 
             self.settings = settings
             self._save_settings()
@@ -59,8 +81,8 @@ class SettingsManager:
 
 
     # --- [ EXTERNAL ] ---
-    def get_setting(self, key):
-        return self.settings.get(key)
+    def get_setting(self, section, key):
+        return self.settings.get(section,{}).get(key)
 
     def set_setting(self, key, value):
        self.settings[key] = value

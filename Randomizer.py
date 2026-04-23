@@ -21,7 +21,6 @@ class Randomizer:
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
         ]
-
         # Separates empty shit from non-empty stuff
         empty_weapon = [w for w in filtered if isinstance(w, dict) and w.get("type") == "None"]
         non_empty = [w for w in filtered if isinstance(w, dict) and w.get("type") != "None"]
@@ -80,7 +79,7 @@ class Randomizer:
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
                 and not w.get("blacklisted", False)
-        ]
+        ] # This separates all the blacklisted weapons and Reskin weapons based on settings.
 
         # Separates empties
         non_empty = [w for w in filtered if w.get("type") != "None"]
