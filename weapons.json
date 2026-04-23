@@ -37,7 +37,7 @@
 
     {"name": "Fusion Cannon", "rarity": "Legendary", "reskin": false},
     {"name": "Hand Cannon", "rarity": "Legendary", "reskin": false},
-    {"name": "Nuke", "rarity": "Legendary", "reskin": false, "blacklist": true},
+    {"name": "Nuke", "rarity": "Legendary", "reskin": false},
     {"name": "Plasma Balls", "rarity": "Legendary", "reskin": false},
     {"name": "Portal Gun", "rarity": "Legendary", "reskin": false},
     {"name": "Rocket Hammer", "rarity": "Legendary", "reskin": false},
