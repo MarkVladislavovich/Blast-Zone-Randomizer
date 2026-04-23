@@ -209,7 +209,23 @@ class UIManager:
             )
             self.ui.root.update_idletasks()
 
+    def open_settings_menu(self):
+
+        if hasattr(self, "settings_window") and self.settings_window.winfo_exists():
+            return  # Prevents duplications
+
+        self.settings_window = tk.Toplevel(self.root)
+        self.settings_window.title("Settings")
+        self.settings_window.geometry("500x400")
+        self.settings_window.resizable(False,False)
+
+        self.build_settings_menu(self.settings_window)
+
+
+
     def open_blacklist(self):
+        # I REALLY gotta refactor this chunk, and properly separate responsibilities.
+        # Main_UI gets the UI, UIManager keeps the Button logic, idk BlacklistManager can get the blacklist stuff.
         # Loads the preset & the library
         weapon_library = self.blacklist.weapons
         active_blacklist = self.preset_manager.active_preset().get("blacklisted", [])
@@ -267,8 +283,6 @@ class UIManager:
             chk.pack(fill="x", padx=10)
 
             self.blacklist_vars[weapon["name"]] = var
-
-            # [REFACTOR] CHANGE TO WEAPONS.JSON TO DISPLAY ALL ENTRIES
 
         # Bottom fram buton
         button_frame = tk.Frame(self.blacklist_window, bg="white")

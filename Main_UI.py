@@ -24,9 +24,6 @@ class MainUI:
         self.blacklist_manager = BlacklistManager(self.asset_manager, self.preset_manager)
         self.randomizer = Randomizer(self.blacklist_manager, self.settings_manager)
 
-        # Debug Controller
-        self.debug_enabled = True
-
         # Version control shenanigans
         self.version_controller = VersionController()
         self.version = self.version_controller.version
@@ -160,12 +157,30 @@ class MainUI:
         self.canvas.create_window(18 + 245/2, 28 + 450/2 + 20, window=self.options_frame)
 
         # Settings Icon Placeholder
-        settings_label = tk.Label(
-            self.canvas, relief="groove", text="Settings", bg="#e0e0e0",
-            fg="grey", font=("TkDefaultFont", 12)
-        )   # add command=self.open_settings
+        settings_button = tk.Button(
+            self.canvas,
+            relief="groove",
+            text="Settings",
+            bg="#e0e0e0",
+            fg="grey",
+            font=("TkDefaultFont", 12),
+            command=self.open_settings_menu
+        )
+
+        settings_panel = self.canvas.create_window(
+            852, 64,
+            window=settings_button,
+            width=70,
+            height=70
+        )
+
+        self.canvas.tag_raise(settings_panel)
+
+
+
+
         # Creates the label in the canvas
-        settings_panel = self.canvas.create_window(852, 64, window=settings_label, width=70, height=70)
+        settings_panel = self.canvas.create_window(852, 64, window=settings_button, width=70, height=70)
         self.canvas.tag_raise(settings_panel)
 
         # Draws cube after label
@@ -173,7 +188,7 @@ class MainUI:
 
         self.canvas.tag_raise(cube)
 
-        # BUTTONS!!
+        # BUTTONS!! --------------------------------------------------------------------------------------------------
 
         # Reskins
         self.btn_enable_reskin = tk.Button(self.options_frame, text=self.ui_manager.get_rkn_state(), width=40, height=4)
@@ -224,6 +239,8 @@ class MainUI:
 
         self.root.mainloop()
 
+        # -------------------------------------------------------------------------------------------------
+
         # Slowing the result because I felt fancy c:
         # To speed up the speed of showing up Delay=X, higher the slower.
     def display_loadout_slow(self, loadout, delay=250):
@@ -246,6 +263,10 @@ class MainUI:
             self.root.after(delay, lambda: update_slot(i + 1)) # Makes the next slot delayed
 
         self.root.after(delay, lambda: update_slot(0)) # Starts the updates
+
+    # Foundation for the Settings Menu
+    def open_settings_menu(self):
+        self.ui_manager.open_settings_menu()
 
     # Functions to make the Randomizer explode when closed
     # def close_explosion_mode

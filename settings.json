@@ -7,13 +7,18 @@
         "slot_amount": 5,
         "disable_fifth_slot": false
     },
-    "UI_Effects": {
+    "Misc_Settings": {
+        "true_scaling": false,
+        "hotkey_slot": 1
+    },
+    "Special_Settings": {
         "fish_mode": false,
         "explosion_mode": false,
         "always_explode": false
     },
-    "Misc_Settings": {
-        "true_scaling": false,
-        "hotkey_slot": 1
+    "UI_Effects": {
+        "fish_mode": false,
+        "explosion_mode": false,
+        "always_explode": false
     }
 }
