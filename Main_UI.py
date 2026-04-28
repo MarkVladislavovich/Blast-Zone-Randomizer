@@ -162,7 +162,7 @@ class MainUI:
             relief="groove",
             text="Settings",
             bg="#e0e0e0",
-            fg="grey",
+            fg="black",
             font=("TkDefaultFont", 12),
             command=self.ui_manager.open_settings_menu
         )

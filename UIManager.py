@@ -219,7 +219,7 @@ class UIManager:
         self.settings_window.geometry("500x400")
         self.settings_window.resizable(False,False)
 
-        tk.Label(self.settings_window, text="scary settings").pack(pady=20)
+        tk.Label(self.settings_window, text="wite box").pack(pady=20)
 
 
 
