@@ -214,12 +214,12 @@ class UIManager:
         if hasattr(self, "settings_window") and self.settings_window.winfo_exists():
             return  # Prevents duplications
 
-        self.settings_window = tk.Toplevel(self.root)
+        self.settings_window = tk.Toplevel(self.ui.root)
         self.settings_window.title("Settings")
         self.settings_window.geometry("500x400")
         self.settings_window.resizable(False,False)
 
-        self.build_settings_menu(self.settings_window)
+        tk.Label(self.settings_window, text="scary settings").pack(pady=20)
 
 
 

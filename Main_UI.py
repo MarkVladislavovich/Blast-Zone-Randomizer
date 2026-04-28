@@ -164,7 +164,7 @@ class MainUI:
             bg="#e0e0e0",
             fg="grey",
             font=("TkDefaultFont", 12),
-            command=self.open_settings_menu
+            command=self.ui_manager.open_settings_menu
         )
 
         settings_panel = self.canvas.create_window(
