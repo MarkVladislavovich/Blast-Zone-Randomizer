@@ -180,9 +180,6 @@ class MainUI:
 
 
         # Creates the label in the canvas
-        settings_panel = self.canvas.create_window(852, 64, window=settings_button, width=70, height=70)
-        self.canvas.tag_raise(settings_panel)
-
         # Draws cube after label
         cube = self.canvas.create_rectangle(818, 29, 885, 98, fill="white", outline="black")
 
@@ -266,7 +263,8 @@ class MainUI:
 
     # Foundation for the Settings Menu
     def open_settings_menu(self):
-        self.ui_manager.open_settings_menu()
+        pass
+
 
     # Functions to make the Randomizer explode when closed
     # def close_explosion_mode
