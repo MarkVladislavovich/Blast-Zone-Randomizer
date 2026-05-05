@@ -69,7 +69,7 @@ class UIManager:
         new_value = not self.settings.get_setting("Randomizer_Settings", "enable_reskins")
         self.settings.set_setting("Randomizer_Settings","enable_reskins", new_value)
 
-        # Updato buton text
+        # Update buton text
         if hasattr(self.ui, 'btn_enable_reskin'):
             self.ui.btn_enable_reskin.config(
                 text=f"Reskins: {'ON' if new_value else 'OFF'}"
@@ -91,7 +91,7 @@ class UIManager:
     def toggle_empty(self): # Cycles index
         current_label = self.get_emp_state().split(": ")[1] # Disabled
 
-        # Updates JSON-backed so the randomizer can actually see the damn values
+        # Updates JSON-backed so the randomiser can actually see the damn values
         if current_label == "Disabled":
             # Cycles to Single
             self.settings.set_setting("Randomizer_Settings","enable_empty", True)
@@ -225,7 +225,7 @@ class UIManager:
 
     def open_blacklist(self):
         # I REALLY gotta refactor this chunk, and properly separate responsibilities.
-        # Main_UI gets the UI, UIManager keeps the Button logic, idk BlacklistManager can get the blacklist stuff.
+        # Main_UI gets the UI, UIManager keeps the Button logic, IDK BlacklistManager can get the blacklist stuff.
         # Loads the preset & the library
         weapon_library = self.blacklist.weapons
         active_blacklist = self.preset_manager.active_preset().get("blacklisted", [])
@@ -265,7 +265,7 @@ class UIManager:
             "<Configure>",
             lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
-        self.blacklist_vars = {} # Initializing to sore some booleans
+        self.blacklist_vars = {} # Initialising to sore some booleans
 
         # Boxes for the weapons
         for weapon in weapon_library:
