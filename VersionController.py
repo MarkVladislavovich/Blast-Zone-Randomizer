@@ -19,4 +19,4 @@ class VersionController:
                 stderr=subprocess.DEVNULL).decode().strip()
             return version
         except Exception:
-            return "vX.X.X"
+            return "v3.3.4-alpha" # Chance to current version
