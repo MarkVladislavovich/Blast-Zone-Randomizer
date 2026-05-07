@@ -219,7 +219,7 @@ class UIManager:
         self.settings_window.geometry("500x400")
         self.settings_window.resizable(False,False)
 
-        tk.Label(self.settings_window, text="pretend this says something scary").pack(pady=20)
+        tk.Label(self.settings_window, text="This feature will be available soon.").pack(pady=20)
 
 
 
