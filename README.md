@@ -42,9 +42,8 @@ Lost commit history due to Migrating data 2nd February 2026,
 I'd rather lose history then dox myself so I think it was worth it.
 
 # **Important note | AI Usage:**
-Yes, I did have assistance from **AI** to write the code, but I designed & planned the architecture prior to the beginning of its assistance (Early November 2025).
-**No code was copied & pasted**, rather it was recreated & formatted by hand (or technically keyboard) since I struggle with coding but can plan systems quite well. I thought it would be best to be upfront about AI's role and the fact as this project goes on I plan to fully phase out its "assistance".
+Yes, I did have assistance from AI to write the code, all throughout development I had planned the architecture thought out in advance early in november 2025. I only started to use it after I could not organise having a friend do the scripting as I wanted the project to move at a steady pace, the AI served as a support tool rather than a source to lazily copy code from. The AI primarily role was to **help explain what steps I should take** since I struggle to lay groundwork for code, it also was used **to assist in debugging errors**. Since it's addition to the project I planned to phase AI's assistance out once it no longer serves a purpose.
 
-And remember this is my first ever project, and I am entirely unexperienced and still learning.
+I thought it would be best to be upfront about AI's role as to be as transparent as possible.
 
 
