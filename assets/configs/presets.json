@@ -1,0 +1,19 @@
+{
+    "Default": {
+        "blacklisted": []
+    },
+    "No Impulse": {
+        "blacklisted": [
+            "Impulse Bomb",
+            "Impulse Remote Explosive",
+            "Impulse Nuke"
+        ]
+    },
+    "No Impacts": {
+        "blacklisted": [
+            "Impact Bomb",
+            "Small Impact Bomb",
+            "Bouncy Impact Bomb"
+        ]
+    }
+}
