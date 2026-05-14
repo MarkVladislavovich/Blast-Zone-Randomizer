@@ -8,7 +8,7 @@ from PIL.JpegPresets import presets
 # | Preset Name | Load | Save | Delete |
 
 class PresetManager:
-    def __init__(self, preset_file="presets.json"):
+    def __init__(self, preset_file="assets/configs/presets.json"):
         self.preset_file = preset_file
         self.presets = {}
         self.load_presets()
@@ -91,7 +91,7 @@ class PresetManager:
     if __name__ == "__main__":
         print("[DEBUG START] PresetManager Test...")
 
-pm = PresetManager("presets.json")
+pm = PresetManager("assets/configs/presets.json")
 #print(f"[PRESET DEBUG1] Loaded Presets: {pm.presets}")
 #print(f"[PRESET DEBUG2] Active Preset: {pm.current_preset_name}")
 #print(f"[PRESET DEBUG3] Active Blacklist {pm.active_preset()}")

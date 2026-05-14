@@ -9,6 +9,8 @@ from VersionController import VersionController
 
 class StartupManager:
     def check_pillow(self):
+        self.asset_manager = AssetManager()
+
         try:
             from PIL import Image
             return {
@@ -27,7 +29,7 @@ class StartupManager:
 
     def check_settings(self):
         try:
-            manager = SettingsManager()
+            manager = SettingsManager(self.asset_manager)
             result = manager._load_settings()
 
             if result == "created":
@@ -54,24 +56,21 @@ class StartupManager:
             }
 
     def run(self):
-        results = []
-        results.append(self.check_pillow())
-        results.append(self.check_settings())
-        return results
+        return [
+            self.check_pillow(),
+            self.check_settings()
+        ]
 
     def startup_check(self):
         print("[INFO] Starting Check...")
 
         # Shows the version stuffs
         version_controller = VersionController()
-        print("[INFO] Version: {version_controller.version}")
-
-        # Wakes up AssetManager
-        asset_manager = AssetManager()
+        print(f"[INFO] Version: {version_controller.version}")
 
         # Weapon checks!
         try:
-            weapons = asset_manager.load_json("weapons.json")
+            weapons = self.asset_manager.load_json("configs/weapons.json")
             print(f"[INFO] Weapons Loaded: {len(weapons)}")
         except FileNotFoundError as w_err:
             print(f"[ERROR] Weapons Not Loaded: {w_err}")
@@ -79,14 +78,14 @@ class StartupManager:
 
         # Settings
         try:
-            settings = asset_manager.load_json("settings.json")
+            settings = self.asset_manager.load_json("configs/settings.json")
             print(f"[INFO] Settings Loaded: {settings}")
         except FileNotFoundError as s_err:
             print(f"[ERROR] Settings Not Loaded: {s_err}")
 
         # Finish Startup
         print("[INFO] Start check complete...")
-        return weapons, settings, version_controller.version, w_err, s_err
+        return weapons, settings, version_controller.version
 
 
 

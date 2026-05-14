@@ -8,6 +8,7 @@ from UIManager import UIManager
 from AssetManager import AssetManager
 from VersionController import VersionController
 from PresetManager import PresetManager
+from Menu_UI import MenuUI
 # from StartupManager import StartupManager
 
 # Also try: Metroplexed BZ Loadout Randomizer!
@@ -17,9 +18,15 @@ from PresetManager import PresetManager
 class MainUI:
     def __init__(self, version):
 
+        # Tkinter stuff for background (perhaps a root of some sort :o)
+        self.root = tk.Tk()  # Creates the main window
+        self.root.title("Blast Zone Randomizer")
+        self.root.geometry("900x600")  # window size
+        self.root.configure(bg="white")  # background colour
+
         # Creating managers.
-        self.preset_manager = PresetManager("presets.json")
-        self.settings_manager = SettingsManager("settings.json")
+        self.preset_manager = PresetManager("assets/configs/presets.json")
+        self.settings_manager = SettingsManager("assets/configs/settings.json")
         self.asset_manager = AssetManager()  # only once
         self.blacklist_manager = BlacklistManager(self.asset_manager, self.preset_manager)
         self.randomizer = Randomizer(self.blacklist_manager, self.settings_manager)
@@ -38,11 +45,9 @@ class MainUI:
             self.preset_manager
         )
 
-        # Tkinter stuff for background (perhaps a root of some sort :o)
-        self.root = tk.Tk() # Creates the main window
-        self.root.title("Blast Zone Randomizer")
-        self.root.geometry("900x600") #  window size
-        self.root.configure(bg="white") # background colour
+        self.menu_ui = MenuUI(self.root, self.ui_manager)
+
+        self.menu_ui.ui = self
 
         # Prevents window from scaling
         self.root.resizable(False, False)

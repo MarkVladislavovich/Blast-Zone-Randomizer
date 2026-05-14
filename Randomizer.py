@@ -133,7 +133,7 @@ class Randomizer:
 
         # Creating managers for testing
         asset_manager = AssetManager()
-        settings_manager = SettingsManager("settings.json")
+        settings_manager = SettingsManager("configs/settings.json")
         preset_manager = PresetManager("preset.json")
         blacklist_manager = BlacklistManager(asset_manager, preset_manager)
 

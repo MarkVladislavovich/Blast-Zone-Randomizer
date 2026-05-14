@@ -44,7 +44,7 @@ class UIManager:
         if hasattr(self.ui, 'btn_generate'):
             self.ui.btn_generate.config(command=self.generate_loadout)
         if hasattr(self.ui, 'btn_blacklist'):
-            self.ui.btn_blacklist.config(command=self.open_blacklist)
+            self.ui.btn_blacklist.config(command=self.ui.menu_ui.open_blacklist)
         if hasattr(self.ui, 'btn_disable_5th'):
             self.ui.btn_disable_5th.config(command=self.disable_5th_slot)
 
@@ -221,91 +221,20 @@ class UIManager:
 
         tk.Label(self.settings_window, text="This feature will be available soon.").pack(pady=20)
 
-
-
-    def open_blacklist(self):
-        # I REALLY gotta refactor this chunk, and properly separate responsibilities.
-        # Main_UI gets the UI, UIManager keeps the Button logic, IDK BlacklistManager can get the blacklist stuff.
-        # Loads the preset & the library
+    def get_blacklist_data(self):
         weapon_library = self.blacklist.weapons
         active_blacklist = self.preset_manager.active_preset().get("blacklisted", [])
+        return weapon_library, active_blacklist
 
-        # First creates the new window
-        self.blacklist_window = tkinter.Toplevel(self.ui.root)
-        self.blacklist_window.title = "Edit Blacklist"
-        self.blacklist_window.geometry("450x550")
-        self.blacklist_window.configure(bg="white")
 
-        # Prevents window from scaling
-        self.blacklist_window.resizable(False, True)
+    def save_blacklist(self,selected):
+        for weapon in self.blacklist.weapons:
+            name = weapon["name"]
 
-        # Gives the big ol fancy heading text
-        (tk.Label(self.blacklist_window, text="Disable Weapons",
-                  font=("TkDefaultFont", 16, "bold"), bg="white").pack(pady=10))
-
-        # List that has the scroll list
-        container = tk.Frame(self.blacklist_window, width=420)
-        container.pack(fill="both", expand=True, padx=10, pady=(0,10))
-
-        # Canvas
-        canvas = tk.Canvas(container, bg="white")
-        canvas.pack(side="left", fill="both", expand=True)
-
-        # Scroll Bar
-        scrollbar = tk.Scrollbar(container, orient="vertical", command=canvas.yview)
-        scrollbar.pack(side="right", fill="y")
-        canvas.configure(yscrollcommand=scrollbar.set)
-
-        # Scrollable frame
-        scroll_frame = tk.Frame(canvas, bg="white")
-        canvas.create_window((0,0), window=scroll_frame, anchor="nw")
-
-        # updates scroll region when the frame changes
-        scroll_frame.bind(
-            "<Configure>",
-            lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-        )
-        self.blacklist_vars = {} # Initialising to sore some booleans
-
-        # Boxes for the weapons
-        for weapon in weapon_library:
-            if weapon.get("type") == "None":
-                continue    # Skips the placeholder
-
-            # the current blacklist taken from BlacklistManager
-            var = tk.BooleanVar(value=weapon["name"] in active_blacklist)
-            chk = tk.Checkbutton(scroll_frame,
-                                 text=weapon["name"],
-                                 variable=var,
-                                 bg="white",
-                                 anchor="w",
-                                 font=("TkDefaultFont", 12))
-            chk.pack(fill="x", padx=10)
-
-            self.blacklist_vars[weapon["name"]] = var
-
-        # Bottom fram buton
-        button_frame = tk.Frame(self.blacklist_window, bg="white")
-        button_frame.pack(fill="x", side="bottom", pady=10)
-
-        tk.Button(self.blacklist_window,text="Save",font=("TkDefaultFont", 14, "bold"),bg="#4CAF50",
-                  fg="white",command=self.save_blacklist).pack(pady=10)
-        tk.Button(self.blacklist_window,text="Clear",font=("TkDefaultFont", 14, "bold"),bg="#f44336",
-                  fg="white",command=self.clear_blacklist).pack(pady=10)
-
-    def save_blacklist(self):
-        # Checkbox stuff
-        for name, var in self.blacklist_vars.items():
-            if var.get() is False: # Checks if item should be blacklisted
-                self.preset_manager.remove_weapon_from_preset(name)
-            else:
+            if name in selected:
                 self.preset_manager.add_weapon_to_preset(name)
-
-        # close window
-        self.blacklist_window.destroy()
+            else:
+                self.preset_manager.remove_weapon_from_preset(name)
 
     def clear_blacklist(self):
-        # Clears... the blacklist...
         self.preset_manager.reset_preset()
-        for var in self.blacklist_vars.values():
-            var.set(False)

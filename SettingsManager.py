@@ -16,7 +16,7 @@ def deep_merge(default, incoming): # This is for _load_settings for the new nest
     return incoming
 
 class SettingsManager:
-    def __init__(self, file_path="settings.json"):
+    def __init__(self, file_path="configs/settings.json"):
         self.file_path = file_path
         self.settings = self._load_settings()
 

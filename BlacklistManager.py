@@ -3,7 +3,7 @@ import os
 from AssetManager import AssetManager
 
 class BlacklistManager:
-    def __init__(self, asset_manager: AssetManager, preset_manager, file_path="weapons.json"):
+    def __init__(self, asset_manager: AssetManager, preset_manager, file_path="assets/configs/weapons.json"):
         self.asset_manager = asset_manager
         self.file_path = asset_manager.resolve(file_path)
         self.preset_manager = preset_manager
