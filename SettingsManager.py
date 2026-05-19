@@ -96,3 +96,15 @@ class SettingsManager:
         for key, value in self.settings.items():
             print(f"- {key}: {value}")
         return self.settings
+
+    def is_valid_hex(self, colour: str) -> bool:
+        # if not instance
+            # R False
+        # if not colour
+            # R False
+        # if lens bigger than 7
+            # R False
+        # try colour
+            # R True
+        # except error
+            # R False

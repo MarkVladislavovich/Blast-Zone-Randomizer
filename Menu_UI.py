@@ -105,9 +105,17 @@ class MenuUI:
             "Development/Wireframes/BlastZone_Settings_Wireframe.png"
         )
 
+        # Creating the background
+
         self.bg_image = ImageTk.PhotoImage(img)
 
         bg_label = tk.Label(self.settings_window, image=self.bg_image)
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-        tk.Label(self.settings_window, text="This feature will be available soon.").pack(pady=20)
+        # Creating the headings
+
+        tk.Label(self.settings_window,text="General Settings",font=("TkDefaultFont", 12, "bold")
+                 ,width=16,height=2,borderwidth=1,relief="solid").place(x=5,y=3)
+
+        tk.Label(self.settings_window, text="Background Settings", font=("TkDefaultFont", 12, "bold")
+                 , width=21, height=2, borderwidth=1, relief="solid").place(x=179, y=3)
