@@ -1,6 +1,7 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 
+from Menu_UI import MenuUI
 from SettingsManager import SettingsManager
 from BlacklistManager import BlacklistManager
 from Randomizer import Randomizer
@@ -8,7 +9,6 @@ from UIManager import UIManager
 from AssetManager import AssetManager
 from VersionController import VersionController
 from PresetManager import PresetManager
-from Menu_UI import MenuUI
 # from StartupManager import StartupManager
 
 # Also try: Metroplexed BZ Loadout Randomizer!
@@ -18,7 +18,7 @@ from Menu_UI import MenuUI
 class MainUI:
     def __init__(self, version):
 
-        # Tkinter stuff for background (perhaps a root of some sort :o)
+        # Tkinter stuff for background
         self.root = tk.Tk()  # Creates the main window
         self.root.title("Blast Zone Randomizer")
         self.root.geometry("900x600")  # window size
@@ -45,9 +45,8 @@ class MainUI:
             self.preset_manager
         )
 
+        # Creating menu UI
         self.menu_ui = MenuUI(self.root, self.ui_manager)
-
-        self.menu_ui.ui = self
 
         # Prevents window from scaling
         self.root.resizable(False, False)
@@ -137,7 +136,7 @@ class MainUI:
             (803, 265, 60, 60),
             (803, 327, 60, 60),
             (803, 388, 60, 60),
-        ] # not the most efficient, but It'll do.
+        ] # not the most efficient method, but It'll do.
 
         self.reroll_buttons = []
 
@@ -169,7 +168,7 @@ class MainUI:
             bg="#e0e0e0",
             fg="black",
             font=("TkDefaultFont", 12),
-            command=self.ui_manager.open_settings_menu
+            command=self.menu_ui.open_settings_menu
         )
 
         settings_panel = self.canvas.create_window(
@@ -180,9 +179,6 @@ class MainUI:
         )
 
         self.canvas.tag_raise(settings_panel)
-
-
-
 
         # Creates the label in the canvas
         # Draws cube after label

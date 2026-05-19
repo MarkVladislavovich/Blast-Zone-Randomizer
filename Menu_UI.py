@@ -8,6 +8,8 @@ class MenuUI:
         self.blacklist_window = None
         self.blacklist_vars = {}
 
+    # Blacklist Menu Stuff
+
     def open_blacklist(self):
         weapon_library, active_blacklist = self.ui_manager.get_blacklist_data()
 
@@ -85,3 +87,17 @@ class MenuUI:
         self.ui_manager.clear_blacklist()
         for var in self.blacklist_vars.values():
             var.set(False)
+
+    # Settings Menu Stuff
+
+    def open_settings_menu(self):
+
+        if hasattr(self, "settings_window") and self.settings_window.winfo_exists():
+            return  # Prevents duplications
+
+        self.settings_window = tk.Toplevel(self.root)
+        self.settings_window.title("Settings")
+        self.settings_window.geometry("500x400")
+        self.settings_window.resizable(False,False)
+
+        tk.Label(self.settings_window, text="This feature will be available soon.").pack(pady=20)

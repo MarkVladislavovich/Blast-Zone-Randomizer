@@ -209,18 +209,6 @@ class UIManager:
             )
             self.ui.root.update_idletasks()
 
-    def open_settings_menu(self):
-
-        if hasattr(self, "settings_window") and self.settings_window.winfo_exists():
-            return  # Prevents duplications
-
-        self.settings_window = tk.Toplevel(self.ui.root)
-        self.settings_window.title("Settings")
-        self.settings_window.geometry("500x400")
-        self.settings_window.resizable(False,False)
-
-        tk.Label(self.settings_window, text="This feature will be available soon.").pack(pady=20)
-
     def get_blacklist_data(self):
         weapon_library = self.blacklist.weapons
         active_blacklist = self.preset_manager.active_preset().get("blacklisted", [])
