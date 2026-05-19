@@ -1,9 +1,11 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 
 class MenuUI:
-    def __init__(self, root, ui_manager):
+    def __init__(self, root, ui_manager, asset_manager):
         self.root = root
         self.ui_manager = ui_manager
+        self.asset_manager = asset_manager
 
         self.blacklist_window = None
         self.blacklist_vars = {}
@@ -97,7 +99,15 @@ class MenuUI:
 
         self.settings_window = tk.Toplevel(self.root)
         self.settings_window.title("Settings")
-        self.settings_window.geometry("500x400")
+        self.settings_window.geometry("400x500")
         self.settings_window.resizable(False,False)
+        img = self.asset_manager.load_image(
+            "Development/Wireframes/BlastZone_Settings_Wireframe.png"
+        )
+
+        self.bg_image = ImageTk.PhotoImage(img)
+
+        bg_label = tk.Label(self.settings_window, image=self.bg_image)
+        bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         tk.Label(self.settings_window, text="This feature will be available soon.").pack(pady=20)

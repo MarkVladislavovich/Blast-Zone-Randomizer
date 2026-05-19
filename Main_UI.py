@@ -46,7 +46,7 @@ class MainUI:
         )
 
         # Creating menu UI
-        self.menu_ui = MenuUI(self.root, self.ui_manager)
+        self.menu_ui = MenuUI(self.root, self.ui_manager, self.asset_manager)
 
         # Prevents window from scaling
         self.root.resizable(False, False)
