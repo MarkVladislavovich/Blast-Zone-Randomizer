@@ -1,5 +1,6 @@
 import json
 import os
+import tkinter
 
 
 def deep_merge(default, incoming): # This is for _load_settings for the new nested format.
@@ -98,13 +99,25 @@ class SettingsManager:
         return self.settings
 
     def is_valid_hex(self, colour: str) -> bool:
-        # if not instance
-            # R False
-        # if not colour
-            # R False
-        # if lens bigger than 7
-            # R False
-        # try colour
-            # R True
-        # except error
-            # R False
+        # Checks if colour code is a string.
+        if not isinstance(colour,str):
+            return False # Rejects non-strings
+
+        # Colour code cannot be empty.
+        if not colour:
+            return False
+
+        # Checks if the colour code is 7 characters exactly.
+        if len(colour) != 7:
+            return False
+
+        if not colour.startswith("#"):
+            return False
+
+        try:
+            self.root.winfo_rgb(colour)
+            return True
+
+        except tk.TclError:
+            return False
+

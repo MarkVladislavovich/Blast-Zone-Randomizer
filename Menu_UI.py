@@ -12,6 +12,8 @@ class MenuUI:
 
     # Blacklist Menu Stuff
 
+ # ------------- Blacklist stuff
+
     def open_blacklist(self):
         weapon_library, active_blacklist = self.ui_manager.get_blacklist_data()
 
@@ -90,6 +92,20 @@ class MenuUI:
         for var in self.blacklist_vars.values():
             var.set(False)
 
+
+ # ------------- Settings menu stuff
+
+    def open_settings_menu(self):
+        if hasattr(self, "settings_window") and self.settings_window.winfo_exists():
+            return  # Prevents duplications
+
+        self.settings_window = tk.Toplevel(self.ui.root)
+        self.settings_window.title("Settings")
+        self.settings_window.geometry("500x400")
+        self.settings_window.resizable(False, False)
+
+        tk.Label(self.settings_window, text="This feature will be available soon.").pack(pady=20)
+
     # Settings Menu Stuff
 
     def open_settings_menu(self):
@@ -114,8 +130,24 @@ class MenuUI:
 
         # Creating the headings
 
+        # General Settings Heading
         tk.Label(self.settings_window,text="General Settings",font=("TkDefaultFont", 12, "bold")
                  ,width=16,height=2,borderwidth=1,relief="solid").place(x=5,y=3)
 
+        # Background Settings Heading
         tk.Label(self.settings_window, text="Background Settings", font=("TkDefaultFont", 12, "bold")
                  , width=21, height=2, borderwidth=1, relief="solid").place(x=179, y=3)
+
+        # UI Settings Heading
+        tk.Label(self.settings_window, text="UI Settings", font=("TkDefaultFont", 12, "bold")
+                 , width=21, height=2, borderwidth=1, relief="solid").place(x=179, y=355)
+
+        # Hotkey Settings Heading
+        tk.Label(self.settings_window, text="Hotkey Settings", font=("TkDefaultFont", 12, "bold")
+                 , width=16, height=2, borderwidth=1, relief="solid").place(x=5, y=355)
+
+        # General Settings Body
+        tk.Label(self.settings_window, width=23, height=20, borderwidth=1, relief="solid").place(x=5, y=46)
+
+        # Background Settings Body
+        tk.Label(self.settings_window, width=30, height=20, borderwidth=1, relief="solid").place(x=179, y=46)
