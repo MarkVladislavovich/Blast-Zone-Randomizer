@@ -35,21 +35,21 @@ class SettingsManager:
         # Loads settings from JSON file, create default if missing, or you stuffed something up
         defaults = {
             "Randomizer_Settings": {
-                "enable_reskins": True,
+                "enable_reskins": False,
                 "enable_empty": False,
                 "multi_empty": False,
-                "multi_chance": 0.5,
+                "multi_chance": 0.2,
                 "slot_amount": 5,
                 "disable_fifth_slot": False
+            },
+            "Misc_Settings": {
+                "hotkey_slot": 1,
+                "debug_mode": False,
             },
             "UI_Effects": {
                 "fish_mode": False,
                 "explosion_mode": False,
                 "always_explode": False
-            },
-            "Misc_Settings": {
-                "true_scaling": False,
-                "hotkey_slot": 1
             }
         }
 

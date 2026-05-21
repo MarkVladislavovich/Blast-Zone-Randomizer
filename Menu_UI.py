@@ -117,37 +117,42 @@ class MenuUI:
         self.settings_window.title("Settings")
         self.settings_window.geometry("400x500")
         self.settings_window.resizable(False,False)
-        img = self.asset_manager.load_image(
-            "Development/Wireframes/BlastZone_Settings_Wireframe.png"
-        )
+
 
         # Creating the background
 
-        self.bg_image = ImageTk.PhotoImage(img)
+        self.settings_canvas = tk.Canvas(
+            self.settings_window,
+            width=400,
+            height=500,
+            highlightthickness=0,
+        )
+        self.settings_canvas.pack(fill="both", expand=True)
 
-        bg_label = tk.Label(self.settings_window, image=self.bg_image)
+        bg_label = tk.Label(self.settings_window)
         bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
         # Creating the headings
 
         # General Settings Heading
         tk.Label(self.settings_window,text="General Settings",font=("TkDefaultFont", 12, "bold")
-                 ,width=16,height=2,borderwidth=1,relief="solid").place(x=5,y=3)
+                 ,borderwidth=1,relief="solid").place(x=5,y=3,width=100,height=40) # Heading
+        tk.Label(self.settings_window, borderwidth=1, relief="solid").place(x=5, y=46,width=100,height=320) # Body
 
-        # Background Settings Heading
+        # Background Settings
         tk.Label(self.settings_window, text="Background Settings", font=("TkDefaultFont", 12, "bold")
-                 , width=21, height=2, borderwidth=1, relief="solid").place(x=179, y=3)
+                 , borderwidth=1, relief="solid").place(x=179, y=3,width=100,height=40) # Heading
+        tk.Label(self.settings_window, borderwidth=1, relief="solid").place(x=179, y=46, width=100,height=320) # Body
+
 
         # UI Settings Heading
         tk.Label(self.settings_window, text="UI Settings", font=("TkDefaultFont", 12, "bold")
-                 , width=21, height=2, borderwidth=1, relief="solid").place(x=179, y=355)
+                 , borderwidth=1, relief="solid").place(x=179, y=355,width=100,height=320) # Heading
+        (tk.Label(self.settings_window, borderwidth=1, relief="solid")
+         .place(x=179, y=398, width=100,height=320)) # Body
 
         # Hotkey Settings Heading
         tk.Label(self.settings_window, text="Hotkey Settings", font=("TkDefaultFont", 12, "bold")
-                 , width=16, height=2, borderwidth=1, relief="solid").place(x=5, y=355)
-
-        # General Settings Body
-        tk.Label(self.settings_window, width=23, height=20, borderwidth=1, relief="solid").place(x=5, y=46)
-
-        # Background Settings Body
-        tk.Label(self.settings_window, width=30, height=20, borderwidth=1, relief="solid").place(x=179, y=46)
+                 , borderwidth=1, relief="solid").place(x=5, y=355,width=100,height=320) # Heading
+        (tk.Label(self.settings_window, borderwidth=1, relief="solid")
+         .place(x=5, y=398, width=100,height=320)) # Body
