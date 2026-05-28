@@ -1,15 +1,15 @@
 {
     "Randomizer_Settings": {
-        "enable_reskins": false,
+        "enable_reskins": true,
         "enable_empty": false,
         "multi_empty": false,
-        "multi_chance": 0.5,
+        "multi_chance": 0.2,
         "slot_amount": 5,
         "disable_fifth_slot": false
     },
     "Misc_Settings": {
-        "true_scaling": false,
-        "hotkey_slot": 1
+        "hotkey_slot": 1,
+        "debug_mode": false
     },
     "Special_Settings": {
         "fish_mode": false,

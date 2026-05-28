@@ -91,7 +91,7 @@ class MainUI:
             window=title_frame, width=464,height=71)
 
         # Background Image
-        self.bg_image = self.asset_manager.load_image("assets/backgrounds/when-the-zone-is-blast.png")
+        self.bg_image = self.asset_manager.load_image("assets/backgrounds/its_blast.png")
         self.bg_photo = ImageTk.PhotoImage(self.bg_image)
         self.canvas.create_image(0, 0, image=self.bg_photo, anchor="nw")
         # Graphic design is NOT this man's passion! :skull:
@@ -298,6 +298,7 @@ class MainUI:
 
     if __name__ == "__main__":
         print("[INFO] Opening Randomizer...")
+
 
 
 version_controller = VersionController()
