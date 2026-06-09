@@ -26,6 +26,7 @@ class Randomizer:
         # New logic for Slot stuff here
 
         loadout = []
+        # Past me this is a Band-Aid fix, future me for all that is holy fix it PROPERLY.
         slot_count = 5 # Always generate 5 slots since this bastard got me stuck for several days.
 
         # Sees what slots are empty
@@ -139,7 +140,7 @@ class Randomizer:
         from PresetManager import PresetManager
         from SettingsManager import SettingsManager
         from AssetManager import AssetManager
-        from Randomizer import Randomizer
+        from RandomizerEngine import Randomizer
 
         # Creating managers for testing
         asset_manager = AssetManager()

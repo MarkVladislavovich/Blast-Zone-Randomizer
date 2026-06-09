@@ -3,7 +3,7 @@ from PIL import Image, ImageTk
 
 from SettingsManager import SettingsManager
 from BlacklistManager import BlacklistManager
-from Randomizer import Randomizer
+from RandomizerEngine import Randomizer
 from UIManager import UIManager
 from AssetManager import AssetManager
 from VersionController import VersionController
