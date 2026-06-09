@@ -9,9 +9,6 @@ class Randomizer:
     def generate_loadout(self):
         all_weapons = self.blacklist.get_allowed_weapons()
 
-        # Always generate 5 slots since this bastard got me stuck for several days.
-        slot_count = 5
-
         allow_reskins = self.settings.get_setting("Randomizer_Settings", "enable_reskins")
         enable_empty = self.settings.get_setting("Randomizer_Settings", "enable_empty")
         multi_empty = self.settings.get_setting("Randomizer_Settings", "multi_empty")
@@ -21,11 +18,15 @@ class Randomizer:
             w for w in all_weapons
             if (allow_reskins or not w.get("reskin", False))
         ]
+
         # Separates empty shit from non-empty stuff
         empty_weapon = [w for w in filtered if isinstance(w, dict) and w.get("type") == "None"]
         non_empty = [w for w in filtered if isinstance(w, dict) and w.get("type") != "None"]
 
+        # New logic for Slot stuff here
+
         loadout = []
+        slot_count = 5 # Always generate 5 slots since this bastard got me stuck for several days.
 
         # Sees what slots are empty
         empty_slots = [False] * slot_count
@@ -62,6 +63,15 @@ class Randomizer:
 
         # Used to Converts to strings for displaying
         return loadout
+
+    #def get_slot_weapon_pool(slot, weapon_pool)
+
+        # assigned_tag = get slot assignment(slot)
+
+        # if assigned_tag == "Random"
+            # RETURN weapon_pool
+
+        # RETURN weapons matching assigned_tag
 
     def reroll(self, slot_index, current_loadout):
 
