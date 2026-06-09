@@ -46,7 +46,7 @@ class SettingsManager:
                 "hotkey_slot": 1,
                 "debug_mode": False,
             },
-            "UI_Effects": {
+            "Special_Settings": {
                 "fish_mode": False,
                 "explosion_mode": False,
                 "always_explode": False
