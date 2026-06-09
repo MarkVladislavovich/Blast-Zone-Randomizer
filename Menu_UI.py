@@ -136,23 +136,23 @@ class MenuUI:
 
         # General Settings Heading
         tk.Label(self.settings_window,text="General Settings",font=("TkDefaultFont", 12, "bold")
-                 ,borderwidth=1,relief="solid").place(x=5,y=3,width=100,height=40) # Heading
-        tk.Label(self.settings_window, borderwidth=1, relief="solid").place(x=5, y=46,width=100,height=320) # Body
+                 ,borderwidth=1,relief="solid").place(x=5,y=3,width=170,height=40) # Heading
+        tk.Label(self.settings_window, borderwidth=1, relief="solid").place(x=5, y=46,width=170,height=320) # Body
 
         # Background Settings
         tk.Label(self.settings_window, text="Background Settings", font=("TkDefaultFont", 12, "bold")
-                 , borderwidth=1, relief="solid").place(x=179, y=3,width=100,height=40) # Heading
-        tk.Label(self.settings_window, borderwidth=1, relief="solid").place(x=179, y=46, width=100,height=320) # Body
+                 , borderwidth=1, relief="solid").place(x=179, y=3,width=215,height=40) # Heading
+        tk.Label(self.settings_window, borderwidth=1, relief="solid").place(x=179, y=46, width=215,height=320) # Body
 
 
         # UI Settings Heading
         tk.Label(self.settings_window, text="UI Settings", font=("TkDefaultFont", 12, "bold")
-                 , borderwidth=1, relief="solid").place(x=179, y=355,width=100,height=320) # Heading
+                 , borderwidth=1, relief="solid").place(x=179, y=355,width=215,height=40) # Heading
         (tk.Label(self.settings_window, borderwidth=1, relief="solid")
-         .place(x=179, y=398, width=100,height=320)) # Body
+         .place(x=179, y=398, width=215,height=100)) # Body
 
         # Hotkey Settings Heading
         tk.Label(self.settings_window, text="Hotkey Settings", font=("TkDefaultFont", 12, "bold")
-                 , borderwidth=1, relief="solid").place(x=5, y=355,width=100,height=320) # Heading
+                 , borderwidth=1, relief="solid").place(x=5, y=355,width=170,height=40) # Heading
         (tk.Label(self.settings_window, borderwidth=1, relief="solid")
-         .place(x=5, y=398, width=100,height=320)) # Body
+         .place(x=5, y=398, width=170,height=100)) # Body
