@@ -156,3 +156,13 @@ class MenuUI:
                  , borderwidth=1, relief="solid").place(x=5, y=355,width=170,height=40) # Heading
         (tk.Label(self.settings_window, borderwidth=1, relief="solid")
          .place(x=5, y=398, width=170,height=100)) # Body
+
+        # --------------------------------------
+
+        # Weapon Icon Button (Maybe?)
+        self.btn_WeaponIcon = tk.Button(
+            self.settings_window,
+            text="Weapon Icons")
+        self.btn_WeaponIcon.place( # Edits placement
+            x=8, y=48, width=165, height=50)
+
