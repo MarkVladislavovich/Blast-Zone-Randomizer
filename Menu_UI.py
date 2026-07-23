@@ -162,7 +162,14 @@ class MenuUI:
         # Weapon Icon Button (Maybe?)
         self.btn_WeaponIcon = tk.Button(
             self.settings_window,
-            text="Weapon Icons")
+            text="Weapon Icons")    # Add 'command=self.TEMP' when it is ready.
         self.btn_WeaponIcon.place( # Edits placement
             x=8, y=48, width=165, height=50)
 
+        # --------------------------------------
+
+        # Background selection List
+
+        # List should source from assets/backgrounds
+
+        # List should be scrollable to allow for as many backgrounds as the user wants.
