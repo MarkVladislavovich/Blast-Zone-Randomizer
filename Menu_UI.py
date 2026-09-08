@@ -1,4 +1,5 @@
 import tkinter as tk
+
 from PIL import Image, ImageTk
 
 class MenuUI:
@@ -170,6 +171,7 @@ class MenuUI:
 
         # Background selection List
 
-        # List should source from assets/backgrounds
+
+        # This should source from assets/backgrounds
 
         # List should be scrollable to allow for as many backgrounds as the user wants.

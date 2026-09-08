@@ -47,6 +47,19 @@ class AssetManager:
             json.dump(data, f, indent=4)
 
 
+    # def get_backgrounds():
+
+        # Find backgrounds folder
+
+            # Search this folder:
+                # for each item:
+
+                    # if item is an image:
+                        # Add image to background list
+                    # if item is a folder:
+                        # Search the folder
+
+
             # def blast_coin_miner_:yeas:
             #   if user = have_blastcoins(true)
             #       steal blastcoins
