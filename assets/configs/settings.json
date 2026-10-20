@@ -5,7 +5,7 @@
         "multi_empty": false,
         "multi_chance": 0.2,
         "slot_amount": 5,
-        "disable_fifth_slot": false
+        "disable_fifth_slot": true
     },
     "Misc_Settings": {
         "hotkey_slot": 1,

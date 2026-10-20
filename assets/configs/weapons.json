@@ -18,6 +18,14 @@
     {"name": "Impulse Nuke", "rarity": "Uncommon", "reskin": false},
     {"name": "Impulse Remote Explosive", "rarity": "Uncommon", "reskin": false},
     {"name": "Exploding Barrel", "rarity": "Uncommon", "reskin": false},
+    {"name": "Bubble Bomb Cannon", "rarity": "Uncommon", "reskin": false},
+    {"name": "Bubble Bomb", "rarity": "Uncommon", "reskin": false},
+    {"name": "Bouncy Ball", "rarity": "Uncommon", "reskin": false},
+    {"name": "Impulse Barrel", "rarity": "Uncommon", "reskin": false},
+    {"name": "Booster", "rarity": "Uncommon", "reskin": false},
+    {"name": "Bouncy Ball", "rarity": "Uncommon", "reskin": false},
+    {"name": "Mallet", "rarity": "Uncommon", "reskin": false},
+
 
     {"name": "Bone Bomb", "rarity": "Epic", "reskin": false},
     {"name": "Bouncy Bomb", "rarity": "Epic", "reskin": false},
@@ -34,8 +42,10 @@
     {"name": "Grenade Launcher", "rarity": "Epic", "reskin": false},
     {"name": "Small Impact Bomb Cannon", "rarity": "Epic", "reskin": false},
     {"name": "Bouncy Impact Bomb Cannon", "rarity": "Epic", "reskin": false},
+    {"name": "Artillery Cannon", "rarity": "Epic", "reskin": false},
 
     {"name": "Fusion Cannon", "rarity": "Legendary", "reskin": false},
+    {"name": "Fission Cannon", "rarity": "Legendary", "reskin": false},
     {"name": "Spikey Bomb Roller", "rarity": "Legendary", "reskin": false},
     {"name": "Nuke", "rarity": "Legendary", "reskin": false},
     {"name": "Plasma Balls", "rarity": "Legendary", "reskin": false},
@@ -53,6 +63,7 @@
     {"name": "Golden Hammer", "rarity": "Mythic", "reskin": true},
     {"name": "Golden Rocket Hammer", "rarity": "Mythic", "reskin": true},
     {"name": "Golden Impact Bomb", "rarity": "Mythic", "reskin": true},
+    {"name": "Golden Trowel", "rarity": "Mythic", "reskin": true},
 
     {"name": "Platinum Anvil", "rarity": "Mythic", "reskin": true},
     {"name": "Platinum Bat", "rarity": "Mythic", "reskin": true},
@@ -63,6 +74,7 @@
     {"name": "Platinum Hammer", "rarity": "Mythic", "reskin": true},
     {"name": "Platinum Rocket Hammer", "rarity": "Mythic", "reskin": true},
     {"name": "Platinum Impact Bomb", "rarity": "Mythic", "reskin": true},
+    {"name": "Platinum Trowel", "rarity": "Mythic", "reskin": true},
 
     {"name": "Silver Anvil", "rarity": "Mythic", "reskin": true},
     {"name": "Silver Bat", "rarity": "Mythic", "reskin": true},
@@ -73,6 +85,7 @@
     {"name": "Silver Hammer", "rarity": "Mythic", "reskin": true},
     {"name": "Silver Rocket Hammer", "rarity": "Mythic", "reskin": true},
     {"name": "Silver Impact Bomb", "rarity": "Mythic", "reskin": true},
+    {"name": "Silver Trowel", "rarity": "Mythic", "reskin": true},
 
     {"name": "Leek", "rarity": "Event", "reskin": false},
 
